@@ -1,6 +1,7 @@
 import { Component } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 const FormStyles = styled.form`
     display: flex;
@@ -12,6 +13,9 @@ const FormStyles = styled.form`
         width: 25vw;
         background-color: antiquewhite;
         border-radius: 1rem;
+    }
+    span {
+        color: antiquewhite;
     }
     button {
         padding: 0.7rem;
@@ -81,6 +85,9 @@ export default class Registration extends Component<Props, State> {
                 <input type="text" name="last" placeholder="Last Name" onChange={this.handleChange} />
                 <input type="text" name="email" placeholder="Email Address" onChange={this.handleChange} />
                 <input type="password" name="password" placeholder="Password" onChange={this.handleChange} />
+                <span>
+                    Already registered? <Link to="/login">Log in</Link>
+                </span>
                 <button type="submit" onClick={this.handleSubmit}>
                     Sign Up
                 </button>
