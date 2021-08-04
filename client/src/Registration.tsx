@@ -1,7 +1,7 @@
 import { Component } from "react";
 import axios from 'axios';
 
-interface Props { }
+type Props = Record<string, never>;
 
 interface State {
     error?: boolean;
