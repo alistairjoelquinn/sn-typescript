@@ -32,7 +32,7 @@ export default class Login extends Component<Props, State> {
     handleSubmit(event: React.MouseEvent<HTMLButtonElement>) {
         event.preventDefault();
         axios
-            .post('/login', this.state)
+            .post('/auth/login', this.state)
             .then((res) => {
                 if (res.data.success) {
                     window.location.replace('/');

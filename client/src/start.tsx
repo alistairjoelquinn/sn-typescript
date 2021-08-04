@@ -2,7 +2,7 @@ import axios from 'axios';
 import ReactDOM from 'react-dom';
 import Welcome from './Welcome';
 
-axios.get('/user/id.json').then(({ data }) => {
+axios.get('/auth/user/id.json').then(({ data }) => {
     if (!data.userId) {
         ReactDOM.render(<Welcome />, document.querySelector('main'));
     } else {

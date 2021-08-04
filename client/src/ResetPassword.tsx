@@ -20,6 +20,8 @@ export default class ResetPassword extends Component<Props, State> {
         };
 
         this.handleChange = this.handleChange.bind(this);
+        this.emailSubmit = this.emailSubmit.bind(this);
+        this.passwordUpdate = this.passwordUpdate.bind(this);
     }
 
     handleChange(e: React.ChangeEvent<HTMLInputElement>) {
@@ -32,7 +34,7 @@ export default class ResetPassword extends Component<Props, State> {
 
     emailSubmit() {
         axios
-            .post('/email-check', { email: this.state.email })
+            .post('/auth/email-check', { email: this.state.email })
             .then((result) => {
                 console.log('email check result:', result);
                 this.setState({
@@ -51,7 +53,7 @@ export default class ResetPassword extends Component<Props, State> {
     passwordUpdate() {
         console.log('function opened');
         axios
-            .post('/final-reset', {
+            .post('/auth/final-reset', {
                 email: this.state.email,
                 secretCodeTyped: this.state.secretCodeTyped,
                 newPassword: this.state.newPassword,
@@ -87,7 +89,7 @@ export default class ResetPassword extends Component<Props, State> {
 
         return (
             <div className="reset-container">
-                <a id="back-button" href="/welcome#/login">
+                <a id="back-button" href="/login">
                     Back
                 </a>
                 {currentDisplay === 1 && (
@@ -95,15 +97,8 @@ export default class ResetPassword extends Component<Props, State> {
                         {error && <span className="invalid-email">Invalid email address, please be more careful!</span>}
                         {error || <h4>Reset Password</h4>}
                         {error || <h5>Please enter the email address you signed up with.</h5>}
-                        <input
-                            name="email"
-                            type="email"
-                            onChange={(e) => {
-                                this.handleChange(e);
-                            }}
-                            required
-                        />
-                        <button type="button" onClick={() => this.emailSubmit()}>
+                        <input name="email" type="email" onChange={this.handleChange} required />
+                        <button type="button" onClick={this.emailSubmit}>
                             Submit
                         </button>
                     </div>
@@ -114,24 +109,10 @@ export default class ResetPassword extends Component<Props, State> {
                             <h5 className="invalid-code">The code you entered was incorrect, please try again!</h5>
                         )}
                         {error || <h5>Please enter the code which was just sent to your email address.</h5>}
-                        <input
-                            name="secretCodeTyped"
-                            type="text"
-                            onChange={(e) => {
-                                this.handleChange(e);
-                            }}
-                            required
-                        />
+                        <input name="secretCodeTyped" type="text" onChange={this.handleChange} required />
                         <h5 className="new-class-h">Please enter a new password.</h5>
-                        <input
-                            name="newPassword"
-                            type="password"
-                            onChange={(e) => {
-                                this.handleChange(e);
-                            }}
-                            required
-                        />
-                        <button type="button" onClick={() => this.passwordUpdate()}>
+                        <input name="newPassword" type="password" onChange={this.handleChange} required />
+                        <button type="button" onClick={this.passwordUpdate}>
                             Reset
                         </button>
                     </div>
@@ -142,7 +123,7 @@ export default class ResetPassword extends Component<Props, State> {
                         <h5>Success!</h5>
                         <h5>
                             You can now{' '}
-                            <a className="log-back-in" href="/welcome#/login">
+                            <a className="log-back-in" href="/login">
                                 log in
                             </a>{' '}
                             with your new password.
