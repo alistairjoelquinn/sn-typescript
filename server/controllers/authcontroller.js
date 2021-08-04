@@ -1,7 +1,14 @@
 const cryptoRandomString = require('crypto-random-string');
 
 const { hash, compare } = require('../auth');
-const { addNewUser, getUserPassword, verifyuserByEmail, newPasswordResetCode } = require('../database/db');
+const {
+    addNewUser,
+    getUserPassword,
+    verifyuserByEmail,
+    newPasswordResetCode,
+    passwordResetCodeCheck,
+    updatePassword,
+} = require('../database/db');
 const { sendEmail } = require('../ses');
 
 module.exports.checkLoggedInUser = (req, res) => {
@@ -81,7 +88,7 @@ module.exports.checkEmailForReset = (req, res) => {
 
 module.exports.verifyAndResetUsersPassword = (req, res) => {
     const { email, secretCodeTyped, newPassword } = req.body;
-    codeCheck(email)
+    passwordResetCodeCheck(email)
         .then(({ rows }) => {
             if (secretCodeTyped === rows[0].code) {
                 hash(newPassword)

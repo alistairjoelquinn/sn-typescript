@@ -7,7 +7,7 @@ const {
     createNewUser,
     logUserIn,
     checkEmailForReset,
-    resetUsersPassword,
+    verifyAndResetUsersPassword,
 } = require('../controllers/authcontroller');
 
 router.get('/user/id.json', checkLoggedInUser);

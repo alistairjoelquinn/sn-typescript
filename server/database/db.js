@@ -31,7 +31,7 @@ module.exports.newPasswordResetCode = (code, email) =>
         [code, email],
     );
 
-module.exports.codeCheck = (email) =>
+module.exports.passwordResetCodeCheck = (email) =>
     db.query(
         `SELECT * FROM password_reset_codes
             WHERE CURRENT_TIMESTAMP - create_at < INTERVAL '10 minutes' AND email = $1
