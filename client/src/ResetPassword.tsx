@@ -1,6 +1,7 @@
 import { Component } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+
 import { FormStyles } from './styles/FormStyles';
 
 type Props = Record<string, never>;
@@ -35,6 +36,7 @@ export default class ResetPassword extends Component<Props, State> {
     }
 
     emailSubmit() {
+        console.log('this.state: ', this.state);
         axios
             .post('/auth/password-reset/email-check', { email: this.state.email })
             .then((result) => {

@@ -13,11 +13,11 @@ module.exports.addNewUser = (first, last, email, passHash) =>
 module.exports.getUserPassword = (email) =>
     db.query(
         `SELECT password, id FROM users 
-            WHERE email = $1`,
+        WHERE email = $1`,
         [email],
     );
 
-module.exports.verifyuserByEmail = (email) =>
+module.exports.verifyUserByEmail = (email) =>
     db.query(
         `SELECT id, email FROM users
         WHERE email = $1`,
@@ -27,23 +27,23 @@ module.exports.verifyuserByEmail = (email) =>
 module.exports.newPasswordResetCode = (code, email) =>
     db.query(
         `INSERT INTO password_reset_codes (code, email)
-            VALUES ($1, $2)`,
+        VALUES ($1, $2)`,
         [code, email],
     );
 
 module.exports.passwordResetCodeCheck = (email) =>
     db.query(
         `SELECT * FROM password_reset_codes
-            WHERE CURRENT_TIMESTAMP - create_at < INTERVAL '10 minutes' AND email = $1
-            ORDER BY id DESC
-            LIMIT 1`,
+        WHERE CURRENT_TIMESTAMP - create_at < INTERVAL '10 minutes' AND email = $1
+        ORDER BY id DESC
+        LIMIT 1`,
         [email],
     );
 
 module.exports.updatePassword = (email, password) =>
     db.query(
         `UPDATE users SET password = $2
-            WHERE email = $1
-            RETURNING id`,
+        WHERE email = $1
+        RETURNING id`,
         [email, password],
     );

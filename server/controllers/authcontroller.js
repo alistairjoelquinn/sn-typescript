@@ -4,7 +4,7 @@ const { hash, compare } = require('../auth');
 const {
     addNewUser,
     getUserPassword,
-    verifyuserByEmail,
+    verifyUserByEmail,
     newPasswordResetCode,
     passwordResetCodeCheck,
     updatePassword,
@@ -57,7 +57,7 @@ module.exports.logUserIn = (req, res) => {
 
 module.exports.checkEmailForReset = (req, res) => {
     const { email } = req.body;
-    verifyuserByEmail(email)
+    verifyUserByEmail(email)
         .then(({ rows }) => {
             if (rows[0].id) {
                 const secretCode = cryptoRandomString({
@@ -68,10 +68,9 @@ module.exports.checkEmailForReset = (req, res) => {
                         sendEmail(
                             email,
                             `You have just made a request to change your password, please enter the following code on the commonground reset page in order to proceed: \n\n ${secretCode} \n\n\n Please do not reply to this email.`,
+                            'Password Reset Code',
                         )
-                            .then(() => {
-                                res.sendStatus(200);
-                            })
+                            .then(() => res.sendStatus(200))
                             .catch((e) => console.log('Error sending the email: ', e));
                     })
                     .catch((e) => console.log('error adding request code to DB: ', e));
