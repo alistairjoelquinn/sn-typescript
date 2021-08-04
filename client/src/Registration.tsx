@@ -1,8 +1,6 @@
 import { Component } from "react";
 import axios from 'axios';
 
-type Props = Record<string, never>;
-
 interface State {
     error?: boolean;
     first?: string;
@@ -10,6 +8,8 @@ interface State {
     email?: string;
     password?: string;
 }
+
+type Props = Record<string, never>;
 
 export default class Registration extends Component<Props, State> {
     constructor(props: Props) {
