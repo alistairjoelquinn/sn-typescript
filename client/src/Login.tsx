@@ -29,13 +29,11 @@ type Props = Record<string, never>;
 
 interface State {
     error?: boolean;
-    first?: string;
-    last?: string;
     email?: string;
     password?: string;
 }
 
-export default class Registration extends Component<Props, State> {
+export default class Login extends Component<Props, State> {
     constructor(props: Props) {
         super(props);
         this.state = {
@@ -47,12 +45,7 @@ export default class Registration extends Component<Props, State> {
     }
 
     handleChange(e: React.ChangeEvent<HTMLInputElement>) {
-        if (
-            e.target.name === 'first' ||
-            e.target.name === 'last' ||
-            e.target.name === 'email' ||
-            e.target.name === 'password'
-        ) {
+        if (e.target.name === 'email' || e.target.name === 'password') {
             this.setState({ [e.target.name]: e.target.value }, () => console.log(this.state));
         }
     }
@@ -60,7 +53,7 @@ export default class Registration extends Component<Props, State> {
     handleSubmit(event: React.MouseEvent<HTMLButtonElement>) {
         event.preventDefault();
         axios
-            .post('/register', this.state)
+            .post('/login', this.state)
             .then((res) => {
                 if (res.data.success) {
                     window.location.reload();
@@ -77,12 +70,10 @@ export default class Registration extends Component<Props, State> {
         return (
             <FormStyles>
                 {error && <h1>There was an error!</h1>}
-                <input type="text" name="first" placeholder="First Name" onChange={this.handleChange} />
-                <input type="text" name="last" placeholder="Last Name" onChange={this.handleChange} />
                 <input type="text" name="email" placeholder="Email Address" onChange={this.handleChange} />
                 <input type="password" name="password" placeholder="Password" onChange={this.handleChange} />
                 <button type="submit" onClick={this.handleSubmit}>
-                    Sign Up
+                    Log In
                 </button>
             </FormStyles>
         );
