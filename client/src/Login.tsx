@@ -35,7 +35,7 @@ export default class Login extends Component<Props, State> {
             .post('/login', this.state)
             .then((res) => {
                 if (res.data.success) {
-                    window.location.reload();
+                    window.location.replace('/');
                 } else {
                     this.setState({ error: true });
                 }

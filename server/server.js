@@ -4,8 +4,8 @@ const app = express();
 const compression = require('compression');
 const path = require('path');
 const cookieSession = require('cookie-session');
-const { hash } = require('./auth');
-const { newUser } = require('./database/db');
+const { hash, compare } = require('./auth');
+const { addNewUser, getUserPassword } = require('./database/db');
 
 const cookieSessionMiddleware = cookieSession({
     secret: `I'm always angry.`,
@@ -29,7 +29,7 @@ app.post('/register', (req, res) => {
     const { first, last, email, password } = req.body;
     hash(password)
         .then((passHash) => {
-            newUser(first, last, email, passHash)
+            addNewUser(first, last, email, passHash)
                 .then(({ rows }) => {
                     req.session.userId = rows[0].id;
                     res.json({ success: true });
@@ -43,6 +43,24 @@ app.post('/register', (req, res) => {
             console.log(err);
             res.json({ success: false });
         });
+});
+
+app.post('/login', (req, res) => {
+    const { email, password } = req.body;
+    getUserPassword(email)
+        .then(({ rows }) => {
+            compare(password, rows[0].password)
+                .then((valid) => {
+                    if (valid === true) {
+                        req.session.userId = rows[0].id;
+                        res.json({ success: true });
+                    } else {
+                        res.redirect(500, '/login');
+                    }
+                })
+                .catch(() => res.redirect(500, '/login'));
+        })
+        .catch(() => res.redirect(500, '/login'));
 });
 
 app.get('*', (req, res) => {
