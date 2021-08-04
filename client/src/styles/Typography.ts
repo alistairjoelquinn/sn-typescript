@@ -1,6 +1,8 @@
 import { createGlobalStyle } from 'styled-components';
+import normalize from 'styled-normalize';
 
 const Typography = createGlobalStyle`
+    ${normalize}
     html {
         font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
         font-size: 10px;

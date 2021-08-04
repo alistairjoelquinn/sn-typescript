@@ -23,11 +23,13 @@ export default class Registration extends Component<Props, State> {
     }
 
     handleChange(e: React.ChangeEvent<HTMLInputElement>) {
-        if (e.target.name === 'first' || e.target.name === 'last' || e.target.name === 'email' || e.target.name === 'password') {
-            this.setState(
-                { [e.target.name]: e.target.value },
-                () => console.log(this.state)
-            );
+        if (
+            e.target.name === 'first' ||
+            e.target.name === 'last' ||
+            e.target.name === 'email' ||
+            e.target.name === 'password'
+        ) {
+            this.setState({ [e.target.name]: e.target.value }, () => console.log(this.state));
         }
     }
 
@@ -51,31 +53,13 @@ export default class Registration extends Component<Props, State> {
         return (
             <form>
                 {error && <h1>There was an error!</h1>}
-                <input
-                    type="text"
-                    name="first"
-                    placeholder="First Name"
-                    onChange={this.handleChange}
-                />
-                <input
-                    type="text"
-                    name="last"
-                    placeholder="Last Name"
-                    onChange={this.handleChange}
-                />
-                <input
-                    type="text"
-                    name="email"
-                    placeholder="Email Address"
-                    onChange={this.handleChange}
-                />
-                <input
-                    type="password"
-                    name="password"
-                    placeholder="Password"
-                    onChange={this.handleChange}
-                />
-                <button type="submit" onClick={this.handleSubmit}>Sign Up</button>
+                <input type="text" name="first" placeholder="First Name" onChange={this.handleChange} />
+                <input type="text" name="last" placeholder="Last Name" onChange={this.handleChange} />
+                <input type="text" name="email" placeholder="Email Address" onChange={this.handleChange} />
+                <input type="password" name="password" placeholder="Password" onChange={this.handleChange} />
+                <button type="submit" onClick={this.handleSubmit}>
+                    Sign Up
+                </button>
             </form>
         );
     }

@@ -1,6 +1,9 @@
 import styled from 'styled-components';
+import Logo from './Logo';
 
 import Registration from './Registration';
+import GlobalStyles from './styles/GlobalStyles';
+import Typography from './styles/Typography';
 
 const WelcomePageStyles = styled.div`
     width: 100vw;
@@ -13,6 +16,9 @@ const WelcomePageStyles = styled.div`
         display: flex;
         h1 {
             font-size: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         img {
             height: 20vh;
@@ -21,15 +27,12 @@ const WelcomePageStyles = styled.div`
 `;
 
 export default function Welcome() {
-    console.log('hello d');
     return (
         <>
+            <GlobalStyles />
+            <Typography />
             <WelcomePageStyles>
-                <div className="heading-container">
-                    <h1>Social</h1>
-                    <img src="/logo.gif" alt="logo" />
-                    <h1>Network</h1>
-                </div>
+                <Logo />
                 <Registration />
             </WelcomePageStyles>
         </>

@@ -7,12 +7,8 @@ axios.get('/user/id.json').then(({ data }) => {
         ReactDOM.render(<Welcome />, document.querySelector('main'));
     } else {
         ReactDOM.render(
-            <img
-                src="/logo.gif"
-                alt="logo"
-                style={{ width: '100vw', height: '100vh', objectFit: 'cover' }}
-            />,
-            document.querySelector('main')
+            <img src="/logo.gif" alt="logo" style={{ width: '100vw', height: '100vh', objectFit: 'cover' }} />,
+            document.querySelector('main'),
         );
     }
 });
