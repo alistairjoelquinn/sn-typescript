@@ -7,6 +7,9 @@ const GlobalStyles = createGlobalStyle`
     *, *:before, *:after {
         box-sizing: inherit;
     }
+    *:focus {
+        outline: none;
+    }
     body {
         padding: 0;
         margin: 0;

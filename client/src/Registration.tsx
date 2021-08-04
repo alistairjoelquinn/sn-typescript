@@ -39,7 +39,7 @@ export default class Registration extends Component<Props, State> {
     handleSubmit(event: React.MouseEvent<HTMLButtonElement>) {
         event.preventDefault();
         axios
-            .post('/register', this.state)
+            .post('/auth/register', this.state)
             .then((res) => {
                 if (res.data.success) {
                     window.location.reload();

@@ -6,6 +6,7 @@ import Registration from './Registration';
 import GlobalStyles from './styles/GlobalStyles';
 import Typography from './styles/Typography';
 import Login from './Login';
+import ResetPassword from './ResetPassword';
 
 const WelcomePageStyles = styled.div`
     width: 100vw;
@@ -41,6 +42,7 @@ export default function Welcome() {
                     <div>
                         <Route exact path="/" component={Registration} />
                         <Route path="/login" component={Login} />
+                        <Route path="/reset-password" component={ResetPassword} />
                     </div>
                 </HashRouter>
             </WelcomePageStyles>

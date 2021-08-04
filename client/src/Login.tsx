@@ -32,10 +32,10 @@ export default class Login extends Component<Props, State> {
     handleSubmit(event: React.MouseEvent<HTMLButtonElement>) {
         event.preventDefault();
         axios
-            .post('/login', this.state)
+            .post('/auth/login', this.state)
             .then((res) => {
                 if (res.data.success) {
-                    window.location.reload();
+                    window.location.replace('/');
                 } else {
                     this.setState({ error: true });
                 }
@@ -51,6 +51,9 @@ export default class Login extends Component<Props, State> {
                 {error && <h1>There was an error!</h1>}
                 <input type="text" name="email" placeholder="Email Address" onChange={this.handleChange} />
                 <input type="password" name="password" placeholder="Password" onChange={this.handleChange} />
+                <span>
+                    Forgot your password? <Link to="/reset-password">Reset Password</Link>
+                </span>
                 <span>
                     Haven&apos;t registered? <Link to="/">Sign Up</Link>
                 </span>
