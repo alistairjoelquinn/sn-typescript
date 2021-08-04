@@ -1,4 +1,4 @@
-import { Component } from "react";
+import { Component } from 'react';
 import axios from 'axios';
 
 interface State {
@@ -23,10 +23,18 @@ export default class Registration extends Component<Props, State> {
     }
 
     handleChange(e: React.ChangeEvent<HTMLInputElement>) {
-        if (e.target.name === 'first' || 'last' || 'email' || 'password') {
-            this.setState({
-                [e.target.name]: e.target.value
-            }, () => console.log(this.state));
+        if (
+            e.target.name === 'first' ||
+            e.target.name === 'last' ||
+            e.target.name === 'email' ||
+            e.target.name === 'password'
+        ) {
+            this.setState(
+                {
+                    [e.target.name]: e.target.value,
+                },
+                () => console.log(this.state),
+            );
         }
     }
 
@@ -34,25 +42,29 @@ export default class Registration extends Component<Props, State> {
         event.preventDefault();
         axios
             .post('/register', this.state)
-            .then(res => {
+            .then((res) => {
                 if (res.data.success) {
-                    location.reload();
+                    window.location.reload();
                 } else {
                     this.setState({ error: true });
                 }
             })
-            .catch(console.log)
+            .catch(console.log);
     }
 
     render() {
+        const { error } = this.state;
+
         return (
             <form>
-                {this.state.error && (<h1>There was an error!</h1>)}
+                {error && <h1>There was an error!</h1>}
                 <input type="text" name="first" placeholder="First Name" onChange={this.handleChange} />
                 <input type="text" name="last" placeholder="Last Name" onChange={this.handleChange} />
                 <input type="text" name="email" placeholder="Email Address" onChange={this.handleChange} />
                 <input type="password" name="password" placeholder="Password" onChange={this.handleChange} />
-                <button onClick={this.handleSubmit}>Sign Up</button>
+                <button type="submit" onClick={this.handleSubmit}>
+                    Sign Up
+                </button>
             </form>
         );
     }
