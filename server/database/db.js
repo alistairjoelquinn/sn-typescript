@@ -16,3 +16,34 @@ module.exports.getUserPassword = (email) =>
             WHERE email = $1`,
         [email],
     );
+
+module.exports.verifyuserByEmail = (email) =>
+    db.query(
+        `SELECT id, email FROM users
+        WHERE email = $1`,
+        [email],
+    );
+
+module.exports.newPasswordResetCode = (code, email) =>
+    db.query(
+        `INSERT INTO password_reset_codes (code, email)
+            VALUES ($1, $2)`,
+        [code, email],
+    );
+
+module.exports.codeCheck = (email) =>
+    db.query(
+        `SELECT * FROM password_reset_codes
+            WHERE CURRENT_TIMESTAMP - create_at < INTERVAL '10 minutes' AND email = $1
+            ORDER BY id DESC
+            LIMIT 1`,
+        [email],
+    );
+
+module.exports.updatePassword = (email, password) =>
+    db.query(
+        `UPDATE users SET password = $2
+            WHERE email = $1
+            RETURNING id`,
+        [email, password],
+    );

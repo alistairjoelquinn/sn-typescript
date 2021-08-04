@@ -1,5 +1,7 @@
 import { Component } from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
+import { FormStyles } from './styles/FormStyles';
 
 type Props = Record<string, never>;
 
@@ -34,7 +36,7 @@ export default class ResetPassword extends Component<Props, State> {
 
     emailSubmit() {
         axios
-            .post('/auth/email-check', { email: this.state.email })
+            .post('/auth/password-reset/email-check', { email: this.state.email })
             .then((result) => {
                 console.log('email check result:', result);
                 this.setState({
@@ -51,9 +53,8 @@ export default class ResetPassword extends Component<Props, State> {
     }
 
     passwordUpdate() {
-        console.log('function opened');
         axios
-            .post('/auth/final-reset', {
+            .post('/auth/password-reset/verify-code', {
                 email: this.state.email,
                 secretCodeTyped: this.state.secretCodeTyped,
                 newPassword: this.state.newPassword,
@@ -88,26 +89,24 @@ export default class ResetPassword extends Component<Props, State> {
         const { currentDisplay, error } = this.state;
 
         return (
-            <div className="reset-container">
-                <a id="back-button" href="/login">
-                    Back
-                </a>
+            <>
                 {currentDisplay === 1 && (
-                    <div className="reset-display">
-                        {error && <span className="invalid-email">Invalid email address, please be more careful!</span>}
+                    <FormStyles>
+                        {error && <span>Invalid email address, please be more careful!</span>}
                         {error || <h4>Reset Password</h4>}
                         {error || <h5>Please enter the email address you signed up with.</h5>}
                         <input name="email" type="email" onChange={this.handleChange} required />
+                        <span>
+                            Go back? <Link to="/login">Log In</Link>
+                        </span>
                         <button type="button" onClick={this.emailSubmit}>
                             Submit
                         </button>
-                    </div>
+                    </FormStyles>
                 )}
                 {currentDisplay === 2 && (
-                    <div className="reset-display">
-                        {error && (
-                            <h5 className="invalid-code">The code you entered was incorrect, please try again!</h5>
-                        )}
+                    <FormStyles>
+                        {error && <span>The code you entered was incorrect, please try again!</span>}
                         {error || <h5>Please enter the code which was just sent to your email address.</h5>}
                         <input name="secretCodeTyped" type="text" onChange={this.handleChange} required />
                         <h5 className="new-class-h">Please enter a new password.</h5>
@@ -115,10 +114,10 @@ export default class ResetPassword extends Component<Props, State> {
                         <button type="button" onClick={this.passwordUpdate}>
                             Reset
                         </button>
-                    </div>
+                    </FormStyles>
                 )}
                 {currentDisplay === 3 && (
-                    <div className="reset-display">
+                    <FormStyles>
                         <h4>Reset Password</h4>
                         <h5>Success!</h5>
                         <h5>
@@ -128,9 +127,9 @@ export default class ResetPassword extends Component<Props, State> {
                             </a>{' '}
                             with your new password.
                         </h5>
-                    </div>
+                    </FormStyles>
                 )}
-            </div>
+            </>
         );
     }
 }

@@ -4,6 +4,10 @@ export const FormStyles = styled.form`
     display: flex;
     flex-direction: column;
     align-items: center;
+    h4,
+    h5 {
+        color: antiquewhite;
+    }
     input {
         padding: 0.7rem;
         margin: 0.5rem;
@@ -13,6 +17,7 @@ export const FormStyles = styled.form`
     }
     span {
         color: antiquewhite;
+        margin-top: 0.3rem;
         a {
             color: rgb(243, 140, 128);
             &:hover {

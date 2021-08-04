@@ -52,6 +52,9 @@ export default class Login extends Component<Props, State> {
                 <input type="text" name="email" placeholder="Email Address" onChange={this.handleChange} />
                 <input type="password" name="password" placeholder="Password" onChange={this.handleChange} />
                 <span>
+                    Forgot your password? <Link to="/reset-password">Reset Password</Link>
+                </span>
+                <span>
                     Haven&apos;t registered? <Link to="/">Sign Up</Link>
                 </span>
                 <button type="submit" onClick={this.handleSubmit}>
