@@ -1,9 +1,11 @@
 import styled from 'styled-components';
-import Logo from './Logo';
+import { HashRouter, Route } from 'react-router-dom';
 
+import Logo from './Logo';
 import Registration from './Registration';
 import GlobalStyles from './styles/GlobalStyles';
 import Typography from './styles/Typography';
+import Login from './Login';
 
 const WelcomePageStyles = styled.div`
     width: 100vw;
@@ -35,7 +37,12 @@ export default function Welcome() {
             <Typography />
             <WelcomePageStyles>
                 <Logo />
-                <Registration />
+                <HashRouter>
+                    <div>
+                        <Route exact path="/" component={Registration} />
+                        <Route path="/login" component={Login} />
+                    </div>
+                </HashRouter>
             </WelcomePageStyles>
         </>
     );
