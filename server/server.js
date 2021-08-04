@@ -10,6 +10,7 @@ const { newUser } = require('./database/db');
 const cookieSessionMiddleware = cookieSession({
     secret: `I'm always angry.`,
     maxAge: 1000 * 60 * 60 * 24 * 90,
+    sameSite: true,
 });
 
 app.use(compression());

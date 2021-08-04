@@ -1,33 +1,8 @@
 import { Component } from 'react';
 import axios from 'axios';
-import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
-const FormStyles = styled.form`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    input {
-        padding: 0.7rem;
-        margin: 0.5rem;
-        width: 25vw;
-        background-color: antiquewhite;
-        border-radius: 1rem;
-    }
-    span {
-        color: antiquewhite;
-    }
-    button {
-        padding: 0.7rem;
-        margin: 1rem;
-        width: 10vw;
-        border-radius: 1rem;
-        background-color: rgb(227, 81, 64);
-        &:hover {
-            background-color: rgb(243, 140, 128);
-        }
-    }
-`;
+import { FormStyles } from './styles/FormStyles';
 
 type Props = Record<string, never>;
 
@@ -86,7 +61,7 @@ export default class Registration extends Component<Props, State> {
                 <input type="text" name="email" placeholder="Email Address" onChange={this.handleChange} />
                 <input type="password" name="password" placeholder="Password" onChange={this.handleChange} />
                 <span>
-                    Already registered? <Link to="/login">Log in</Link>
+                    Already registered? <Link to="/login">Log In</Link>
                 </span>
                 <button type="submit" onClick={this.handleSubmit}>
                     Sign Up
