@@ -24,6 +24,9 @@ export const FormStyles = styled.form`
                 color: rgb(227, 81, 64);
             }
         }
+        .log-back-in-link {
+            margin-top: 0.7rem;
+        }
     }
     button {
         padding: 0.7rem;

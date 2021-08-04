@@ -120,15 +120,10 @@ export default class ResetPassword extends Component<Props, State> {
                 )}
                 {currentDisplay === 3 && (
                     <FormStyles>
-                        <h4>Reset Password</h4>
-                        <h5>Success!</h5>
-                        <h5>
-                            You can now{' '}
-                            <a className="log-back-in" href="/login">
-                                log in
-                            </a>{' '}
-                            with your new password.
-                        </h5>
+                        <h4>Reset Successful!</h4>
+                        <span className="log-back-in-link">
+                            You can now <Link to="/login">log in</Link> with your new password.
+                        </span>
                     </FormStyles>
                 )}
             </>
