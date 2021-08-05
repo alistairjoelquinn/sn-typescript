@@ -1,6 +1,8 @@
 import { Component } from 'react';
 import axios from 'axios';
 
+import GlobalStyles from './styles/GlobalStyles';
+import Typography from './styles/Typography';
 import Uploader from './Uploader';
 import ProfilePic from './ProfilePic';
 
@@ -62,6 +64,8 @@ export default class App extends Component<Props, State> {
         const { first, last, image, uploaderIsVisible } = this.state;
         return (
             <>
+                <GlobalStyles />
+                <Typography />
                 <ProfilePic first={first} last={last} image={image} toggleModal={this.toggleModal} />
                 {uploaderIsVisible && <Uploader sendImage={this.sendImage} toggleModal={this.toggleModal} />}
             </>
