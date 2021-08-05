@@ -15,7 +15,10 @@
   "rules": {
     "prettier/prettier": "error",
     "camelcase": "off",
+    "jsx-a11y/click-events-have-key-events": 0,
+    "jsx-a11y/no-noninteractive-element-interactions": 0,
     "no-console": "off",
+    "no-alert": "off",
     "global-require": "off",
     "import/prefer-default-export": "off",
     "react/prop-types": "off",
@@ -35,15 +38,7 @@
         "jsx": "never"
       }
     ],
-    "quotes": "off",
-    "jsx-a11y/anchor-is-valid": [
-      "error",
-      {
-        "components": ["Link"],
-        "specialLink": ["hrefLeft", "hrefRight"],
-        "aspects": ["invalidHref", "preferButton"]
-      }
-    ]
+    "quotes": "off"
   },
   "overrides": [
     {

@@ -93,9 +93,7 @@ module.exports.verifyAndResetUsersPassword = (req, res) => {
                 hash(newPassword)
                     .then((passHash) => {
                         updatePassword(email, passHash)
-                            .then(() => {
-                                res.sendStatus(200);
-                            })
+                            .then(() => res.sendStatus(200))
                             .catch(() => res.sendStatus(500));
                     })
                     .catch(() => res.sendStatus(500));
@@ -104,7 +102,7 @@ module.exports.verifyAndResetUsersPassword = (req, res) => {
             }
         })
         .catch((err) => {
-            console.log('err: ', err);
+            console.log('err checking reset code: ', err);
             res.sendStatus(500);
         });
 };
