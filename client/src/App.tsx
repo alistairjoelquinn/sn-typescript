@@ -1,7 +1,8 @@
 import { Component } from 'react';
 import axios from 'axios';
 
-import Uploader, { File } from './Uploader';
+import Uploader from './Uploader';
+import ProfilePic from './ProfilePic';
 
 type Props = Record<string, never>;
 
@@ -34,7 +35,6 @@ export default class App extends Component<Props, State> {
 
     async componentDidMount() {
         const { data }: { data: UserData } = await axios.get('/user/get-data');
-        console.log('data: ', data);
         this.setState({ ...data }, () => console.log(this.state));
     }
 
@@ -46,14 +46,13 @@ export default class App extends Component<Props, State> {
         const fd = new FormData();
         fd.append('image', file);
         axios
-            .post('/upload', fd)
-            .then(({ data }) => {
-                console.log('response from axios post request: ', data);
-                this.setState((state) => ({
-                    ...state,
-                    image: data.image,
+            .post('/user/upload', fd)
+            .then((res) => {
+                console.log('response from axios post request: ', res);
+                this.setState({
+                    image: res.data.image,
                     uploaderIsVisible: false,
-                }));
+                });
             })
             .catch((err) => {
                 console.log('error was caught at upload return: ', err);
@@ -61,8 +60,10 @@ export default class App extends Component<Props, State> {
     }
 
     render() {
+        const { first, last, image } = this.state;
         return (
             <>
+                <ProfilePic first={first} last={last} image={image} toggleModal={this.toggleModal} />
                 <Uploader sendImage={this.sendImage} toggleModal={this.toggleModal} />
             </>
         );

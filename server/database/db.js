@@ -54,3 +54,10 @@ module.exports.getUserDataQuery = (id) =>
         WHERE id = $1`,
         [id],
     );
+
+module.exports.setProfilePic = (id, imageUrl) =>
+    db.query(
+        `UPDATE users SET image = $2
+        WHERE id = $1`,
+        [id, imageUrl],
+    );

@@ -1,17 +1,12 @@
 interface Props {
-    userData: UserData;
-    toggleModal: () => void;
-}
-
-interface UserData {
     first: string;
     last: string;
     image: string;
+    toggleModal: () => void;
 }
 
-const ProfilePic: React.FC<Props> = ({ userData, toggleModal }) => {
-    const profileimage =
-        userData.image || 'https://alsimageuniverse.s3.amazonaws.com/jhHC3lw0fMcoDXJFxNpnk_6iFWpR92aG.png';
+const ProfilePic: React.FC<Props> = ({ first, last, image, toggleModal }) => {
+    const profileimage = image || 'https://alsimageuniverse.s3.amazonaws.com/jhHC3lw0fMcoDXJFxNpnk_6iFWpR92aG.png';
 
     const imageDefault = (e: React.SyntheticEvent<HTMLImageElement>) => {
         e.currentTarget.setAttribute(
@@ -20,14 +15,7 @@ const ProfilePic: React.FC<Props> = ({ userData, toggleModal }) => {
         );
     };
 
-    return (
-        <img
-            onClick={toggleModal}
-            src={profileimage}
-            alt={`${userData.first} ${userData.last}`}
-            onError={(e) => imageDefault(e)}
-        />
-    );
+    return <img onClick={toggleModal} src={profileimage} alt={`${first} ${last}`} onError={(e) => imageDefault(e)} />;
 };
 
 export default ProfilePic;
