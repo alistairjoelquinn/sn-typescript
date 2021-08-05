@@ -10,13 +10,13 @@ interface State {
     selected: boolean;
 }
 
-type File = {
+export interface File {
     lastModified?: number;
     lastModifiedDate?: Date;
     name?: string;
     size?: number;
     type?: string;
-};
+}
 
 export default class Uploader extends Component<Props, State> {
     constructor(props: Props) {

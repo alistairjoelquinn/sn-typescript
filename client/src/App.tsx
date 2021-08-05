@@ -1,7 +1,7 @@
 import { Component } from 'react';
 import axios from 'axios';
 
-import Uploader from './Uploader';
+import Uploader, { File } from './Uploader';
 
 type Props = Record<string, never>;
 
@@ -42,8 +42,6 @@ export default class App extends Component<Props, State> {
     }
 
     sendImage(file: any) {
-        console.log('loggy', file);
-        window.prompt('Copy to clipboard: Ctrl+C, Enter', JSON.stringify(file));
         const fd = new FormData();
         fd.append('image', file);
         axios
