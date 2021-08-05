@@ -48,7 +48,7 @@ module.exports.updatePassword = (email, password) =>
         [email, password],
     );
 
-module.exports.getUserData = (id) =>
+module.exports.getUserDataQuery = (id) =>
     db.query(
         `SELECT id, first, last, image, bio FROM users
         WHERE id = $1`,

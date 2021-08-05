@@ -33,8 +33,9 @@ export default class App extends Component<Props, State> {
     }
 
     async componentDidMount() {
-        const { data }: { data: UserData } = await axios.get('/user');
-        this.setState({ ...data });
+        const { data }: { data: UserData } = await axios.get('/user/get-data');
+        console.log('data: ', data);
+        this.setState({ ...data }, () => console.log(this.state));
     }
 
     toggleModal() {
