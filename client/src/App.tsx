@@ -48,7 +48,6 @@ export default class App extends Component<Props, State> {
         axios
             .post('/user/upload', fd)
             .then((res) => {
-                console.log('response from axios post request: ', res);
                 this.setState({
                     image: res.data.image,
                     uploaderIsVisible: false,
@@ -60,11 +59,11 @@ export default class App extends Component<Props, State> {
     }
 
     render() {
-        const { first, last, image } = this.state;
+        const { first, last, image, uploaderIsVisible } = this.state;
         return (
             <>
                 <ProfilePic first={first} last={last} image={image} toggleModal={this.toggleModal} />
-                <Uploader sendImage={this.sendImage} toggleModal={this.toggleModal} />
+                {uploaderIsVisible && <Uploader sendImage={this.sendImage} toggleModal={this.toggleModal} />}
             </>
         );
     }
