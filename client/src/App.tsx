@@ -6,7 +6,6 @@ import GlobalStyles from './styles/GlobalStyles';
 import Typography from './styles/Typography';
 import Uploader from './Uploader';
 import ProfilePic from './ProfilePic';
-import Logo from './Logo';
 
 type Props = Record<string, never>;
 
@@ -31,6 +30,7 @@ const AppStyles = styled.div`
     grid-template-columns: 1fr;
     grid-template-rows: 20vh 1fr;
     header {
+        width: 100vw;
         display: flex;
         align-items: center;
         justify-content: space-between;
@@ -54,7 +54,7 @@ export default class App extends Component<Props, State> {
             uploaderIsVisible: false,
         };
         this.toggleModal = this.toggleModal.bind(this);
-        this.sendImage = this.sendImage.bind(this);
+        this.updateImageUrl = this.updateImageUrl.bind(this);
     }
 
     async componentDidMount() {
@@ -66,20 +66,11 @@ export default class App extends Component<Props, State> {
         this.setState((state) => ({ uploaderIsVisible: !state.uploaderIsVisible }));
     }
 
-    sendImage(file: any) {
-        const fd = new FormData();
-        fd.append('image', file);
-        axios
-            .post('/user/upload', fd)
-            .then((res) => {
-                this.setState({
-                    image: res.data.image,
-                    uploaderIsVisible: false,
-                });
-            })
-            .catch((err) => {
-                console.log('error was caught at upload return: ', err);
-            });
+    updateImageUrl(image: any) {
+        this.setState({
+            image,
+            uploaderIsVisible: false,
+        });
     }
 
     render() {
@@ -93,9 +84,8 @@ export default class App extends Component<Props, State> {
                         <img src="animal.jpeg" alt="logo" />
                         <ProfilePic first={first} last={last} image={image} toggleModal={this.toggleModal} />
                     </header>
-                    <div>he</div>
                 </AppStyles>
-                {uploaderIsVisible && <Uploader sendImage={this.sendImage} toggleModal={this.toggleModal} />}
+                {uploaderIsVisible && <Uploader updateImageUrl={this.updateImageUrl} toggleModal={this.toggleModal} />}
             </>
         );
     }

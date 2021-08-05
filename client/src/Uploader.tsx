@@ -1,22 +1,24 @@
+import axios from 'axios';
 import { Component } from 'react';
+import styled from 'styled-components';
 
 interface Props {
-    sendImage: (file: File) => void;
+    updateImageUrl: (file: File) => void;
     toggleModal: () => void;
 }
 
 interface State {
-    file: File;
+    file: any;
     selected: boolean;
 }
 
-export interface File {
-    lastModified?: number;
-    lastModifiedDate?: Date;
-    name?: string;
-    size?: number;
-    type?: string;
-}
+const UploaderStyles = styled.div`
+    position: absolute;
+    inset: 30vh 20vw;
+    border: 3px solid antiquewhite;
+    border-radius: 5rem;
+    background-color: rgb(227, 81, 64);
+`;
 
 export default class Uploader extends Component<Props, State> {
     constructor(props: Props) {
@@ -25,7 +27,7 @@ export default class Uploader extends Component<Props, State> {
             file: null,
             selected: false,
         };
-        this.clickHandler = this.clickHandler.bind(this);
+        this.sendImageclickHandler = this.sendImageclickHandler.bind(this);
     }
 
     fileSelected(e: React.ChangeEvent<HTMLInputElement>) {
@@ -38,13 +40,20 @@ export default class Uploader extends Component<Props, State> {
         );
     }
 
-    clickHandler() {
-        this.props.sendImage(this.state.file);
+    sendImageclickHandler() {
+        const fd = new FormData();
+        fd.append('image', this.state.file);
+        axios
+            .post('/user/upload', fd)
+            .then((res) => this.props.updateImageUrl(res.data.image))
+            .catch((err) => {
+                console.log('error was caught at upload return: ', err);
+            });
     }
 
     render() {
         return (
-            <div>
+            <UploaderStyles>
                 <p>Choose a new profile pic...</p>
                 <label htmlFor="browse">
                     Choose a file
@@ -56,13 +65,13 @@ export default class Uploader extends Component<Props, State> {
                         onChange={(e) => this.fileSelected(e)}
                     />
                 </label>
-                <button type="button" onClick={this.clickHandler}>
+                <button type="button" onClick={this.sendImageclickHandler}>
                     Upload
                 </button>
                 <button type="button" onClick={this.props.toggleModal}>
                     Exit
                 </button>
-            </div>
+            </UploaderStyles>
         );
     }
 }
