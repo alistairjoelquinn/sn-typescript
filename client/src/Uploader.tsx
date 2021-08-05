@@ -22,6 +22,14 @@ const UploaderStyles = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: space-evenly;
+    p {
+        font-size: 4rem;
+    }
+    div.button-container {
+        width: 50%;
+        display: flex;
+        justify-content: space-evenly;
+    }
 `;
 
 export default class Uploader extends Component<Props, State> {
@@ -35,13 +43,10 @@ export default class Uploader extends Component<Props, State> {
     }
 
     fileSelected(e: React.ChangeEvent<HTMLInputElement>) {
-        this.setState(
-            {
-                file: e.target.files[0],
-                selected: true,
-            },
-            () => console.log(this.state),
-        );
+        this.setState({
+            file: e.target.files[0],
+            selected: true,
+        });
     }
 
     sendImageclickHandler() {
@@ -56,6 +61,7 @@ export default class Uploader extends Component<Props, State> {
     }
 
     render() {
+        const { selected } = this.state;
         return (
             <UploaderStyles>
                 <p>Choose a new profile pic...</p>
@@ -69,7 +75,7 @@ export default class Uploader extends Component<Props, State> {
                         onChange={(e) => this.fileSelected(e)}
                     />
                 </label>
-                <div>
+                <div className="button-container">
                     <button type="button" onClick={this.sendImageclickHandler}>
                         Upload
                     </button>
@@ -77,6 +83,7 @@ export default class Uploader extends Component<Props, State> {
                         Exit
                     </button>
                 </div>
+                {selected ? <p>Image Selected</p> : <p>No Image Selected</p>}
             </UploaderStyles>
         );
     }
