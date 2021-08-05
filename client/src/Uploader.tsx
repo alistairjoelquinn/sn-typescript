@@ -25,10 +25,41 @@ const UploaderStyles = styled.div`
     p {
         font-size: 4rem;
     }
+    input {
+        width: 0.1px;
+        height: 0.1px;
+        opacity: 0;
+        overflow: hidden;
+        position: absolute;
+        z-index: -1;
+    }
     div.button-container {
         width: 50%;
         display: flex;
         justify-content: space-evenly;
+    }
+    button {
+        padding: 0.7rem;
+        margin: 1rem;
+        width: 10vw;
+        border-radius: 1rem;
+        background-color: antiquewhite;
+        &:hover {
+            background-color: #ffd49d;
+            cursor: pointer;
+        }
+    }
+    label {
+        padding: 0.7rem;
+        width: 60%;
+        border: 2px solid black;
+        font-size: 3rem;
+        border-radius: 1rem;
+        background-color: antiquewhite;
+        &:hover {
+            background-color: #ffd49d;
+            cursor: pointer;
+        }
     }
 `;
 
@@ -65,15 +96,9 @@ export default class Uploader extends Component<Props, State> {
         return (
             <UploaderStyles>
                 <p>Choose a new profile pic...</p>
-                <label htmlFor="browse">
-                    Choose a file
-                    <input
-                        id="browse"
-                        type="file"
-                        name="file"
-                        accept="image/*"
-                        onChange={(e) => this.fileSelected(e)}
-                    />
+                <label htmlFor="file">
+                    Select a file
+                    <input id="file" type="file" name="file" accept="image/*" onChange={(e) => this.fileSelected(e)} />
                 </label>
                 <div className="button-container">
                     <button type="button" onClick={this.sendImageclickHandler}>
