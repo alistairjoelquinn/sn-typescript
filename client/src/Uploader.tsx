@@ -15,9 +15,13 @@ interface State {
 const UploaderStyles = styled.div`
     position: absolute;
     inset: 30vh 20vw;
-    border: 3px solid antiquewhite;
+    border: 6px solid antiquewhite;
     border-radius: 5rem;
     background-color: rgb(227, 81, 64);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
 `;
 
 export default class Uploader extends Component<Props, State> {
@@ -65,12 +69,14 @@ export default class Uploader extends Component<Props, State> {
                         onChange={(e) => this.fileSelected(e)}
                     />
                 </label>
-                <button type="button" onClick={this.sendImageclickHandler}>
-                    Upload
-                </button>
-                <button type="button" onClick={this.props.toggleModal}>
-                    Exit
-                </button>
+                <div>
+                    <button type="button" onClick={this.sendImageclickHandler}>
+                        Upload
+                    </button>
+                    <button type="button" onClick={this.props.toggleModal}>
+                        Exit
+                    </button>
+                </div>
             </UploaderStyles>
         );
     }
