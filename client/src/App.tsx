@@ -6,6 +6,7 @@ import GlobalStyles from './styles/GlobalStyles';
 import Typography from './styles/Typography';
 import Uploader from './Uploader';
 import ProfilePic from './ProfilePic';
+import Profile from './Profile';
 
 type Props = Record<string, never>;
 
@@ -73,8 +74,12 @@ export default class App extends Component<Props, State> {
         });
     }
 
+    updateBioFromApp(newBio: string) {
+        this.setState({ bio: newBio });
+    }
+
     render() {
-        const { first, last, image, uploaderIsVisible } = this.state;
+        const { first, last, image, uploaderIsVisible, bio } = this.state;
         return (
             <>
                 <GlobalStyles />
@@ -84,6 +89,14 @@ export default class App extends Component<Props, State> {
                         <img src="animal.jpeg" alt="logo" />
                         <ProfilePic first={first} last={last} image={image} toggleModal={this.toggleModal} />
                     </header>
+                    <Profile
+                        first={first}
+                        last={last}
+                        image={image}
+                        bio={bio}
+                        toggleModal={this.toggleModal}
+                        updateBioFromApp={this.updateBioFromApp}
+                    />
                 </AppStyles>
                 {uploaderIsVisible && <Uploader updateImageUrl={this.updateImageUrl} toggleModal={this.toggleModal} />}
             </>
