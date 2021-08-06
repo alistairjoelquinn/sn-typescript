@@ -13,6 +13,7 @@ interface State {
 }
 
 const UploaderStyles = styled.div`
+    z-index: 3;
     position: absolute;
     inset: 30vh 20vw;
     border: 6px solid antiquewhite;

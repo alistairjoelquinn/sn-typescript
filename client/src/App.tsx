@@ -41,6 +41,12 @@ const AppStyles = styled.div`
             border-radius: 50%;
         }
     }
+    div.white-out {
+        position: absolute;
+        inset: 0;
+        background-color: rgba(30, 15, 25, 0.8);
+        z-index: 2;
+    }
 `;
 
 export default class App extends Component<Props, State> {
@@ -98,8 +104,13 @@ export default class App extends Component<Props, State> {
                         toggleModal={this.toggleModal}
                         updateBioFromApp={this.updateBioFromApp}
                     />
+                    {uploaderIsVisible && (
+                        <>
+                            <Uploader updateImageUrl={this.updateImageUrl} toggleModal={this.toggleModal} />
+                            <div className="white-out" />
+                        </>
+                    )}
                 </AppStyles>
-                {uploaderIsVisible && <Uploader updateImageUrl={this.updateImageUrl} toggleModal={this.toggleModal} />}
             </>
         );
     }
