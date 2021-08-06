@@ -34,9 +34,9 @@ export default class BioEditor extends Component<Props, State> {
 
     submitHandler() {
         axios
-            .post('/bio', { description: this.state.draftBio })
+            .post('/user/set-bio', { bio: this.state.draftBio })
             .then(({ data }) => {
-                this.props.updateBioFromApp(data);
+                this.props.updateBioFromApp(data.bio);
                 this.textareaToggle();
             })
             .catch(console.log);
@@ -45,7 +45,6 @@ export default class BioEditor extends Component<Props, State> {
     render() {
         return (
             <div>
-                <h1>BIO EDITOR</h1>
                 {this.state.textareaVisible && (
                     <>
                         <textarea defaultValue={this.props.bio} onChange={(e) => this.updateBio(e)} />

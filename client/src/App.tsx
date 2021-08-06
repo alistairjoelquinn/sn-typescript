@@ -56,6 +56,7 @@ export default class App extends Component<Props, State> {
         };
         this.toggleModal = this.toggleModal.bind(this);
         this.updateImageUrl = this.updateImageUrl.bind(this);
+        this.updateBioFromApp = this.updateBioFromApp.bind(this);
     }
 
     async componentDidMount() {

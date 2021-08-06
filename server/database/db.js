@@ -61,3 +61,11 @@ module.exports.setProfilePic = (id, imageUrl) =>
         WHERE id = $1`,
         [id, imageUrl],
     );
+
+module.exports.updateUserBio = (id, bio) =>
+    db.query(
+        `UPDATE users SET bio = $2
+        WHERE id = $1
+        RETURNING bio`,
+        [id, bio],
+    );
