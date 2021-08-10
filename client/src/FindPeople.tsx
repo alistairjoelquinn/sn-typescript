@@ -46,16 +46,27 @@ const imageDefault = (e: React.SyntheticEvent<HTMLImageElement>) => {
 
 const FindPeople: React.FC = () => {
     const [users, setUsers] = useState([]);
+    const [searchTerm, setSearchTerm] = useState('');
 
     useEffect(() => {
-        axios
-            .get(`/user/recent-users`)
-            .then(({ data }) => setUsers(data))
-            .catch(console.log);
-    }, []);
+        if (!users.length) {
+            axios
+                .get(`/user/recent-users`)
+                .then(({ data }) => setUsers(data))
+                .catch(console.log);
+        } else {
+            axios
+                .get(`user/user-search/${searchTerm}`)
+                .then(({ data }) => setUsers(data))
+                .catch(console.log);
+        }
+    }, [searchTerm]);
 
     return (
         <FindPeopleStyles>
+            <h3>Search for someone you know...</h3>
+            <input type="text" onChange={(e) => setSearchTerm(e.target.value)} />
+            <p>Checkout who just joined!</p>
             <div className="find-people-grid">
                 {users.map((user) => (
                     <div key={user.id} className="single-user">
