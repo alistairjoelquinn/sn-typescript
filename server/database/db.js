@@ -69,3 +69,21 @@ module.exports.updateUserBio = (id, bio) =>
         RETURNING bio`,
         [id, bio],
     );
+
+module.exports.recentUserSearch = (id) =>
+    db.query(
+        `SELECT first, last, id, image FROM users
+        WHERE id <> $1
+        ORDER BY id DESC
+        LIMIT 3`,
+        [id],
+    );
+
+module.exports.userSearch = (search, current) =>
+    db.query(
+        `SELECT first, last, id, image FROM users
+            WHERE first ILIKE $1 AND users.id <> $2
+            OR last ILIKE $1 AND users.id <> $2
+            OR concat(first, ' ', last) ILIKE $1 AND users.id <> $2;`,
+        [`${search}%`, current],
+    );

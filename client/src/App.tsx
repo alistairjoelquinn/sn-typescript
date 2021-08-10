@@ -1,4 +1,5 @@
 import { Component } from 'react';
+import { BrowserRouter, Link, Route } from 'react-router-dom';
 import axios from 'axios';
 import styled from 'styled-components';
 
@@ -7,6 +8,7 @@ import Typography from './styles/Typography';
 import Uploader from './Uploader';
 import ProfilePic from './ProfilePic';
 import Profile from './Profile';
+import FindPeople from './FindPeople';
 
 type Props = Record<string, never>;
 
@@ -30,13 +32,25 @@ const AppStyles = styled.div`
     display: grid;
     grid-template-columns: 1fr;
     grid-template-rows: 20vh 1fr;
+    a {
+        color: antiquewhite;
+        text-decoration: none;
+        &:hover {
+            cursor: pointer;
+        }
+        &:visited {
+            color: antiquewhite;
+        }
+    }
     header {
         width: 100vw;
         display: flex;
         align-items: center;
         justify-content: space-between;
         img {
-            height: 100%;
+            height: clamp(80px, 15vw, 150px);
+            width: clamp(80px, 15vw, 150px);
+            object-fit: cover;
             padding: 2rem;
             border-radius: 50%;
         }
@@ -91,26 +105,35 @@ export default class App extends Component<Props, State> {
             <>
                 <GlobalStyles />
                 <Typography />
-                <AppStyles>
-                    <header>
-                        <img src="animal.jpeg" alt="logo" />
-                        <ProfilePic first={first} last={last} image={image} toggleModal={this.toggleModal} />
-                    </header>
-                    <Profile
-                        first={first}
-                        last={last}
-                        image={image}
-                        bio={bio}
-                        toggleModal={this.toggleModal}
-                        updateBioFromApp={this.updateBioFromApp}
-                    />
-                    {uploaderIsVisible && (
-                        <>
-                            <Uploader updateImageUrl={this.updateImageUrl} toggleModal={this.toggleModal} />
-                            <div className="white-out" />
-                        </>
-                    )}
-                </AppStyles>
+                <BrowserRouter>
+                    <AppStyles>
+                        <header>
+                            <img src="animal.jpeg" alt="logo" />
+                            <Link to="/">Home</Link>
+                            <Link to="/find-people">Find People</Link>
+                            <ProfilePic first={first} last={last} image={image} toggleModal={this.toggleModal} />
+                        </header>
+                        <Route exact path="/">
+                            <Profile
+                                first={first}
+                                last={last}
+                                image={image}
+                                bio={bio}
+                                toggleModal={this.toggleModal}
+                                updateBioFromApp={this.updateBioFromApp}
+                            />
+                        </Route>
+                        <Route path="/find-people">
+                            <FindPeople />
+                        </Route>
+                        {uploaderIsVisible && (
+                            <>
+                                <Uploader updateImageUrl={this.updateImageUrl} toggleModal={this.toggleModal} />
+                                <div className="white-out" />
+                            </>
+                        )}
+                    </AppStyles>
+                </BrowserRouter>
             </>
         );
     }

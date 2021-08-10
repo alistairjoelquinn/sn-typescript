@@ -1,4 +1,4 @@
-const { getUserDataQuery, setProfilePic, updateUserBio } = require('../database/db');
+const { getUserDataQuery, setProfilePic, updateUserBio, recentUserSearch, userSearch } = require('../database/db');
 
 module.exports.getUserData = (req, res) => {
     const { userId } = req.session;
@@ -27,5 +27,21 @@ module.exports.setUserBio = (req, res) => {
     const { userId } = req.session;
     updateUserBio(userId, bio)
         .then(({ rows }) => res.json(rows[0]))
+        .catch(() => res.sendStatus(500));
+};
+
+module.exports.getRecentUsers = (req, res) => {
+    const { userId } = req.session;
+    recentUserSearch(userId)
+        .then(({ rows }) => res.json(rows))
+        .catch(() => res.sendStatus(500));
+};
+
+module.exports.searchForUsers = (req, res) => {
+    const { userId } = req.session;
+    const { q } = req.params;
+    console.log('userId, q: ', userId, q);
+    userSearch(q, userId)
+        .then(({ rows }) => res.json(rows))
         .catch(() => res.sendStatus(500));
 };
