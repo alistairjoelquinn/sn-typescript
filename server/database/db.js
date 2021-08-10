@@ -69,3 +69,12 @@ module.exports.updateUserBio = (id, bio) =>
         RETURNING bio`,
         [id, bio],
     );
+
+module.exports.recentUserSearch = (id) =>
+    db.query(
+        `SELECT first, last, id, image FROM users
+            WHERE id <> $1
+            ORDER BY id DESC
+            LIMIT 3`,
+        [id],
+    );

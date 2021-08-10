@@ -12,7 +12,7 @@ const FindPeople = () => {
 
     useEffect(() => {
         axios
-            .get(`/api/recentmembers`)
+            .get(`/user/recent-users`)
             .then(({ data }) => setUsers(data))
             .catch(console.log);
     }, []);
