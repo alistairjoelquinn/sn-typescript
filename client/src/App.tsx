@@ -8,6 +8,7 @@ import Typography from './styles/Typography';
 import Uploader from './Uploader';
 import ProfilePic from './ProfilePic';
 import Profile from './Profile';
+import FindPeople from './FindPeople';
 
 type Props = Record<string, never>;
 
@@ -108,7 +109,7 @@ export default class App extends Component<Props, State> {
                                 updateBioFromApp={this.updateBioFromApp}
                             />
                         </Route>
-                        <Route>
+                        <Route path="/find-people">
                             <FindPeople />
                         </Route>
                         {uploaderIsVisible && (

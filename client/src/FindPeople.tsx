@@ -1,11 +1,17 @@
 import { useState } from 'react';
+import styled from 'styled-components';
+
+const FindPeopleStyles = styled.div`
+    font-size: 5rem;
+    color: antiquewhite;
+`;
 
 const FindPeople = () => {
     const [users, setUsers] = useState([]);
     return (
-        <div>
+        <FindPeopleStyles>
             <p>Find People</p>
-        </div>
+        </FindPeopleStyles>
     );
 };
 
