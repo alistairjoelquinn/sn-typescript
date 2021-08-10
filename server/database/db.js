@@ -73,8 +73,17 @@ module.exports.updateUserBio = (id, bio) =>
 module.exports.recentUserSearch = (id) =>
     db.query(
         `SELECT first, last, id, image FROM users
-            WHERE id <> $1
-            ORDER BY id DESC
-            LIMIT 3`,
+        WHERE id <> $1
+        ORDER BY id DESC
+        LIMIT 3`,
         [id],
+    );
+
+module.exports.userSearch = (search, current) =>
+    db.query(
+        `SELECT firstname, lastname, id, url FROM users
+            WHERE firstname ILIKE $1 AND users.id <> $2
+            OR lastname ILIKE $1 AND users.id <> $2
+            OR concat(firstname, ' ', lastname) ILIKE $1 AND users.id <> $2;`,
+        [`${search}%`, current],
     );
