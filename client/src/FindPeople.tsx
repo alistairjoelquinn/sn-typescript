@@ -66,7 +66,7 @@ const FindPeople: React.FC = () => {
     return (
         <FindPeopleStyles>
             <h3>Search for someone you know...</h3>
-            <input type="text" onChange={(e) => setSearchTerm(e.target.value)} />
+            <input type="text" placeholder="Enter a name..." onChange={(e) => setSearchTerm(e.target.value)} />
             {!searchTerm && <p>Check out who just joined!</p>}
             {searchTerm && !users.length && <p>No results...</p>}
             <div className="find-people-grid">
