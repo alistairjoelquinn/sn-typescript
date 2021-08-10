@@ -1,4 +1,5 @@
 import { Component } from 'react';
+import { BrowserRouter, Route } from 'react-router-dom';
 import axios from 'axios';
 import styled from 'styled-components';
 
@@ -91,26 +92,33 @@ export default class App extends Component<Props, State> {
             <>
                 <GlobalStyles />
                 <Typography />
-                <AppStyles>
-                    <header>
-                        <img src="animal.jpeg" alt="logo" />
-                        <ProfilePic first={first} last={last} image={image} toggleModal={this.toggleModal} />
-                    </header>
-                    <Profile
-                        first={first}
-                        last={last}
-                        image={image}
-                        bio={bio}
-                        toggleModal={this.toggleModal}
-                        updateBioFromApp={this.updateBioFromApp}
-                    />
-                    {uploaderIsVisible && (
-                        <>
-                            <Uploader updateImageUrl={this.updateImageUrl} toggleModal={this.toggleModal} />
-                            <div className="white-out" />
-                        </>
-                    )}
-                </AppStyles>
+                <BrowserRouter>
+                    <AppStyles>
+                        <header>
+                            <img src="animal.jpeg" alt="logo" />
+                            <ProfilePic first={first} last={last} image={image} toggleModal={this.toggleModal} />
+                        </header>
+                        <Route exact path="/">
+                            <Profile
+                                first={first}
+                                last={last}
+                                image={image}
+                                bio={bio}
+                                toggleModal={this.toggleModal}
+                                updateBioFromApp={this.updateBioFromApp}
+                            />
+                        </Route>
+                        <Route>
+                            <FindPeople />
+                        </Route>
+                        {uploaderIsVisible && (
+                            <>
+                                <Uploader updateImageUrl={this.updateImageUrl} toggleModal={this.toggleModal} />
+                                <div className="white-out" />
+                            </>
+                        )}
+                    </AppStyles>
+                </BrowserRouter>
             </>
         );
     }
