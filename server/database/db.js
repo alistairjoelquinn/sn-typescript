@@ -81,9 +81,9 @@ module.exports.recentUserSearch = (id) =>
 
 module.exports.userSearch = (search, current) =>
     db.query(
-        `SELECT firstname, lastname, id, url FROM users
-            WHERE firstname ILIKE $1 AND users.id <> $2
-            OR lastname ILIKE $1 AND users.id <> $2
-            OR concat(firstname, ' ', lastname) ILIKE $1 AND users.id <> $2;`,
+        `SELECT first, last, id, image FROM users
+            WHERE first ILIKE $1 AND users.id <> $2
+            OR last ILIKE $1 AND users.id <> $2
+            OR concat(first, ' ', last) ILIKE $1 AND users.id <> $2;`,
         [`${search}%`, current],
     );

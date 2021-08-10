@@ -8,6 +8,7 @@ const FindPeopleStyles = styled.div`
     color: antiquewhite;
     display: flex;
     flex-direction: column;
+    gap: 3rem;
     width: 100vw;
     align-items: center;
     justify-content: center;
@@ -57,7 +58,10 @@ const FindPeople: React.FC = () => {
         } else {
             axios
                 .get(`user/user-search/${searchTerm}`)
-                .then(({ data }) => setUsers(data))
+                .then(({ data }) => {
+                    console.log('data: ', data);
+                    setUsers(data);
+                })
                 .catch(console.log);
         }
     }, [searchTerm]);
@@ -66,7 +70,6 @@ const FindPeople: React.FC = () => {
         <FindPeopleStyles>
             <h3>Search for someone you know...</h3>
             <input type="text" onChange={(e) => setSearchTerm(e.target.value)} />
-            <p>Checkout who just joined!</p>
             <div className="find-people-grid">
                 {users.map((user) => (
                     <div key={user.id} className="single-user">

@@ -40,6 +40,7 @@ module.exports.getRecentUsers = (req, res) => {
 module.exports.searchForUsers = (req, res) => {
     const { userId } = req.session;
     const { q } = req.params;
+    console.log('userId, q: ', userId, q);
     userSearch(q, userId)
         .then(({ rows }) => res.json(rows))
         .catch(() => res.sendStatus(500));
