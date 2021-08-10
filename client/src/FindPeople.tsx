@@ -11,7 +11,7 @@ const FindPeopleStyles = styled.div`
     gap: 3rem;
     width: 100vw;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     .find-people-grid {
         display: grid;
         grid-template-columns: 25vw 25vw 25vw;
@@ -55,13 +55,12 @@ const FindPeople: React.FC = () => {
                 .get(`/user/recent-users`)
                 .then(({ data }) => setUsers(data))
                 .catch(console.log);
+        } else if (!searchTerm) {
+            setUsers([]);
         } else {
             axios
                 .get(`user/user-search/${searchTerm}`)
-                .then(({ data }) => {
-                    console.log('data: ', data);
-                    setUsers(data);
-                })
+                .then(({ data }) => setUsers(data))
                 .catch(console.log);
         }
     }, [searchTerm]);
