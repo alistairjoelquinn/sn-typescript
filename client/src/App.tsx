@@ -48,7 +48,9 @@ const AppStyles = styled.div`
         align-items: center;
         justify-content: space-between;
         img {
-            height: 100%;
+            height: clamp(80px, 15vw, 150px);
+            width: clamp(80px, 15vw, 150px);
+            object-fit: cover;
             padding: 2rem;
             border-radius: 50%;
         }

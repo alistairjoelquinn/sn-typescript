@@ -30,7 +30,7 @@ const FindPeopleStyles = styled.div`
                 overflow: hidden;
                 border-radius: 50%;
                 &:hover {
-                    box-shadow: 0 0 20px #ccc;
+                    box-shadow: 0 0 10px #ccc;
                 }
                 img {
                     object-fit: cover;
