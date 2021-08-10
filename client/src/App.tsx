@@ -1,5 +1,5 @@
 import { Component } from 'react';
-import { BrowserRouter, Route } from 'react-router-dom';
+import { BrowserRouter, Link, Route } from 'react-router-dom';
 import axios from 'axios';
 import styled from 'styled-components';
 
@@ -32,6 +32,16 @@ const AppStyles = styled.div`
     display: grid;
     grid-template-columns: 1fr;
     grid-template-rows: 20vh 1fr;
+    a {
+        color: antiquewhite;
+        text-decoration: none;
+        &:hover {
+            cursor: pointer;
+        }
+        &:visited {
+            color: antiquewhite;
+        }
+    }
     header {
         width: 100vw;
         display: flex;
@@ -97,6 +107,8 @@ export default class App extends Component<Props, State> {
                     <AppStyles>
                         <header>
                             <img src="animal.jpeg" alt="logo" />
+                            <Link to="/">Home</Link>
+                            <Link to="/find-people">Find People</Link>
                             <ProfilePic first={first} last={last} image={image} toggleModal={this.toggleModal} />
                         </header>
                         <Route exact path="/">
