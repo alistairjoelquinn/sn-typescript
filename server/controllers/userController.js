@@ -5,6 +5,7 @@ const {
     recentUserSearch,
     userSearch,
     getOtherUserData,
+    friendshipStatus,
 } = require('../database/db');
 
 module.exports.getUserData = (req, res) => {

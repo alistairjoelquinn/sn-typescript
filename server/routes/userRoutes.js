@@ -7,6 +7,7 @@ const {
     getRecentUsers,
     searchForUsers,
     getOtherUser,
+    getInitialFrienshipStatus,
 } = require('../controllers/userController');
 const { uploader } = require('../upload');
 const s3 = require('../s3');
