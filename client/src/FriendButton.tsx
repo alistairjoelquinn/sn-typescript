@@ -9,8 +9,8 @@ interface Props {
 const FriendButton = ({ otherUserId, userId }: Props) => {
     const [buttonText, setButtonText] = useState<string>(' ');
 
-    const buttonClickHandler = () => {
-        console.log('loggywoggy');
+    const buttonClickHandler = (event: React.MouseEvent<HTMLButtonElement>) => {
+        console.log('e.target.value: ', event.currentTarget.innerText);
     };
 
     useEffect(() => {

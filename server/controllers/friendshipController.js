@@ -22,7 +22,7 @@ module.exports.addFriend = (req, res) => {
 module.exports.acceptFriend = (req, res) => {
     const { id } = req.params;
     acceptFriendQuery(id)
-        .then(({ rows }) => res.json(rows))
+        .then(({ rows }) => res.json(rows[0]))
         .catch(() => res.sendStatus(500));
 };
 
