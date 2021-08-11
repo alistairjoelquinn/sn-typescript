@@ -10,7 +10,7 @@ const FriendButton = ({ otherUserId }: Props) => {
 
     useEffect(() => {
         axios
-            .get(`/get-initial-status/${otherUserId}`)
+            .get(`/user/get-initial-status/${otherUserId}`)
             .then((res) => {
                 console.log('res: ', res);
             })

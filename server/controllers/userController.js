@@ -63,3 +63,11 @@ module.exports.getOtherUser = (req, res) => {
         res.json({ currentUser: true });
     }
 };
+
+module.exports.getInitialFrienshipStatus = (req, res) => {
+    const { userId } = req.session;
+    const { id } = req.params;
+    friendshipStatus(userId, id)
+        .then(({ rows }) => res.json(rows[0]))
+        .catch(() => res.sendStatus(500));
+};
