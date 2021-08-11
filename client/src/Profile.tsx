@@ -13,15 +13,16 @@ interface Props {
 
 export const ProfilePageStyles = styled.div`
     width: 100%;
+    max-height: 70vh;
     padding: 5vh 10vw;
     display: grid;
     grid-template-columns: 1fr 2fr;
-    grid-template-rows: 1fr 1fr;
+    grid-template-rows: 1fr 2fr;
     gap: 2rem;
     color: antiquewhite;
     & > div {
         width: 100%;
-        min-height: 30vh;
+        max-height: 50vh;
         background-color: antiquewhite;
         border-radius: 1rem;
         color: black;
@@ -33,7 +34,9 @@ export const ProfilePageStyles = styled.div`
         }
     }
     img {
+        object-fit: cover;
         width: 100%;
+        max-height: 80%;
         border: 3px solid antiquewhite;
         border-radius: 1rem;
     }

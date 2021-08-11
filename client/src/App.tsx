@@ -68,7 +68,6 @@ export default class App extends Component<Props, State> {
     constructor(props: Props) {
         super(props);
         this.state = {
-            userId: null,
             first: '',
             last: '',
             image: '',
