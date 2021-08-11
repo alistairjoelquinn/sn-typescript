@@ -13,7 +13,7 @@ import OtherProfile from './OtherProfile';
 
 type Props = Record<string, never>;
 
-interface UserData {
+export interface UserData {
     userId?: number | null;
     first?: string;
     last?: string;
