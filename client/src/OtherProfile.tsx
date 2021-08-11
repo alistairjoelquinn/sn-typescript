@@ -6,7 +6,7 @@ import { UserData } from './App';
 import FriendButton from './FriendButton';
 import { ProfilePageStyles } from './Profile';
 
-const OtherProfile = ({ userId }: { userId: string }) => {
+const OtherProfile = () => {
     const { id } = useParams<{ id: string }>();
     const history = useHistory();
     const [user, setUser] = useState<UserData>({});
@@ -32,7 +32,7 @@ const OtherProfile = ({ userId }: { userId: string }) => {
                 <div>
                     <div>{user.bio}</div>
                 </div>
-                <FriendButton otherUserId={id} userId={userId} />
+                <FriendButton otherUserId={id} />
             </div>
         </ProfilePageStyles>
     );

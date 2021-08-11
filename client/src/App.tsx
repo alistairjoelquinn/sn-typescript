@@ -68,7 +68,6 @@ export default class App extends Component<Props, State> {
     constructor(props: Props) {
         super(props);
         this.state = {
-            userId: null,
             first: '',
             last: '',
             image: '',
@@ -128,7 +127,7 @@ export default class App extends Component<Props, State> {
                             <FindPeople />
                         </Route>
                         <Route path="/user/:id">
-                            <OtherProfile userId={this.state.userId} />
+                            <OtherProfile />
                         </Route>
                         {uploaderIsVisible && (
                             <>

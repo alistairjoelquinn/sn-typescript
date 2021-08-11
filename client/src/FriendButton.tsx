@@ -3,16 +3,19 @@ import { useEffect, useState } from 'react';
 
 interface Props {
     otherUserId: string;
-    userId: string;
 }
 
-const FriendButton = ({ otherUserId, userId }: Props) => {
+interface Data {
+    id?: string;
+}
+
+const FriendButton = ({ otherUserId }: Props) => {
     const [buttonText, setButtonText] = useState<string>(' ');
     const [friendshipId, setFriendshipId] = useState<string>(' ');
 
     const buttonClickHandler = async () => {
         if (buttonText === 'Add Friend') {
-            const { data } = axios.post(`/add-friend/${currentProfile}`);
+            const { data }: { data: Data } = await axios.post(`/friednship/add-friend/${otherUserId}`);
             setFriendshipId(data.id);
             setButtonText('Cancel Request');
         } else if (buttonText === 'Cancel Request') {
@@ -20,11 +23,11 @@ const FriendButton = ({ otherUserId, userId }: Props) => {
             setFriendshipId(null);
             setButtonText('Add Friend');
         } else if (buttonText === 'Accept Request') {
-            const { data } = axios.post(`/accept-friend/${friendshipId}`);
+            const { data }: { data: Data } = await axios.post(`/friednship/accept-friend/${friendshipId}`);
             setFriendshipId(data.id);
             setButtonText('Remove Friend');
         } else if (buttonText === 'Remove Friend') {
-            await axios.post(`/end-friendship/${friendshipId}`);
+            await axios.post(`/friednship/end-friendship/${friendshipId}`);
             setFriendshipId(null);
             setButtonText('Add Friend');
         }
