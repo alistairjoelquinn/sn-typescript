@@ -5,7 +5,7 @@ interface Props {
     toggleModal: () => void;
 }
 
-const ProfilePic: React.FC<Props> = ({ first, last, image, toggleModal }) => {
+const ProfilePic = ({ first, last, image, toggleModal }: Props) => {
     const profileimage = image || 'animal.jpeg';
 
     const imageDefault = (e: React.SyntheticEvent<HTMLImageElement>) => {
