@@ -8,9 +8,26 @@ interface Props {
 
 const FriendButton = ({ otherUserId, userId }: Props) => {
     const [buttonText, setButtonText] = useState<string>(' ');
+    const [friendshipId, setFriendshipId] = useState<string>(' ');
 
-    const buttonClickHandler = (event: React.MouseEvent<HTMLButtonElement>) => {
-        console.log('e.target.value: ', event.currentTarget.innerText);
+    const buttonClickHandler = async () => {
+        if (buttonText === 'Add Friend') {
+            const { data } = axios.post(`/add-friend/${currentProfile}`);
+            setFriendshipId(data.id);
+            setButtonText('Cancel Request');
+        } else if (buttonText === 'Cancel Request') {
+            await axios.post(`/end-friendship/${friendshipId}`);
+            setFriendshipId(null);
+            setButtonText('Add Friend');
+        } else if (buttonText === 'Accept Request') {
+            const { data } = axios.post(`/accept-friend/${friendshipId}`);
+            setFriendshipId(data.id);
+            setButtonText('Remove Friend');
+        } else if (buttonText === 'Remove Friend') {
+            await axios.post(`/end-friendship/${friendshipId}`);
+            setFriendshipId(null);
+            setButtonText('Add Friend');
+        }
     };
 
     useEffect(() => {
