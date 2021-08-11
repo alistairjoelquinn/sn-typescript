@@ -11,7 +11,7 @@ interface Props {
     updateBioFromApp: (newBio: string) => void;
 }
 
-const ProfilePageStyles = styled.div`
+export const ProfilePageStyles = styled.div`
     width: 100%;
     padding: 5vh 10vw;
     display: grid;

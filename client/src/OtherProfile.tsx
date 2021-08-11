@@ -2,6 +2,7 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
 import { UserData } from './App';
+import { ProfilePageStyles } from './Profile';
 
 const OtherProfile = () => {
     const { id } = useParams<{ id: string }>();
@@ -15,9 +16,17 @@ const OtherProfile = () => {
     }, []);
 
     return (
-        <div>
-            <h1>Other Profile for user {user.first}</h1>
-        </div>
+        <ProfilePageStyles>
+            <img src={user.image} alt={`${user.first} ${user.last}`} />
+            <div>
+                <p>
+                    {user.first} {user.last}
+                </p>
+                <div>
+                    <div>{user.bio}</div>
+                </div>
+            </div>
+        </ProfilePageStyles>
     );
 };
 
