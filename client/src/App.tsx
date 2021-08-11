@@ -108,7 +108,7 @@ export default class App extends Component<Props, State> {
                 <BrowserRouter>
                     <AppStyles>
                         <header>
-                            <img src="animal.jpeg" alt="logo" />
+                            <img src="/animal.jpeg" alt="logo" />
                             <Link to="/">Home</Link>
                             <Link to="/find-people">Find People</Link>
                             <ProfilePic first={first} last={last} image={image} toggleModal={this.toggleModal} />

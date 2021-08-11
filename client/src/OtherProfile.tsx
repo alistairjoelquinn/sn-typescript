@@ -1,7 +1,9 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useHistory, useParams } from 'react-router';
+
 import { UserData } from './App';
+import FriendButton from './FriendButton';
 import { ProfilePageStyles } from './Profile';
 
 const OtherProfile = () => {
@@ -31,6 +33,7 @@ const OtherProfile = () => {
                 <div>
                     <div>{user.bio}</div>
                 </div>
+                <FriendButton />
             </div>
         </ProfilePageStyles>
     );

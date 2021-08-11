@@ -3,6 +3,13 @@ import axios from 'axios';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
+interface User {
+    first: string;
+    last: string;
+    id: number;
+    image: string;
+}
+
 const FindPeopleStyles = styled.div`
     font-size: 3rem;
     color: antiquewhite;
@@ -44,13 +51,6 @@ const FindPeopleStyles = styled.div`
 const imageDefault = (e: React.SyntheticEvent<HTMLImageElement>) => {
     e.currentTarget.setAttribute('src', 'animal.jpeg');
 };
-
-interface User {
-    first: string;
-    last: string;
-    id: number;
-    image: string;
-}
 
 const FindPeople = () => {
     const [users, setUsers] = useState<User[]>([]);
