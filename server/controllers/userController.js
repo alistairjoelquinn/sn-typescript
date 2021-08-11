@@ -5,7 +5,6 @@ const {
     recentUserSearch,
     userSearch,
     getOtherUserData,
-    friendshipStatus,
 } = require('../database/db');
 
 module.exports.getUserData = (req, res) => {
@@ -63,16 +62,4 @@ module.exports.getOtherUser = (req, res) => {
     } else {
         res.json({ currentUser: true });
     }
-};
-
-module.exports.getInitialFrienshipStatus = (req, res) => {
-    const { userId } = req.session;
-    const { id } = req.params;
-    console.log('id, userId: ', id, userId);
-    friendshipStatus(userId, id)
-        .then(({ rows }) => {
-            console.log('rows: ', rows);
-            return res.json(rows[0]);
-        })
-        .catch(() => res.sendStatus(500));
 };

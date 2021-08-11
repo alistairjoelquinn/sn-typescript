@@ -3,23 +3,38 @@ import { useEffect, useState } from 'react';
 
 interface Props {
     otherUserId: string;
+    userId: string;
 }
 
-const FriendButton = ({ otherUserId }: Props) => {
+const FriendButton = ({ otherUserId, userId }: Props) => {
     const [buttonText, setButtonText] = useState<string>(' ');
+
+    const buttonClickHandler = () => {
+        console.log('loggywoggy');
+    };
 
     useEffect(() => {
         axios
-            .get(`/user/get-initial-status/${otherUserId}`)
-            .then((res) => {
-                console.log('res: ', res);
+            .get(`/friendship/get-initial-status/${otherUserId}`)
+            .then(({ data }) => {
+                if (!data) {
+                    setButtonText('Add Friend');
+                } else if (data.accepted === false && data.receiver_id === otherUserId) {
+                    setButtonText('Cancel Request');
+                } else if (data.accepted === false) {
+                    setButtonText('Accept Request');
+                } else if (data.accepted === true) {
+                    setButtonText('Remove Friend');
+                }
             })
             .catch(console.log);
     }, []);
 
     return (
         <div>
-            <button type="button">Add Friend</button>
+            <button onClick={buttonClickHandler} type="button">
+                {buttonText}
+            </button>
         </div>
     );
 };

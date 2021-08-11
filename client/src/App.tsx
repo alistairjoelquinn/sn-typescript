@@ -14,7 +14,7 @@ import OtherProfile from './OtherProfile';
 type Props = Record<string, never>;
 
 export interface UserData {
-    userId?: number | null;
+    userId?: string | null;
     first?: string;
     last?: string;
     image?: string;
@@ -68,6 +68,7 @@ export default class App extends Component<Props, State> {
     constructor(props: Props) {
         super(props);
         this.state = {
+            userId: null,
             first: '',
             last: '',
             image: '',
@@ -127,7 +128,7 @@ export default class App extends Component<Props, State> {
                             <FindPeople />
                         </Route>
                         <Route path="/user/:id">
-                            <OtherProfile />
+                            <OtherProfile userId={this.state.userId} />
                         </Route>
                         {uploaderIsVisible && (
                             <>
