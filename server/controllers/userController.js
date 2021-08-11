@@ -55,7 +55,7 @@ module.exports.searchForUsers = (req, res) => {
 module.exports.getOtherUser = (req, res) => {
     const { userId } = req.session;
     const { id } = req.params;
-    if (userId !== id) {
+    if (+userId !== +id) {
         getOtherUserData(id)
             .then(({ rows }) => res.json(rows[0]))
             .catch(() => res.sendStatus(500));

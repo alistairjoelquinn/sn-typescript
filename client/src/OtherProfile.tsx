@@ -1,17 +1,23 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router';
+import { useHistory, useParams } from 'react-router';
 import { UserData } from './App';
 import { ProfilePageStyles } from './Profile';
 
 const OtherProfile = () => {
     const { id } = useParams<{ id: string }>();
+    const history = useHistory();
     const [user, setUser] = useState<UserData>({});
 
     useEffect(() => {
         (async () => {
             const { data } = await axios.get(`/user/other-user/${id}`);
-            setUser(data);
+            console.log('data: ', data);
+            if (data.currentUser) {
+                history.push('/');
+            } else {
+                setUser(data);
+            }
         })();
     }, []);
 
