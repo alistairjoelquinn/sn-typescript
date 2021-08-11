@@ -45,9 +45,16 @@ const imageDefault = (e: React.SyntheticEvent<HTMLImageElement>) => {
     e.currentTarget.setAttribute('src', 'animal.jpeg');
 };
 
-const FindPeople: React.FC = () => {
-    const [users, setUsers] = useState([]);
-    const [searchTerm, setSearchTerm] = useState('');
+interface User {
+    first: string;
+    last: string;
+    id: number;
+    image: string;
+}
+
+const FindPeople = () => {
+    const [users, setUsers] = useState<User[]>([]);
+    const [searchTerm, setSearchTerm] = useState<string>('');
 
     useEffect(() => {
         if (searchTerm) {

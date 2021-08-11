@@ -39,7 +39,7 @@ const ProfilePageStyles = styled.div`
     }
 `;
 
-const Profile: React.FC<Props> = ({ first, last, image, bio, toggleModal, updateBioFromApp }) => (
+const Profile = ({ first, last, image, bio, toggleModal, updateBioFromApp }: Props) => (
     <ProfilePageStyles>
         <ProfilePic first={first} last={last} image={image} toggleModal={toggleModal} />
         <div>
