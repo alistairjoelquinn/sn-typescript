@@ -33,7 +33,7 @@ const OtherProfile = () => {
                 <div>
                     <div>{user.bio}</div>
                 </div>
-                <FriendButton />
+                <FriendButton otherUserId={id} />
             </div>
         </ProfilePageStyles>
     );
