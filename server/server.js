@@ -6,6 +6,7 @@ const path = require('path');
 const cookieSession = require('cookie-session');
 const authRoutes = require('./routes/authRoutes');
 const userRoutes = require('./routes/userRoutes');
+const friendshipRoutes = require('./routes/friendshipRoutes');
 
 const cookieSessionMiddleware = cookieSession({
     secret: `I'm always angry.`,
@@ -21,6 +22,7 @@ app.use(express.static(path.join(__dirname, '..', 'client', 'public')));
 
 app.use('/auth', authRoutes);
 app.use('/user', userRoutes);
+app.use('/friendship', friendshipRoutes);
 
 app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, '..', 'client', 'index.html'));

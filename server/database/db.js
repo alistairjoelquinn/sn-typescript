@@ -94,3 +94,33 @@ module.exports.getOtherUserData = (id) =>
         WHERE id = $1`,
         [id],
     );
+
+module.exports.friendshipStatus = (idMe, idYou) =>
+    db.query(
+        `SELECT * FROM friendships 
+        WHERE (recipient_id = $1 AND sender_id = $2)
+        OR (recipient_id = $2 AND sender_id = $1)`,
+        [idMe, idYou],
+    );
+
+module.exports.addFriendQuery = (idMe, idYou) =>
+    db.query(
+        `INSERT INTO friendships (sender_id, receiver_id)
+            VALUES ($1, $2)
+            RETURNING sender_id, receiver_id, accepted, id`,
+        [idMe, idYou],
+    );
+
+module.exports.acceptFriendQuery = (id) =>
+    db.query(
+        `UPDATE friendships SET accepted = true
+            WHERE id = $1`,
+        [id],
+    );
+
+module.exports.removeFriendQuery = (id) =>
+    db.query(
+        `DELETE FROM friendships
+            WHERE id = $1`,
+        [id],
+    );
