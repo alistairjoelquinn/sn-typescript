@@ -97,8 +97,8 @@ module.exports.getOtherUserData = (id) =>
 
 module.exports.friendshipStatus = (idMe, idYou) =>
     db.query(
-        `SELECT * FROM friendships 
-        WHERE (receiver_id = $1 AND sender_id = $2)
-        OR (receiver_id = $2 AND sender_id = $1)`,
+        `SELECT  FROM friendships 
+        WHERE (recipient_id = $1 AND sender_id = $2)
+        OR (recipient_id = $2 AND sender_id = $1)`,
         [idMe, idYou],
     );

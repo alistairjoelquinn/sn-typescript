@@ -14,7 +14,6 @@ const OtherProfile = () => {
     useEffect(() => {
         (async () => {
             const { data } = await axios.get(`/user/other-user/${id}`);
-            console.log('data: ', data);
             if (data.currentUser) {
                 history.push('/');
             } else {
