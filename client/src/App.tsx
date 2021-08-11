@@ -9,6 +9,7 @@ import Uploader from './Uploader';
 import ProfilePic from './ProfilePic';
 import Profile from './Profile';
 import FindPeople from './FindPeople';
+import OtherProfile from './OtherProfile';
 
 type Props = Record<string, never>;
 
@@ -125,6 +126,9 @@ export default class App extends Component<Props, State> {
                         </Route>
                         <Route path="/find-people">
                             <FindPeople />
+                        </Route>
+                        <Route path="/user/:id">
+                            <OtherProfile />
                         </Route>
                         {uploaderIsVisible && (
                             <>
