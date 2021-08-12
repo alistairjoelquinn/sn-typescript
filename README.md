@@ -1,6 +1,6 @@
 # TypeScript Social Network
 
-With the option to use TypeScript for the Social Network, I've made this as a resource which can be referenced by teachers. It's open to any comments, criticism or recommended improvements. Some of the decisions have been made on a subjective basis, though I will explain the reasoning behind them.
+With the option to use TypeScript for the Social Network, I've made this as a resource which can be referenced by teachers. It's open to any comments, criticisms or recommendations. Some of the decisions have been made on a subjective basis, though I will explain the reasoning behind them.
 
 Each part of the project has it's own branch, though the final product has been pushed to main. There were some imperfections in the earlier parts which have been corrected later on and will be visible only in main, though these were small improvements to TS interfaces and nothing significant.
 
@@ -28,7 +28,7 @@ It is interesting to note that should you choose to use the React.FC custom type
 
 ### Prop Types
 
-When using the React.FC custom component type, a generic type can be accepted for typing any component props received.
+If we had been using the React.FC custom component type, a generic type can be accepted for typing any component props received.
 
 ![Prop types with React.FC](/md-images/react-fc-prop-types.png)
 
@@ -72,7 +72,7 @@ In some of our class components we receive no props, though still have values in
 
 Some of the data we use in this project can involve large objects. Creating an interface for a large object can be a cumbersome process, though I have come up with a solution to this which is far less time consuming.
 
-[jsonformatter.org](https://jsonformatter.org/json-to-typescript) will convert a JSON object into a TypeScript interface. Where nested ojects exist, these will generate sub-interfaces which build the complete type
+[jsonformatter.org](https://jsonformatter.org/json-to-typescript) will convert a JSON object into a TypeScript interface. Where nested objects exist, these will generate sub-interfaces which build the complete type
 
 ![JSON Formatter](/md-images/jsonformatter.png)
 
@@ -89,6 +89,10 @@ axios
 ```
 
 This will open a prompt window where the input field is prepopulated with the JSON object and already highlighted. You can just `cmd + c` and past it into jsonformatter to get you TS interface. I know there are more recent ways of copying to the clipboard in JS but this one gave me the least problems and works in every browser.
+
+## Events
+
+Typing events requires you to be specific about the type of event which took place, and also the element on which it happened. This is necessary as different events on different elements will produce an event object containing slightly different values.
 
 ## CSS
 
@@ -117,3 +121,9 @@ This:
 Becomes this:
 
 ![Class names with babel SC plugin](/md-images/with-babel-loader.png)
+
+## es-lint
+
+I have found you get the most out of TypeScript when you have good feedback from VS Code. I began by opting for a much stricter set of es-lint rules, then as I encounter something I don't like I turn it off. I've found opting out of rules far easier than opting in. One of the big benefits of this is that I learn about coding best practises that I had no idea about.
+
+You will find in the package.json that I have installed a few extra plugins to assist in linting. I've taken most of these from the Next.js Typescript setup because I've been happy with it. Some of the rules were too strict though and I have turned these off. You can see which rules have been customised in the .eslintrc file.
