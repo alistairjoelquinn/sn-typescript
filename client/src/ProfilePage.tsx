@@ -1,16 +1,13 @@
-interface Props {
-    first: string;
-    last: string;
-    bio: string;
-    image: string;
-}
+import { useState } from 'react';
 
-const Profile = ({ first, last, bio, image }: Props) => {
-    console.log('first, last, bio, image: ', first, last, bio, image);
+const Profile = () => {
+    const [name, setName] = useState('');
+
+    setName(1234);
 
     return (
         <div>
-            <h1>Profile</h1>
+            <h1>{name}</h1>
         </div>
     );
 };

@@ -6,6 +6,8 @@ Each part of the project has it's own branch, though the final product has been 
 
 As far as possible I've tried to incorporate React-TypeScript best practises as outlined in the [typescript-cheatsheets](https://github.com/typescript-cheatsheets/react) repo on Github. This is a community built reference for those using TypeScript.
 
+Where JSX is returned I have used the .tsx extension. VS Code offers more accurate TS support in a React component when the .tsx extension is used.
+
 ## CSS
 
 I'll cover this first as it doesn't affect TS and is less important. The styling done is relatively basic and not that different to what is in the course material.
@@ -31,10 +33,6 @@ One of the frustrations of Styled Components is that it generates a large alphan
 This:
 
 Becomes this:
-
-## General Decisions
-
-Where JSX is returned I have used the .tsx extension. VS Code offers more accurate TS support in a React component when the .tsx extension is used.
 
 ## Function Components
 
@@ -65,3 +63,27 @@ Since this custom type has not been used anywhere, props have been typed using t
 ![Prop types without React.FC](/md-images/react-jsx-prop-types.png)
 
 ### State Types
+
+TypeScript is very good at infering basic types where useState has been used
+
+![TS infering FC state type](/md-images/useState-string.png)
+
+![useState value is a string](/md-images/useState-number.png)
+
+However it struggles with anything more complex than the most basic types. An example of this would be the FindPeople component. A user search returns an array of objects, each object representing a different user. TypeScript is not capable of infering these types. In this scenario I have typed one user.
+
+![User interface](/md-images/user-interface.png)
+
+You can then inform TypeScript that the value of this item in state is an array of users like this:
+
+![Array of users](/md-images/typing-users-array.png)
+
+Rather than differentiate between state types which can be inferred and those which can, every useState has been explicitly typed.
+
+![Every useState is explicitly typed](/md-images/typing-useState.png)
+
+Where an item in state is initialised as null, a union type can be used to accomodate this.
+
+![User array union type](/md-images/user-union-type.png)
+
+## Class Components
