@@ -32,7 +32,11 @@ One of the frustrations of Styled Components is that it generates a large alphan
 
 This:
 
+![Class names without babel SC plugin](/md-images/without-babel-loader.png)
+
 Becomes this:
+
+![Class names with babel SC plugin](/md-images/with-babel-loader.png)
 
 ## Function Components
 
