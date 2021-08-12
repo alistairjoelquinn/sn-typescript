@@ -34,7 +34,7 @@ Becomes this:
 
 ## General Decisions
 
-Where JSX is returned I have used the .tsx extension. VS Code also offers more accurate TS support in a React component when the .tsx extension is used
+Where JSX is returned I have used the .tsx extension. VS Code offers more accurate TS support in a React component when the .tsx extension is used.
 
 ## Function Components
 
@@ -42,14 +42,26 @@ When typing a React function component, the recommendation is to avoid using the
 
 ![React.FC](/md-images/react-fc.png)
 
-The criticism of React.FC is that is assumes that all compoments receive a children props, but that is not always the case. Instead the recommendation is that the component type be a function which returns a JSX element.
+The criticism of React.FC is that is assumes that all compoments receive a children prop, but that is not always the case. Instead the recommendation is that the component type be a function which returns a JSX element.
 
 ```ts
 type FunctionComponent = () => JSX.Element;
 ```
 
-Fortinately TypeScript is clever enough to simply infer this from the code, and as a result none of the function component have been explicitly typed.
+Fortinately TypeScript is clever enough to simply infer this from the code, and as a result none of the function components have been explicitly typed.
 
 ![FC implicitly typed](/md-images/returned-jsx-element.png)
 
 It is interesting to note that should you choose to use the React.FC custom type, it is not necessary to import React in order to use this. This lives within a TypeScript namespace called React.
+
+### Prop Types
+
+When using the React.FC custom component type, a generic type can be accepted for typing any component props received.
+
+![Prop types with React.FC](/md-images/react-fc-prop-types.png)
+
+Since this custom type has not been used anywhere, props have been typed using the following syntax:
+
+![Prop types without React.FC](/md-images/react-jsx-prop-types.png)
+
+### State Types
