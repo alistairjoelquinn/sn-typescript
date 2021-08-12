@@ -72,7 +72,7 @@ In some of our class components we receive no props, though still have values in
 
 Some of the data we use in this project can involve large objects. Creating an interface for a large object can be a cumbersome process, though I have come up with a solution to this which is far less time consuming.
 
-[jsonformatter.org](https://jsonformatter.org/json-to-typescript) will convert a JSON object into a TypeScript interface. Where nested ojects exist, these will generate sub-interfaces which build the complete type
+[jsonformatter.org](https://jsonformatter.org/json-to-typescript) will convert a JSON object into a TypeScript interface. Where nested objects exist, these will generate sub-interfaces which build the complete type
 
 ![JSON Formatter](/md-images/jsonformatter.png)
 
@@ -126,4 +126,4 @@ Becomes this:
 
 I have found you get the most out of TypeScript when you have good feedback from VS Code. I began by opting for a much stricter set of es-lint rules, then as I encounter something I don't like I turn it off. I've found opting out of rules far easier than opting in. One of the big benefits of this is that I learn about coding best practises that I had no idea about.
 
-You will find in the package.json that I have installed a few extra plugins to assist in linting. I've taken most of these from the Next.js Typescript setup because I've been happy with it. Some of the rules were too strict though and I have turned these off. For example `no-console`, `no-access-state-in-setstate`.
+You will find in the package.json that I have installed a few extra plugins to assist in linting. I've taken most of these from the Next.js Typescript setup because I've been happy with it. Some of the rules were too strict though and I have turned these off. You can see which rules have been customised in the .eslintrc file.
