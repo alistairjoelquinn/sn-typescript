@@ -15,19 +15,19 @@ const FriendButton = ({ otherUserId }: Props) => {
 
     const buttonClickHandler = async () => {
         if (buttonText === 'Add Friend') {
-            const { data }: { data: Data } = await axios.post(`/friednship/add-friend/${otherUserId}`);
+            const { data }: { data: Data } = await axios.post(`/friendship/add-friend/${otherUserId}`);
             setFriendshipId(data.id);
             setButtonText('Cancel Request');
         } else if (buttonText === 'Cancel Request') {
-            await axios.post(`/end-friendship/${friendshipId}`);
+            await axios.post(`/friendship/end-friendship/${friendshipId}`);
             setFriendshipId(null);
             setButtonText('Add Friend');
         } else if (buttonText === 'Accept Request') {
-            const { data }: { data: Data } = await axios.post(`/friednship/accept-friend/${friendshipId}`);
+            const { data }: { data: Data } = await axios.post(`/friendship/accept-friend/${friendshipId}`);
             setFriendshipId(data.id);
             setButtonText('Remove Friend');
         } else if (buttonText === 'Remove Friend') {
-            await axios.post(`/friednship/end-friendship/${friendshipId}`);
+            await axios.post(`/friendship/end-friendship/${friendshipId}`);
             setFriendshipId(null);
             setButtonText('Add Friend');
         }

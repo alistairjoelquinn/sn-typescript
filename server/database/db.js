@@ -105,22 +105,22 @@ module.exports.friendshipStatus = (idMe, idYou) =>
 
 module.exports.addFriendQuery = (idMe, idYou) =>
     db.query(
-        `INSERT INTO friendships (sender_id, receiver_id)
-            VALUES ($1, $2)
-            RETURNING sender_id, receiver_id, accepted, id`,
+        `INSERT INTO friendships (sender_id, recipient_id)
+        VALUES ($1, $2)
+        RETURNING sender_id, recipient_id, accepted, id`,
         [idMe, idYou],
     );
 
 module.exports.acceptFriendQuery = (id) =>
     db.query(
         `UPDATE friendships SET accepted = true
-            WHERE id = $1`,
+        WHERE id = $1`,
         [id],
     );
 
 module.exports.removeFriendQuery = (id) =>
     db.query(
         `DELETE FROM friendships
-            WHERE id = $1`,
+        WHERE id = $1`,
         [id],
     );
