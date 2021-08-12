@@ -11,20 +11,6 @@ import Profile from './Profile';
 import FindPeople from './FindPeople';
 import OtherProfile from './OtherProfile';
 
-type Props = Record<string, never>;
-
-export interface UserData {
-    userId?: string | null;
-    first?: string;
-    last?: string;
-    image?: string;
-    bio?: string;
-}
-
-interface State extends UserData {
-    uploaderIsVisible?: boolean;
-}
-
 const AppStyles = styled.div`
     height: 100vh;
     width: 100vw;
@@ -63,6 +49,20 @@ const AppStyles = styled.div`
         z-index: 2;
     }
 `;
+
+type Props = Record<string, never>;
+
+export interface UserData {
+    userId?: string | null;
+    first?: string;
+    last?: string;
+    image?: string;
+    bio?: string;
+}
+
+interface State extends UserData {
+    uploaderIsVisible?: boolean;
+}
 
 export default class App extends Component<Props, State> {
     constructor(props: Props) {

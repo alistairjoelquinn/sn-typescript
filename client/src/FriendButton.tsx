@@ -15,19 +15,18 @@ const FriendButton = ({ otherUserId }: Props) => {
 
     const buttonClickHandler = async () => {
         if (buttonText === 'Add Friend') {
-            const { data }: { data: Data } = await axios.post(`/friednship/add-friend/${otherUserId}`);
+            const { data }: { data: Data } = await axios.post(`/friendship/add-friend/${otherUserId}`);
             setFriendshipId(data.id);
             setButtonText('Cancel Request');
         } else if (buttonText === 'Cancel Request') {
-            await axios.post(`/end-friendship/${friendshipId}`);
+            await axios.post(`/friendship/end-friendship/${friendshipId}`);
             setFriendshipId(null);
             setButtonText('Add Friend');
         } else if (buttonText === 'Accept Request') {
-            const { data }: { data: Data } = await axios.post(`/friednship/accept-friend/${friendshipId}`);
-            setFriendshipId(data.id);
+            await axios.post(`/friendship/accept-friend/${friendshipId}`);
             setButtonText('Remove Friend');
         } else if (buttonText === 'Remove Friend') {
-            await axios.post(`/friednship/end-friendship/${friendshipId}`);
+            await axios.post(`/friendship/end-friendship/${friendshipId}`);
             setFriendshipId(null);
             setButtonText('Add Friend');
         }
@@ -39,12 +38,15 @@ const FriendButton = ({ otherUserId }: Props) => {
             .then(({ data }) => {
                 if (!data) {
                     setButtonText('Add Friend');
-                } else if (data.accepted === false && data.receiver_id === otherUserId) {
-                    setButtonText('Cancel Request');
-                } else if (data.accepted === false) {
-                    setButtonText('Accept Request');
-                } else if (data.accepted === true) {
-                    setButtonText('Remove Friend');
+                } else {
+                    setFriendshipId(data.id);
+                    if (data.accepted === false && data.receiver_id === otherUserId) {
+                        setButtonText('Cancel Request');
+                    } else if (data.accepted === false) {
+                        setButtonText('Accept Request');
+                    } else if (data.accepted === true) {
+                        setButtonText('Remove Friend');
+                    }
                 }
             })
             .catch(console.log);
