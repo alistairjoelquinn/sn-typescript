@@ -8,36 +8,6 @@ As far as possible I've tried to incorporate React-TypeScript best practises as 
 
 Where JSX is returned I have used the .tsx extension. VS Code offers more accurate TS support in a React component when the .tsx extension is used.
 
-## CSS
-
-I'll cover this first as it doesn't affect TS and is less important. The styling done is relatively basic and not that different to what is in the course material.
-
-I've used Styled Components because:
-
--   I like to have my styles scoped to each component
--   I like to have my CSS written in the same file that I am working in
--   I like to be able to write conditional CSS based on JavaScript values
--   I like to be able to use the SCSS syntax where it's possible to nest styles, or make use of ampersand eg..
-
-```css
-a {
-    color: red;
-    &:hover {
-        color: white;
-    }
-}
-```
-
-One of the frustrations of Styled Components is that it generates a large alphanumeric for each of the element class names. When debugging in the dev tools it becomes almost impossible to tell which element is which. To overcome this problem I've used babel-plugin-styled-components as a babel plugin which prepends both the element and the file name to the alphanumeric making it clear which element is which.
-
-This:
-
-![Class names without babel SC plugin](/md-images/without-babel-loader.png)
-
-Becomes this:
-
-![Class names with babel SC plugin](/md-images/with-babel-loader.png)
-
 ## Function Components
 
 When typing a React function component, the recommendation is to avoid using the React.FC type. So code like this has not been used:
@@ -100,4 +70,50 @@ In some of our class components we receive no props, though still have values in
 
 ## Creating complex interfaces
 
-Often we rely on data from an external source
+Some of the data we use in this project can involve large objects. Creating an interface for a large object can be a cumbersome process, though I have come up with a solution to this which is far less time consuming.
+
+[jsonformatter.org](https://jsonformatter.org/json-to-typescript) will convert a JSON object into a TypeScript interface. Where nested ojects exist, these will generate sub-interfaces which build the complete type
+
+![JSON Formatter](/md-iamges/jsonformatter)
+
+In order to copy a complex object to the clip board as JSON I have been using the following code.
+
+```js
+axios
+    .get(`get-some-data`)
+    .then(({ data }) => {
+        window.prompt('', JSON.stringify(data));
+        doSomething(data);
+    })
+    .catch(console.log);
+```
+
+This will open a prompt window where the input field is prepopulated with the JSON object and already highlighted. You can just `cmd + c` and past it into jsonformatter to get you TS interface. I know there are more recent ways of copying to the clipboard in JS but this one gave me the least problems and works in every browser.
+
+## CSS
+
+The styling done is relatively basic and not that different to what is in the course material. I've used Styled Components because:
+
+-   I like to have my styles scoped to each component
+-   I like to have my CSS written in the same file that I am working in
+-   I like to be able to write conditional CSS based on JavaScript values
+-   I like to be able to use the SCSS syntax where it's possible to nest styles, or make use of ampersand eg..
+
+```css
+a {
+    color: red;
+    &:hover {
+        color: white;
+    }
+}
+```
+
+One of the frustrations of Styled Components is that it generates a large alphanumeric for each of the element class names. When debugging in the dev tools it becomes almost impossible to tell which element is which. To overcome this problem I've used babel-plugin-styled-components as a babel plugin which prepends both the element and the file name to the alphanumeric making it clear which element is which.
+
+This:
+
+![Class names without babel SC plugin](/md-images/without-babel-loader.png)
+
+Becomes this:
+
+![Class names with babel SC plugin](/md-images/with-babel-loader.png)
