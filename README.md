@@ -72,7 +72,7 @@ In some of our class components we receive no props, though still have values in
 
 Some of the data we use in this project can involve large objects. Creating an interface for a large object can be a cumbersome process, though I have come up with a solution to this which is far less time consuming.
 
-[jsonformatter.org](https://jsonformatter.org/json-to-typescript) will convert a JSON object into a TypeScript interface. Where nested objects exist, these will generate sub-interfaces which build the complete type
+[jsonformatter.org](https://jsonformatter.org/json-to-typescript) will convert a JSON object into a TypeScript interface. Where nested objects exist, these will generate sub-interfaces which build the complete type.
 
 ![JSON Formatter](/md-images/jsonformatter.png)
 
