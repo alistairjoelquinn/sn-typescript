@@ -42,7 +42,7 @@ When typing a React function component, the recommendation is to avoid using the
 
 ![React.FC](/md-images/react-fc.png)
 
-Instead the recommendation is that the component type be a function which returns a JSX element
+The criticism of React.FC is that is assumes that all compoments receive a children props, but that is not always the case. Instead the recommendation is that the component type be a function which returns a JSX element.
 
 ```ts
 type FunctionComponent = () => JSX.Element;
@@ -51,3 +51,5 @@ type FunctionComponent = () => JSX.Element;
 Fortinately TypeScript is clever enough to simply infer this from the code, and as a result none of the function component have been explicitly typed.
 
 ![FC implicitly typed](/md-images/returned-jsx-element.png)
+
+It is interesting to note that should you choose to use the React.FC custom type, it is not necessary to import React in order to use this. This lives within a TypeScript namespace called React.
