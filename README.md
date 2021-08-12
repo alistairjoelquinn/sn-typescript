@@ -62,7 +62,7 @@ When using the React.FC custom component type, a generic type can be accepted fo
 
 ![Prop types with React.FC](/md-images/react-fc-prop-types.png)
 
-Since this custom type has not been used anywhere, props have been typed using the following syntax:
+However, since this custom type has not been used anywhere, props have been typed using the following syntax:
 
 ![Prop types without React.FC](/md-images/react-jsx-prop-types.png)
 
@@ -91,3 +91,13 @@ Where an item in state is initialised as null, a union type can be used to accom
 ![User array union type](/md-images/user-union-type.png)
 
 ## Class Components
+
+In typed React, class components accept 2 generic types. One for typing the component props, and another for typing state. These values can be passed like this.
+
+![Typing a class component](/md-images/class-component-types.png)
+
+In some of our class components we receive no props, though still have values in state to type. Since props types are the second generic type passed, I needed to have a placeholder for props which are not going to be received. TypeScript doesn't like you to type something as an empty object, you have to be more specific than that. I have opted for the Record<string, never> type in place of an empty object. This is not my favourite solution. I am open to someone proposing a belter alternative.
+
+## Creating complex interfaces
+
+Often we rely on data from an external source
