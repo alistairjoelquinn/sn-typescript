@@ -74,7 +74,7 @@ Some of the data we use in this project can involve large objects. Creating an i
 
 [jsonformatter.org](https://jsonformatter.org/json-to-typescript) will convert a JSON object into a TypeScript interface. Where nested ojects exist, these will generate sub-interfaces which build the complete type
 
-![JSON Formatter](/md-iamges/jsonformatter.png)
+![JSON Formatter](/md-images/jsonformatter.png)
 
 In order to copy a complex object to the clip board as JSON I have been using the following code.
 
