@@ -97,7 +97,8 @@ module.exports.getOtherUserData = (id) =>
 
 module.exports.friendshipStatus = (idMe, idYou) =>
     db.query(
-        `SELECT * FROM friendships 
+        `SELECT sender_id, recipient_id, accepted, id 
+        FROM friendships 
         WHERE (recipient_id = $1 AND sender_id = $2)
         OR (recipient_id = $2 AND sender_id = $1)`,
         [idMe, idYou],
@@ -113,8 +114,10 @@ module.exports.addFriendQuery = (idMe, idYou) =>
 
 module.exports.acceptFriendQuery = (id) =>
     db.query(
-        `UPDATE friendships SET accepted = true
-        WHERE id = $1`,
+        `UPDATE friendships 
+        SET accepted = true
+        WHERE id = $1 
+        RETURNING sender_id, recipient_id, accepted, id`,
         [id],
     );
 

@@ -39,12 +39,15 @@ const FriendButton = ({ otherUserId }: Props) => {
             .then(({ data }) => {
                 if (!data) {
                     setButtonText('Add Friend');
-                } else if (data.accepted === false && data.receiver_id === otherUserId) {
-                    setButtonText('Cancel Request');
-                } else if (data.accepted === false) {
-                    setButtonText('Accept Request');
-                } else if (data.accepted === true) {
-                    setButtonText('Remove Friend');
+                } else {
+                    setFriendshipId(data.id);
+                    if (data.accepted === false && data.receiver_id === otherUserId) {
+                        setButtonText('Cancel Request');
+                    } else if (data.accepted === false) {
+                        setButtonText('Accept Request');
+                    } else if (data.accepted === true) {
+                        setButtonText('Remove Friend');
+                    }
                 }
             })
             .catch(console.log);
