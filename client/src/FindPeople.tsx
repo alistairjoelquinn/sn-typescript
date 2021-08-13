@@ -17,6 +17,8 @@ const FindPeopleStyles = styled.div`
     flex-direction: column;
     gap: 3rem;
     width: 100vw;
+    height: 80vh;
+    overflow-x: scroll;
     align-items: center;
     justify-content: flex-start;
     .find-people-grid {

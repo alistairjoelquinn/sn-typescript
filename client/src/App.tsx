@@ -112,6 +112,7 @@ export default class App extends Component<Props, State> {
                             <img src="/animal.jpeg" alt="logo" />
                             <Link to="/">Home</Link>
                             <Link to="/find-people">Find People</Link>
+                            <Link to="/friends">Friends</Link>
                             <ProfilePic first={first} last={last} image={image} toggleModal={this.toggleModal} />
                         </header>
                         <Route exact path="/">
