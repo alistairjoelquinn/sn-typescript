@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
+import ButtonStyles from './styles/ButtonStyles';
 
 interface Props {
     otherUserId: string;
@@ -54,9 +55,9 @@ const FriendButton = ({ otherUserId }: Props) => {
 
     return (
         <div>
-            <button onClick={buttonClickHandler} type="button">
+            <ButtonStyles onClick={buttonClickHandler} type="button">
                 {buttonText}
-            </button>
+            </ButtonStyles>
         </div>
     );
 };
