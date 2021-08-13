@@ -54,11 +54,9 @@ const FriendButton = ({ otherUserId }: Props) => {
     }, []);
 
     return (
-        <div>
-            <ButtonStyles onClick={buttonClickHandler} type="button">
-                {buttonText}
-            </ButtonStyles>
-        </div>
+        <ButtonStyles onClick={buttonClickHandler} type="button">
+            {buttonText}
+        </ButtonStyles>
     );
 };
 

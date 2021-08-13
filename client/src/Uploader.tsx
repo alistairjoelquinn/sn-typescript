@@ -16,9 +16,9 @@ const UploaderStyles = styled.div`
     z-index: 3;
     position: absolute;
     inset: 30vh 20vw;
-    border: 6px solid antiquewhite;
+    border: 6px solid rgb(30, 15, 25);
     border-radius: 5rem;
-    background-color: rgb(227, 81, 64);
+    background-color: antiquewhite;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -39,28 +39,21 @@ const UploaderStyles = styled.div`
         display: flex;
         justify-content: space-evenly;
     }
-    button {
+    button,
+    label {
         padding: 0.7rem;
         margin: 1rem;
         width: 10vw;
         border-radius: 1rem;
-        background-color: antiquewhite;
+        border: 2px solid black;
+        text-align: center;
+        background-color: rgb(227, 81, 64);
         &:hover {
-            background-color: #ffd49d;
+            background-color: rgb(243, 140, 128);
             cursor: pointer;
         }
     }
     label {
-        padding: 0.7rem;
-        width: 60%;
-        border: 2px solid black;
-        font-size: 3rem;
-        border-radius: 1rem;
-        background-color: antiquewhite;
-        &:hover {
-            background-color: #ffd49d;
-            cursor: pointer;
-        }
     }
 `;
 
@@ -97,11 +90,17 @@ export default class Uploader extends Component<Props, State> {
         return (
             <UploaderStyles>
                 <p>Choose a new profile pic...</p>
-                <label htmlFor="file">
-                    Select a file
-                    <input id="file" type="file" name="file" accept="image/*" onChange={(e) => this.fileSelected(e)} />
-                </label>
                 <div className="button-container">
+                    <label htmlFor="file">
+                        Select a file
+                        <input
+                            id="file"
+                            type="file"
+                            name="file"
+                            accept="image/*"
+                            onChange={(e) => this.fileSelected(e)}
+                        />
+                    </label>
                     <button type="button" onClick={this.sendImageclickHandler}>
                         Upload
                     </button>

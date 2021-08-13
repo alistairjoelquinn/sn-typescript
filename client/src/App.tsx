@@ -46,7 +46,7 @@ const AppStyles = styled.div`
     div.white-out {
         position: absolute;
         inset: 0;
-        background-color: rgba(30, 15, 25, 0.8);
+        background-color: rgba(30, 15, 25, 0.6);
         z-index: 2;
     }
 `;
