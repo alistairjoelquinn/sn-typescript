@@ -18,6 +18,8 @@ const Friends = () => {
     const friends = useSelector((state: RootState) => state.users?.filter((user) => user.accepted === true));
     const pending = useSelector((state: RootState) => state.users?.filter((user) => user.accepted === false));
 
+    console.log('friends, pending: ', friends, pending);
+
     useEffect(() => {
         dispatch(getFriendsList());
     }, []);

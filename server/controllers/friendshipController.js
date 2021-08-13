@@ -1,3 +1,5 @@
+const camelCase = require('lodash/camelCase');
+const mapKeys = require('lodash/mapKeys');
 const {
     friendshipStatus,
     addFriendQuery,
@@ -39,6 +41,8 @@ module.exports.endFriendship = (req, res) => {
 module.exports.getFriendsList = (req, res) => {
     const { userId } = req.session;
     getRequestsFriends(userId)
-        .then(({ rows }) => res.json(rows))
+        .then(({ rows }) => {
+            res.json(rows.map((row) => mapKeys(row, (_, key) => camelCase(key))));
+        })
         .catch(() => res.sendStatus(500));
 };
