@@ -1,9 +1,10 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { getFriendsList, acceptPendingRequest, removeFriend } from './redux/actions';
 import { RootState } from './redux/reducer';
+import SingleUser from './SingleUser';
+import ButtonStyles from './styles/ButtonStyles';
 
 const FriendsStyles = styled.div`
     color: white;
@@ -21,7 +22,12 @@ const FriendsGridStyles = styled.div`
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
     gap: 2rem;
-    & > div.single-user {
+    & > div {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    & div.single-user {
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -48,23 +54,22 @@ const FriendsGridStyles = styled.div`
             display: flex;
             flex-direction: column;
             align-items: center;
-            button {
-                padding: 0.5rem;
-                margin: 1rem;
-                width: 10vw;
-                border-radius: 1rem;
-                background-color: rgb(227, 81, 64);
-                &:hover {
-                    background-color: rgb(243, 140, 128);
+        }
+    }
+    @media (max-width: 700px) {
+        grid-template-columns: 1fr 1fr 1fr;
+        & div.single-user {
+            a {
+                width: 25vw;
+                height: 25vw;
+                img {
+                    width: 25vw;
+                    height: 25vw;
                 }
             }
         }
     }
 `;
-
-const imageDefault = (e: React.SyntheticEvent<HTMLImageElement>) => {
-    e.currentTarget.setAttribute('src', 'animal.jpeg');
-};
 
 const Friends = () => {
     const dispatch = useDispatch();
@@ -84,36 +89,22 @@ const Friends = () => {
             <h1>Friend Requests Pending...</h1>
             <FriendsGridStyles>
                 {pending.map((user) => (
-                    <div className="single-user" key={user.userId}>
-                        <Link to={`/user/${user.userId}`}>
-                            <img src={user.image} alt={user.first} onError={(e) => imageDefault(e)} />
-                        </Link>
-                        <div className="button-container">
-                            <span>
-                                {user.first} {user.last}
-                            </span>
-                            <button type="button" onClick={() => dispatch(acceptPendingRequest(user.friendshipId))}>
-                                Accept Request
-                            </button>
-                        </div>
+                    <div key={user.id}>
+                        <SingleUser user={user} />
+                        <ButtonStyles type="button" onClick={() => dispatch(acceptPendingRequest(user.friendshipId))}>
+                            Accept Request
+                        </ButtonStyles>
                     </div>
                 ))}
             </FriendsGridStyles>
             <h1>Your current {friends.length} friends...</h1>
             <FriendsGridStyles>
                 {friends.map((user) => (
-                    <div className="single-user" key={user.userId}>
-                        <Link to={`/user/${user.userId}`}>
-                            <img src={user.image} alt={user.first} onError={(e) => imageDefault(e)} />
-                        </Link>
-                        <div className="button-container">
-                            <span>
-                                {user.first} {user.last}
-                            </span>
-                            <button type="button" onClick={() => dispatch(removeFriend(user.friendshipId))}>
-                                Remove Friend
-                            </button>
-                        </div>
+                    <div key={user.id}>
+                        <SingleUser user={user} />
+                        <ButtonStyles type="button" onClick={() => dispatch(removeFriend(user.friendshipId))}>
+                            Remove Friend
+                        </ButtonStyles>
                     </div>
                 ))}
             </FriendsGridStyles>

@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import SingleUser from './SingleUser';
 
-interface User {
+export interface User {
     first: string;
     last: string;
     id: number;
@@ -21,6 +21,16 @@ const FindPeopleStyles = styled.div`
     overflow-x: scroll;
     align-items: center;
     justify-content: flex-start;
+    input {
+        padding: 0.7rem;
+        margin: 0.5rem;
+        width: 25vw;
+        background-color: antiquewhite;
+        border-radius: 1rem;
+        &::placeholder {
+            font-size: 2.4rem;
+        }
+    }
     .find-people-grid {
         display: grid;
         grid-template-columns: 25vw 25vw 25vw;
@@ -52,10 +62,6 @@ const FindPeopleStyles = styled.div`
     }
 `;
 
-const imageDefault = (e: React.SyntheticEvent<HTMLImageElement>) => {
-    e.currentTarget.setAttribute('src', 'animal.jpeg');
-};
-
 const FindPeople = () => {
     const [users, setUsers] = useState<User[]>([]);
     const [searchTerm, setSearchTerm] = useState<string>('');
@@ -82,21 +88,7 @@ const FindPeople = () => {
             {searchTerm && !users.length && <p>No results...</p>}
             <div className="find-people-grid">
                 {users.map((user) => (
-                    <div key={user.id} className="single-user">
-                        <div>
-                            {user.first} {user.last}
-                        </div>
-                        <Link to={`/user/${user.id}`}>
-                            <img
-                                src={
-                                    user.image ||
-                                    'https://alsimageuniverse.s3.amazonaws.com/jhHC3lw0fMcoDXJFxNpnk_6iFWpR92aG.png'
-                                }
-                                alt={user.first}
-                                onError={(e) => imageDefault(e)}
-                            />
-                        </Link>
-                    </div>
+                    <SingleUser user={user} />
                 ))}
             </div>
         </FindPeopleStyles>

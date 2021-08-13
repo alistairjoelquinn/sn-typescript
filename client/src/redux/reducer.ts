@@ -1,17 +1,17 @@
-import { UserData } from '../App';
+import { User } from '../FindPeople';
 
 interface Action {
     type: string;
     payload: any;
 }
 
-interface User extends UserData {
+interface UserType extends User {
     accepted: boolean | null;
     friendshipId?: string;
 }
 
 export interface RootState {
-    users: User[];
+    users: UserType[];
 }
 
 const initialState: RootState = {

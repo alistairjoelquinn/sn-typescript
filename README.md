@@ -66,7 +66,9 @@ In typed React, class components accept 2 generic types. One for typing the comp
 
 ![Typing a class component](/md-images/class-component-types.png)
 
-In some of our class components we receive no props, though still have values in state to type. Since props types are the second generic type passed, I needed to have a placeholder for props which are not going to be received. TypeScript doesn't like you to type something as an empty object, you have to be more specific than that. I have opted for the Record<string, never> type in place of an empty object. This is not my favourite solution. I like it more than some of the alternatives I have seen which are to type props as `any` or `null`, though I am open to someone proposing an alternative.
+In some of our class components we receive no props, though still have values in state to type. Since props types are the second generic type passed, a placeholder is needed for props which are not going to be received.
+
+TypeScript doesn't like you to type something as an empty object, you have to be more specific than that. Functioning solutions to this problem are to use `any`, `null`, or `void`, though I have opted for `Record<string, never>` to indicate this is an object which will never be passed anything as this feels closer to what is actually happening.
 
 ## Creating complex interfaces
 
