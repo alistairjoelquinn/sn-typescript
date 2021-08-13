@@ -21,6 +21,16 @@ const FindPeopleStyles = styled.div`
     overflow-x: scroll;
     align-items: center;
     justify-content: flex-start;
+    input {
+        padding: 0.7rem;
+        margin: 0.5rem;
+        width: 25vw;
+        background-color: antiquewhite;
+        border-radius: 1rem;
+        &::placeholder {
+            font-size: 2.4rem;
+        }
+    }
     .find-people-grid {
         display: grid;
         grid-template-columns: 25vw 25vw 25vw;
