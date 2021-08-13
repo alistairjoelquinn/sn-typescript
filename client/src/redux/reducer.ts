@@ -3,7 +3,11 @@ interface Action {
     payload: any;
 }
 
-export function reducer(state = {}, action: Action) {
+const defaultState = {
+    testing: 'Hello world',
+};
+
+export function reducer(state = defaultState, action: Action) {
     console.log('action: ', action);
     return state;
 }

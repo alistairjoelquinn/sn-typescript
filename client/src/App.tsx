@@ -10,6 +10,7 @@ import ProfilePic from './ProfilePic';
 import Profile from './Profile';
 import FindPeople from './FindPeople';
 import OtherProfile from './OtherProfile';
+import Friends from './Friends';
 
 const AppStyles = styled.div`
     height: 100vh;
@@ -125,6 +126,9 @@ export default class App extends Component<Props, State> {
                         </Route>
                         <Route path="/find-people">
                             <FindPeople />
+                        </Route>
+                        <Route path="/friends">
+                            <Friends />
                         </Route>
                         <Route path="/user/:id">
                             <OtherProfile />
