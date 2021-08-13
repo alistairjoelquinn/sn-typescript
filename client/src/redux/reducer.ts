@@ -29,7 +29,7 @@ export function reducer(state = initialState, action: Action) {
         return {
             ...state,
             users: state.users.map((user) => {
-                if (user.userId === action.payload.id) {
+                if (user.friendshipId === action.payload.id) {
                     return {
                         ...user,
                         accepted: true,
@@ -43,7 +43,7 @@ export function reducer(state = initialState, action: Action) {
         return {
             ...state,
             users: state.users.map((user) => {
-                if (user.userId === action.payload.id) {
+                if (user.friendshipId === action.payload.id) {
                     return {
                         ...user,
                         accepted: null,
