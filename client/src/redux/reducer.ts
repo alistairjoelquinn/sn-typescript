@@ -1,13 +1,19 @@
+import { UserData } from '../App';
+
 interface Action {
     type: string;
     payload: any;
 }
 
-const defaultState = {
-    testing: 'Hello world',
+export interface RootState {
+    users: UserData[];
+}
+
+const initialState: RootState = {
+    users: [],
 };
 
-export function reducer(state = defaultState, action: Action) {
+export function reducer(state = initialState, action: Action) {
     console.log('action: ', action);
     return state;
 }
