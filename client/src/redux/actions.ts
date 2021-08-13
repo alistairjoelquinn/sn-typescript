@@ -11,7 +11,7 @@ export const getFriendsList = (): ActionCreator => async (dispatch) => {
         .catch((err) => console.log('err getting friends list: ', err));
     console.log('res: ', res);
     dispatch({
-        type: 'RECEIVE_REQUESTS_FRIENDS',
+        type: 'friends/get-friends-list',
         payload: {
             users: res,
         },
@@ -25,7 +25,7 @@ export const acceptPendingRequest =
             .post(`/friendships/accept-friend/${id}`)
             .catch((err) => console.log('err accepting request: ', err));
         dispatch({
-            type: 'ACCEPT_FRIEND',
+            type: 'friends/accept-friend',
             payload: {
                 id,
             },
@@ -39,7 +39,7 @@ export const removeFriend =
             .post(`/friendships/end-friendship/${id}`)
             .catch((err) => console.log('err ending friendship: ', err));
         dispatch({
-            type: 'REMOVE_FRIEND',
+            type: 'friends/remove-friend',
             payload: {
                 id,
             },

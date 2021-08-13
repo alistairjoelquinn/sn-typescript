@@ -48,7 +48,7 @@ const Friends = () => {
             {friends.map((user) => (
                 <div key={user.userId}>
                     <Link to={`/user/${user.userId}`}>
-                        <img id="search-avatar" src={user.image} alt={user.first} onError={(e) => imageDefault(e)} />
+                        <img src={user.image} alt={user.first} onError={(e) => imageDefault(e)} />
                     </Link>
                     <div>
                         <span>

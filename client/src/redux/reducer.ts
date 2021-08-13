@@ -6,7 +6,7 @@ interface Action {
 }
 
 interface User extends UserData {
-    accepted: boolean;
+    accepted: boolean | null;
 }
 
 export interface RootState {
@@ -18,13 +18,13 @@ const initialState: RootState = {
 };
 
 export function reducer(state = initialState, action: Action) {
-    if (action.type === 'RECEIVE_REQUESTS_FRIENDS') {
+    if (action.type === 'friends/get-friends-list') {
         return {
             ...state,
             users: action.payload.users,
         };
     }
-    if (action.type === 'ACCEPT_FRIEND') {
+    if (action.type === 'friends/accept-friend') {
         return {
             ...state,
             users: state.users.map((user) => {
@@ -38,7 +38,7 @@ export function reducer(state = initialState, action: Action) {
             }),
         };
     }
-    if (action.type === 'REMOVE_FRIEND') {
+    if (action.type === 'friends/remove-friend') {
         return {
             ...state,
             users: state.users.map((user) => {

@@ -1,4 +1,10 @@
-const { friendshipStatus, addFriendQuery, acceptFriendQuery, removeFriendQuery } = require('../database/db');
+const {
+    friendshipStatus,
+    addFriendQuery,
+    acceptFriendQuery,
+    removeFriendQuery,
+    getRequestsFriends,
+} = require('../database/db');
 
 module.exports.getInitialFrienshipStatus = (req, res) => {
     const { userId } = req.session;
@@ -27,5 +33,12 @@ module.exports.endFriendship = (req, res) => {
     const { id } = req.params;
     removeFriendQuery(id)
         .then(({ rows }) => res.json(rows[0]))
+        .catch(() => res.sendStatus(500));
+};
+
+module.exports.getFriendsList = (req, res) => {
+    const { userId } = req.session;
+    getRequestsFriends(userId)
+        .then(({ rows }) => res.json(rows))
         .catch(() => res.sendStatus(500));
 };
