@@ -5,8 +5,12 @@ interface Action {
     payload: any;
 }
 
+interface User extends UserData {
+    accepted: boolean;
+}
+
 export interface RootState {
-    users: UserData[];
+    users: User[];
 }
 
 const initialState: RootState = {

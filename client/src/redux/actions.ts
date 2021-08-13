@@ -5,7 +5,7 @@ import { RootState } from './reducer';
 
 type ActionCreator = ThunkAction<void, RootState, unknown, Action<string>>;
 
-export const receiveRequestsFriends = (): ActionCreator => async (dispatch) => {
+export const getFriendsList = (): ActionCreator => async (dispatch) => {
     const res = await axios
         .get('/friendships/friends-list')
         .catch((err) => console.log('err getting friends list: ', err));
@@ -18,7 +18,7 @@ export const receiveRequestsFriends = (): ActionCreator => async (dispatch) => {
     });
 };
 
-export const acceptRequestsPending =
+export const acceptPendingRequest =
     (id: string): ActionCreator =>
     async (dispatch) => {
         await axios

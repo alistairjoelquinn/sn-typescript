@@ -1,20 +1,65 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import { receiveRequestsFriends, acceptRequestsPending, removeFriend } from './redux/actions';
+import { getFriendsList, acceptPendingRequest, removeFriend } from './redux/actions';
+import { RootState } from './redux/reducer';
 
 const FriendsStyles = styled.div`
     color: white;
 `;
 
-const Friends = () => {
-    const test = useSelector((state) => state);
+const imageDefault = (e: React.SyntheticEvent<HTMLImageElement>) => {
+    e.currentTarget.setAttribute('src', 'animal.jpeg');
+};
 
-    console.log('test: ', test);
+const Friends = () => {
+    const dispatch = useDispatch();
+    const friends = useSelector((state: RootState) => state.users?.filter((user) => user.accepted === true));
+    const pending = useSelector((state: RootState) => state.users?.filter((user) => user.accepted === false));
+
+    useEffect(() => {
+        dispatch(getFriendsList());
+    }, []);
+
+    if (!friends) {
+        return null;
+    }
 
     return (
         <FriendsStyles>
-            <div>Friends</div>
+            <h1>Friend Requests Pending...</h1>
+            {pending.map((user) => (
+                <div key={user.userId}>
+                    <Link to={`/user/${user.userId}`}>
+                        <img src={user.image} alt={user.first} onError={(e) => imageDefault(e)} />
+                    </Link>
+                    <div>
+                        <span>
+                            {user.first} {user.last}
+                        </span>
+                        <button type="button" onClick={() => dispatch(acceptPendingRequest(user.userId))}>
+                            Accept Request
+                        </button>
+                    </div>
+                </div>
+            ))}
+            <h1>Your current {friends.length} friends...</h1>
+            {friends.map((user) => (
+                <div key={user.userId}>
+                    <Link to={`/user/${user.userId}`}>
+                        <img id="search-avatar" src={user.image} alt={user.first} onError={(e) => imageDefault(e)} />
+                    </Link>
+                    <div>
+                        <span>
+                            {user.first} {user.last}
+                        </span>
+                        <button type="button" onClick={() => dispatch(removeFriend(user.userId))}>
+                            Remove Friend
+                        </button>
+                    </div>
+                </div>
+            ))}
         </FriendsStyles>
     );
 };
