@@ -44,6 +44,8 @@ const FindPeopleStyles = styled.div`
                 }
                 img {
                     object-fit: cover;
+                    width: 20vw;
+                    height: 20vw;
                 }
             }
         }

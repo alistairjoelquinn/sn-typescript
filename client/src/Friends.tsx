@@ -9,6 +9,12 @@ const FriendsStyles = styled.div`
     color: white;
     height: 80vh;
     overflow-x: scroll;
+    h1 {
+        width: 100vw;
+        color: antiquewhite;
+        text-align: center;
+        padding: 2rem;
+    }
 `;
 
 const FriendsGridStyles = styled.div`
@@ -25,8 +31,8 @@ const FriendsGridStyles = styled.div`
             border: 1px solid white;
             display: flex;
             justify-content: center;
-            /* width: 20vw;
-            height: 20vw; */
+            width: 10vw;
+            height: 10vw;
             overflow: hidden;
             border-radius: 50%;
             &:hover {
@@ -34,6 +40,23 @@ const FriendsGridStyles = styled.div`
             }
             img {
                 object-fit: cover;
+                width: 10vw;
+                height: 10vw;
+            }
+        }
+        .button-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            button {
+                padding: 0.5rem;
+                margin: 1rem;
+                width: 10vw;
+                border-radius: 1rem;
+                background-color: rgb(227, 81, 64);
+                &:hover {
+                    background-color: rgb(243, 140, 128);
+                }
             }
         }
     }
@@ -47,8 +70,6 @@ const Friends = () => {
     const dispatch = useDispatch();
     const friends = useSelector((state: RootState) => state.users?.filter((user) => user.accepted === true));
     const pending = useSelector((state: RootState) => state.users?.filter((user) => user.accepted === false));
-
-    console.log('friends, pending: ', friends, pending);
 
     useEffect(() => {
         dispatch(getFriendsList());
@@ -67,7 +88,7 @@ const Friends = () => {
                         <Link to={`/user/${user.userId}`}>
                             <img src={user.image} alt={user.first} onError={(e) => imageDefault(e)} />
                         </Link>
-                        <div>
+                        <div className="button-container">
                             <span>
                                 {user.first} {user.last}
                             </span>
@@ -85,7 +106,7 @@ const Friends = () => {
                         <Link to={`/user/${user.userId}`}>
                             <img src={user.image} alt={user.first} onError={(e) => imageDefault(e)} />
                         </Link>
-                        <div>
+                        <div className="button-container">
                             <span>
                                 {user.first} {user.last}
                             </span>
