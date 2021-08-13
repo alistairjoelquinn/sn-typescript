@@ -130,11 +130,11 @@ module.exports.removeFriendQuery = (id) =>
 
 module.exports.getRequestsFriends = (id) =>
     db.query(
-        `SELECT firstname, lastname, url, accepted, friendships.id, users.id AS profileId
+        `SELECT first, last, image, accepted, friendships.id as friendshipId, users.id AS userId
             FROM friendships
             JOIN users
-            ON (accepted = false AND receiver_id = $1 AND sender_id = users.id)
-            OR (accepted = true AND receiver_id = $1 AND sender_id = users.id)
-            OR (accepted = true AND sender_id = $1 AND receiver_id = users.id)`,
+            ON (accepted = false AND recipient_id = $1 AND sender_id = users.id)
+            OR (accepted = true AND recipient_id = $1 AND sender_id = users.id)
+            OR (accepted = true AND sender_id = $1 AND recipient_id = users.id)`,
         [id],
     );
