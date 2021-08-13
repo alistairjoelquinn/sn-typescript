@@ -82,6 +82,7 @@
     "author": "",
     "license": "ISC",
     "devDependencies": {
+        "@types/redux-immutable-state-invariant": "^2.1.2",
         "babel-plugin-styled-components": "^1.13.2"
     }
 }
