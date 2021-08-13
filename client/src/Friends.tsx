@@ -38,7 +38,7 @@ const Friends = () => {
                         <span>
                             {user.first} {user.last}
                         </span>
-                        <button type="button" onClick={() => dispatch(acceptPendingRequest(user.userId))}>
+                        <button type="button" onClick={() => dispatch(acceptPendingRequest(user.friendshipId))}>
                             Accept Request
                         </button>
                     </div>
@@ -54,7 +54,7 @@ const Friends = () => {
                         <span>
                             {user.first} {user.last}
                         </span>
-                        <button type="button" onClick={() => dispatch(removeFriend(user.userId))}>
+                        <button type="button" onClick={() => dispatch(removeFriend(user.friendshipId))}>
                             Remove Friend
                         </button>
                     </div>

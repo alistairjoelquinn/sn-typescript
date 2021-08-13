@@ -7,6 +7,7 @@ interface Action {
 
 interface User extends UserData {
     accepted: boolean | null;
+    friendshipId?: string;
 }
 
 export interface RootState {
