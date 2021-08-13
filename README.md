@@ -66,13 +66,13 @@ In typed React, class components accept 2 generic types. One for typing the comp
 
 ![Typing a class component](/md-images/class-component-types.png)
 
-In some of our class components we receive no props, though still have values in state to type. Since props types are the second generic type passed, I needed to have a placeholder for props which are not going to be received. TypeScript doesn't like you to type something as an empty object, you have to be more specific than that. I have opted for the Record<string, never> type in place of an empty object. This is not my favourite solution. I am open to someone proposing a belter alternative.
+In some of our class components we receive no props, though still have values in state to type. Since props types are the second generic type passed, I needed to have a placeholder for props which are not going to be received. TypeScript doesn't like you to type something as an empty object, you have to be more specific than that. I have opted for the Record<string, never> type in place of an empty object. This is not my favourite solution. I like it more than some of the alternatives I have seen which are to type props as `any` or `null`, though I am open to someone proposing an alternative.
 
 ## Creating complex interfaces
 
 Some of the data we use in this project can involve large objects. Creating an interface for a large object can be a cumbersome process, though I have come up with a solution to this which is far less time consuming.
 
-[jsonformatter.org](https://jsonformatter.org/json-to-typescript) will convert a JSON object into a TypeScript interface. Where nested objects exist, these will generate sub-interfaces which build the complete type
+[jsonformatter.org](https://jsonformatter.org/json-to-typescript) will convert a JSON object into a TypeScript interface. Where nested objects exist, these will generate sub-interfaces which build the complete type.
 
 ![JSON Formatter](/md-images/jsonformatter.png)
 
