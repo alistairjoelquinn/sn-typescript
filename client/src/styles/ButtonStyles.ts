@@ -9,4 +9,7 @@ export default styled.button`
     &:hover {
         background-color: rgb(243, 140, 128);
     }
+    @media (max-width: 700px) {
+        width: 20vw;
+    }
 `;

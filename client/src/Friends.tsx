@@ -1,6 +1,5 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { getFriendsList, acceptPendingRequest, removeFriend } from './redux/actions';
 import { RootState } from './redux/reducer';
@@ -55,6 +54,19 @@ const FriendsGridStyles = styled.div`
             display: flex;
             flex-direction: column;
             align-items: center;
+        }
+    }
+    @media (max-width: 700px) {
+        grid-template-columns: 1fr 1fr 1fr;
+        & div.single-user {
+            a {
+                width: 25vw;
+                height: 25vw;
+                img {
+                    width: 25vw;
+                    height: 25vw;
+                }
+            }
         }
     }
 `;
