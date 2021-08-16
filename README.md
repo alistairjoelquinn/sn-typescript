@@ -114,13 +114,13 @@ Typing events requires you to be specific about the type of event which took pla
 
 ## Redux
 
-Redux Thunk has been used for the action creators. Fortunately it will be clear to see how you would define types in a Redux project without using.
+Redux Thunk has been used for the action creators. Fortunately it will be clear to see how you would define types in a Redux project without using it.
 
 There are two main considerations in typing this part of the project. The first one is how to type state, the second is how to type the action creators. Let's begin with state.
 
-Defining state is important as you will also use this definition wherever `useSelector` is used. What needs to be defined is a structure of what state will look like, which can be referred to as RootState. In this project it will simply be a single property, whose value is an array of users.
+Defining state is important as you will also use this definition wherever `useSelector` is used. What needs to be defined is a structure of what state will look like, which can be referred to as RootState. In this project it will be a single property, whose value is an array of users.
 
-In the FindPeople component a type definition for a single other user has already been created, so this has been imported and extended to add the additional properties which will be stored in each one of these objects in state. Now we can specify what the expected stucture of our state will be.
+In the FindPeople component, a type definition for a single user has already been created. This has been imported and extended to add the additional properties which will be stored in each one of these objects in state. Now we can specify what the expected stucture of our state will be.
 
 ```js
 import { User } from '../FindPeople';
@@ -139,7 +139,7 @@ const initialState: RootState = {
 };
 ```
 
-Having defined RootState, it has been exported to use elsewhere. Wherever we pull data in from state, it can be typed accordingly.
+Having defined RootState, wherever we pull data in from state using `useSeletctor` it can be imported and typed accordingly.
 
 ```js
 const friends = useSelector((state: RootState) => state.users?.filter((user) => user.accepted === true));
