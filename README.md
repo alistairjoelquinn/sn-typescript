@@ -165,7 +165,7 @@ ThunkAction<void, RootState, unknown, Action<string>>
 
 This also accepts 4 generic types. The first and third of these can be omitted. However we need to pass it the second and fourth, the values of which will be our RootState type, and the redux Action type imported from Redux. Once each of these have been imported and passed correctly, an example of a completed action creator would be this:
 
-![Typed action creator]('/md-images/typed-action-creator.png')
+![Typed action creator](/md-images/typed-action-creator.png)
 
 ## CSS
 
