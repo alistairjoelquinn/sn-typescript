@@ -1,14 +1,14 @@
 import axios from 'axios';
 import { Action } from 'redux';
 import { ThunkAction } from 'redux-thunk';
-import { RootState } from './reducer';
+import { RootState, UserType } from './reducer';
 
 type ActionCreator = ThunkAction<void, RootState, unknown, Action<string>>;
 
 export const getFriendsList = (): ActionCreator => async (dispatch) => {
     const { data } = (await axios
         .get('/friendship/friends-list')
-        .catch((err) => console.log('err getting friends list: ', err))) as { data: any[] };
+        .catch((err) => console.log('err getting friends list: ', err))) as { data: UserType[] };
     dispatch({
         type: 'friends/get-friends-list',
         payload: {
