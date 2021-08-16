@@ -5,7 +5,7 @@ interface Action {
     payload: any;
 }
 
-interface UserType extends User {
+export interface UserType extends User {
     accepted: boolean | null;
     friendshipId?: string;
 }

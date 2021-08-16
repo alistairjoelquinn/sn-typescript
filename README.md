@@ -8,6 +8,22 @@ As far as possible I've tried to incorporate React-TypeScript best practises as 
 
 Where JSX is returned I have used the .tsx extension. VS Code offers more accurate TS support in a React component when the .tsx extension is used.
 
+## Type definitions
+
+Typescript requires type definitions. When working in our own files we can make them ourselves, but what about the libraries we install? We need to install type definitions for these. Fortunately a lot of very popular libraries we use like `axios` and `redux-thunk` come shipped with them as standard, but a lot of them need to installed manually.
+
+The project directory students start with installs type definitions for `react-router-dom`, though in order to do this project with TypeScript they will also require type definitions for both `react` and `react-dom`. These can be additionally installed with the following.
+
+```bash
+    npm install --save-dev @types/react @types/react-dom
+```
+
+I have also added type definitions for Styled Components to use in this project
+
+```bash
+    npm install --save-dev @types/styled-components
+```
+
 ## Function Components
 
 When typing a React function component, the recommendation is to avoid using the React.FC type. So code like this has not been used:
@@ -95,6 +111,61 @@ This will open a prompt window where the input field is prepopulated with the JS
 ## Events
 
 Typing events requires you to be specific about the type of event which took place, and also the element on which it happened. This is necessary as different events on different elements will produce an event object containing slightly different values.
+
+## Redux
+
+Redux Thunk has been used for the action creators. Fortunately it will be clear to see how you would define types in a Redux project without using it.
+
+There are two main considerations in typing this part of the project. The first one is how to type state, the second is how to type the action creators. Let's begin with state.
+
+Defining state is important as you will also use this definition wherever `useSelector` is used. What needs to be defined is a structure of what state will look like, which can be referred to as RootState. In this project it will be a single property, whose value is an array of users.
+
+In the FindPeople component, a type definition for a single user has already been created. This has been imported and extended to add the additional properties which will be stored in each one of these objects in state. Now we can specify what the expected stucture of our state will be.
+
+```js
+import { User } from '../FindPeople';
+
+interface UserType extends User {
+    accepted: boolean | null;
+    friendshipId?: string;
+}
+
+export interface RootState {
+    users: UserType[];
+}
+
+const initialState: RootState = {
+    users: [],
+};
+```
+
+Having defined RootState, wherever we pull data in from state using `useSeletctor` it can be imported and typed accordingly.
+
+```js
+const friends = useSelector((state: RootState) => state.users?.filter((user) => user.accepted === true));
+const pending = useSelector((state: RootState) => state.users?.filter((user) => user.accepted === false));
+```
+
+One of the big benefits of this is that it will give us autocomplete wherever we are using `useSelector`.
+
+Inside the reducer you will need to specify what the structure of an action looks like. I have left it open for the payload to have any value.
+
+```js
+interface Action {
+    type: string;
+    payload: any;
+}
+```
+
+Our actions creators also need to be typed, though Redux Thunk comes with type definitions by default. The correct type for an action creator is ThunkAction.
+
+```js
+ThunkAction<void, RootState, unknown, Action<string>>
+```
+
+This also accepts 4 generic types. The first and third of these can be omitted. However we need to pass it the second and fourth, the values of which will be our RootState type, and the redux Action type imported from Redux. Once each of these have been imported and passed correctly, an example of a completed action creator would be this:
+
+![Typed action creator](/md-images/typed-action-creator.png)
 
 ## CSS
 
