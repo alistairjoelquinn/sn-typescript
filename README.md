@@ -8,6 +8,22 @@ As far as possible I've tried to incorporate React-TypeScript best practises as 
 
 Where JSX is returned I have used the .tsx extension. VS Code offers more accurate TS support in a React component when the .tsx extension is used.
 
+## Type definitions
+
+Typescript requires type definitions. When working in our own files we can make them ourselves, but what about the libraries we install? We need to install type definitions for these. Fortunately a lot of very popular libraries we use like axios and redux-thunk comes shipped with them as standard, but a lot of them need to installed manually.
+
+The project directory students start with install type definitions for react-router-dom, though in order to do this project with Typescript they will also require type definitions for both react and react-dom. These can be installed with the following.
+
+```bash
+    npm install --save-dev @types/react @types/react-dom
+```
+
+I have also added type definitions for Styled Components
+
+```bash
+    npm install --save-dev @types/styled-components
+```
+
 ## Function Components
 
 When typing a React function component, the recommendation is to avoid using the React.FC type. So code like this has not been used:
