@@ -10,15 +10,15 @@ Where JSX is returned I have used the .tsx extension. VS Code offers more accura
 
 ## Type definitions
 
-Typescript requires type definitions. When working in our own files we can make them ourselves, but what about the libraries we install? We need to install type definitions for these. Fortunately a lot of very popular libraries we use like axios and redux-thunk comes shipped with them as standard, but a lot of them need to installed manually.
+Typescript requires type definitions. When working in our own files we can make them ourselves, but what about the libraries we install? We need to install type definitions for these. Fortunately a lot of very popular libraries we use like `axios` and `redux-thunk` come shipped with them as standard, but a lot of them need to installed manually.
 
-The project directory students start with install type definitions for react-router-dom, though in order to do this project with Typescript they will also require type definitions for both react and react-dom. These can be installed with the following.
+The project directory students start with installs type definitions for `react-router-dom`, though in order to do this project with TypeScript they will also require type definitions for both `react` and `react-dom`. These can be additionally installed with the following.
 
 ```bash
     npm install --save-dev @types/react @types/react-dom
 ```
 
-I have also added type definitions for Styled Components
+I have also added type definitions for Styled Components to use in this project
 
 ```bash
     npm install --save-dev @types/styled-components
@@ -111,6 +111,42 @@ This will open a prompt window where the input field is prepopulated with the JS
 ## Events
 
 Typing events requires you to be specific about the type of event which took place, and also the element on which it happened. This is necessary as different events on different elements will produce an event object containing slightly different values.
+
+## Redux
+
+I've used Redux-Thunk for part 9 of the social network. Fortunately it will be clear to see how you would create types in a Redux project without using Redux-thunk.
+
+There are two main considerations here. The first one is how to type state, the second is how to type the action creators. Let's begin with state.
+
+It's important to type state as you will also use that type definition in components which use `useSelector`. What we want to type is a structure of what our state will look like, which we can refer to as RootState. In this project it doesn't contain a lot, it's value will simple be a single property, whose value is an array of users.
+
+In the FindPeople component a type definition for a single other user has already been defined, so this has been imported and extended to add the additional properties which will be stored in each one of these objects. Now we can specify what the stucture of our state will be.
+
+```js
+import { User } from '../FindPeople';
+
+interface UserType extends User {
+    accepted: boolean | null;
+    friendshipId?: string;
+}
+
+export interface RootState {
+    users: UserType[];
+}
+
+const initialState: RootState = {
+    users: [],
+};
+```
+
+Having defined RootState here, it has been exported to use elsewhere. Wherever we pull data in from state, it can be typed accordingly.
+
+```js
+const friends = useSelector((state: RootState) => state.users?.filter((user) => user.accepted === true));
+const pending = useSelector((state: RootState) => state.users?.filter((user) => user.accepted === false));
+```
+
+This will give us autocomplete in the component where we are using `useSelector`.
 
 ## CSS
 
