@@ -114,13 +114,13 @@ Typing events requires you to be specific about the type of event which took pla
 
 ## Redux
 
-I've used Redux-Thunk for part 9 of the social network. Fortunately it will be clear to see how you would create types in a Redux project without using Redux-thunk.
+Redux Thunk has been used for the action creators. Fortunately it will be clear to see how you would define types in a Redux project without using.
 
-There are two main considerations here. The first one is how to type state, the second is how to type the action creators. Let's begin with state.
+There are two main considerations in typing this part of the project. The first one is how to type state, the second is how to type the action creators. Let's begin with state.
 
-It's important to type state as you will also use that type definition in components which use `useSelector`. What we want to type is a structure of what our state will look like, which we can refer to as RootState. In this project it doesn't contain a lot, it's value will simple be a single property, whose value is an array of users.
+Defining state is important as you will also use this definition wherever `useSelector` is used. What needs to be defined is a structure of what state will look like, which can be referred to as RootState. In this project it will simply be a single property, whose value is an array of users.
 
-In the FindPeople component a type definition for a single other user has already been defined, so this has been imported and extended to add the additional properties which will be stored in each one of these objects. Now we can specify what the stucture of our state will be.
+In the FindPeople component a type definition for a single other user has already been created, so this has been imported and extended to add the additional properties which will be stored in each one of these objects in state. Now we can specify what the expected stucture of our state will be.
 
 ```js
 import { User } from '../FindPeople';
@@ -139,14 +139,14 @@ const initialState: RootState = {
 };
 ```
 
-Having defined RootState here, it has been exported to use elsewhere. Wherever we pull data in from state, it can be typed accordingly.
+Having defined RootState, it has been exported to use elsewhere. Wherever we pull data in from state, it can be typed accordingly.
 
 ```js
 const friends = useSelector((state: RootState) => state.users?.filter((user) => user.accepted === true));
 const pending = useSelector((state: RootState) => state.users?.filter((user) => user.accepted === false));
 ```
 
-This will give us autocomplete in the component where we are using `useSelector`.
+One of the big benefits of this is that it will give us autocomplete wherever we are using `useSelector`.
 
 Inside the reducer you will need to specify what the structure of an action looks like. I have left it open for the payload to have any value.
 
