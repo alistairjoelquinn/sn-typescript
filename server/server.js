@@ -29,12 +29,8 @@ app.use('/auth', authRoutes);
 app.use('/user', userRoutes);
 app.use('/friendship', friendshipRoutes);
 
-app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, '..', 'client', 'index.html'));
-});
+app.get('*', (req, res) => res.sendFile(path.join(__dirname, '..', 'client', 'index.html')));
 
-app.listen(process.env.PORT || 3001, () => {
-    console.log("I'm listening.");
-});
+app.listen(process.env.PORT || 3001, () => console.log("I'm listening."));
 
 require('./socket')(io);
