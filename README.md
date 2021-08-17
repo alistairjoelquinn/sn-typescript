@@ -28,7 +28,17 @@ I have also added type definitions for Styled Components to use in this project
 
 When typing a React function component, the recommendation is to avoid using the React.FC type. So code like this has not been used:
 
-![React.FC](/md-images/react-fc.png)
+```ts
+const Profile: React.FC = () => {
+    return (
+        <div>
+            <h1>Profile</h1>
+        </div>
+    );
+};
+
+export default Profile;
+```
 
 The criticism of React.FC is that is assumes that all compoments receive a children prop, but that is not always the case. Instead the recommendation is that the component type be a function which returns a JSX element.
 
