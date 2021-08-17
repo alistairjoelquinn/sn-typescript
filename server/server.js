@@ -4,6 +4,11 @@ const app = express();
 const compression = require('compression');
 const path = require('path');
 const cookieSession = require('cookie-session');
+const server = require('http').Server(app);
+const io = require('socket.io')(server, {
+    allowRequest: (req, callback) => callback(null, req.headers.referer.startsWith('http://localhost:3000')),
+});
+
 const authRoutes = require('./routes/authRoutes');
 const userRoutes = require('./routes/userRoutes');
 const friendshipRoutes = require('./routes/friendshipRoutes');
@@ -31,3 +36,5 @@ app.get('*', (req, res) => {
 app.listen(process.env.PORT || 3001, () => {
     console.log("I'm listening.");
 });
+
+require('./socket')(io);
