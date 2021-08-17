@@ -115,6 +115,7 @@ export default class App extends Component<Props, State> {
                             <Link to="/find-people">Find People</Link>
                             <Link to="/friends">Friends</Link>
                             <Link to="/chat">Chat</Link>
+                            <a href="/auth/logout">Log out</a>
                             <ProfilePic first={first} last={last} image={image} toggleModal={this.toggleModal} />
                         </header>
                         <Route exact path="/">
