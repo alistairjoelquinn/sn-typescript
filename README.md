@@ -28,7 +28,17 @@ I have also added type definitions for Styled Components to use in this project
 
 When typing a React function component, the recommendation is to avoid using the React.FC type. So code like this has not been used:
 
-![React.FC](/md-images/react-fc.png)
+```ts
+const Profile: React.FC = () => {
+    return (
+        <div>
+            <h1>Profile</h1>
+        </div>
+    );
+};
+
+export default Profile;
+```
 
 The criticism of React.FC is that is assumes that all compoments receive a children prop, but that is not always the case. Instead the recommendation is that the component type be a function which returns a JSX element.
 
@@ -36,7 +46,7 @@ The criticism of React.FC is that is assumes that all compoments receive a child
 type FunctionComponent = () => JSX.Element;
 ```
 
-Fortinately TypeScript is clever enough to simply infer this from the code, and as a result none of the function components have been explicitly typed.
+Fortinately TypeScript is clever enough to simply infer this from the code, and as a result none of the function components have been explicitly typed. When hovering the mouse over the Profile constant, VS Code informs us that this is a function which returns a JSX element
 
 ![FC implicitly typed](/md-images/returned-jsx-element.png)
 
@@ -54,15 +64,24 @@ However, since this custom type has not been used anywhere, props have been type
 
 ### State Types
 
-TypeScript is very good at infering basic types where useState has been used
+TypeScript is very good at infering basic types where useState has been used. When hovering the mouse over the name variable here, VS Code shows is this value is a string.
 
 ![TS infering FC state type](/md-images/useState-string.png)
+
+Assigning it a value of any other type is not allowed.
 
 ![useState value is a string](/md-images/useState-number.png)
 
 However it struggles with anything more complex than the most basic types. An example of this would be the FindPeople component. A user search returns an array of objects, each object representing a different user. TypeScript is not capable of infering these types. In this scenario I have typed one user.
 
-![User interface](/md-images/user-interface.png)
+```ts
+export interface User {
+    first: string;
+    last: string;
+    id: number;
+    image: string;
+}
+```
 
 You can then inform TypeScript that the value of this item in state is an array of users like this:
 
@@ -96,7 +115,7 @@ Some of the data we use in this project can involve large objects. Creating an i
 
 In order to copy a complex object to the clip board as JSON I have been using the following code.
 
-```js
+```ts
 axios
     .get(`get-some-data`)
     .then(({ data }) => {
@@ -112,15 +131,27 @@ This will open a prompt window where the input field is prepopulated with the JS
 
 Typing events requires you to be specific about the type of event which took place, and also the element on which it happened. This is necessary as different events on different elements will produce an event object containing slightly different values.
 
+There are multiple locations where the application listens for a change event or a click event. Change events generally involve listening for a user input. The event object can be typed here using the `React.ChangeEvent` type. This accepts a generic type representing the element type. For an input field this would be an `HTMLInputElement`, so a typed event object would look like this.
+
+```ts
+handleChange(e: React.ChangeEvent<HTMLInputElement>) { }
+```
+
+A click event is considered to be of the `React.MouseEvent` type. If the element the user clicked on was a button, then a typed event object woudl look like this.
+
+```ts
+handleSubmit(event: React.MouseEvent<HTMLButtonElement>) { }
+```
+
 ## Redux
 
-Redux Thunk has been used for the action creators. There are two main considerations in typing this part of the project. The first one is how to type state, the second is how to type the action creators. Let's begin with state.
+Redux Thunk has been used for the action creators. There are two main considerations when typing this part of the project. The first one is how to type state, the second is how to type the action creators. Let's begin with state.
 
 Defining state is important as you will also use this definition wherever `useSelector` is used. What needs to be defined is a structure of what state will look like, which can be referred to as RootState. In this project it will be a single property, whose value is an array of users.
 
 In the FindPeople component, a type definition for a single user has already been created. This has been imported and extended to add the additional properties which will be stored in each one of these objects in state. Now we can specify what the expected stucture of our state will be.
 
-```js
+```ts
 import { User } from '../FindPeople';
 
 interface UserType extends User {
@@ -139,7 +170,7 @@ const initialState: RootState = {
 
 Having defined RootState, wherever we pull data in from state using `useSeletctor` it can be imported and typed accordingly.
 
-```js
+```ts
 const friends = useSelector((state: RootState) => state.users?.filter((user) => user.accepted === true));
 const pending = useSelector((state: RootState) => state.users?.filter((user) => user.accepted === false));
 ```
@@ -148,7 +179,7 @@ One of the big benefits of this is that it will give us autocomplete wherever we
 
 Inside the reducer you will need to specify what the structure of an action will look like. I have left it open for the payload to have any value.
 
-```js
+```ts
 interface Action {
     type: string;
     payload: any;
@@ -157,7 +188,7 @@ interface Action {
 
 Our actions creators also need to be typed, though Redux Thunk comes with type definitions by default. The correct type for an action creator is ThunkAction.
 
-```js
+```ts
 ThunkAction<void, RootState, unknown, Action<string>>
 ```
 
