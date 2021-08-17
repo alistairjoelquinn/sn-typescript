@@ -1,5 +1,8 @@
+const { getLastTenChatMessages, newChatMessage, getAuthorInfo } = require('./database/db');
+
 module.exports = (io) => {
     io.on('connection', (socket) => {
+        console.log('socket: ', socket);
         if (!socket.request.session.userId) return socket.disconnect(true);
         const { userId } = socket.request.session;
 

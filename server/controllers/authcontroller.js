@@ -56,7 +56,6 @@ module.exports.logUserIn = (req, res) => {
 };
 
 module.exports.logUserOut = (req, res) => {
-    console.log('loggy woggy');
     req.session = null;
     res.redirect('/');
 };

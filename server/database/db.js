@@ -138,3 +138,30 @@ module.exports.getRequestsFriends = (id) =>
             OR (accepted = true AND sender_id = $1 AND recipient_id = users.id)`,
         [id],
     );
+
+module.exports.getLastTenChatMessages = () =>
+    db.query(
+        `SELECT comment, comments.id AS id, users.id AS profileid, url, firstname, comments.created_at AS time FROM comments
+        LEFT JOIN users
+        ON user_id = users.id
+        ORDER BY comments.id DESC
+        LIMIT 10`,
+    );
+
+module.exports.newChatMessage = (id, comment) =>
+    db.query(
+        `INSERT INTO comments (user_id, comment)
+        VALUES ($1, $2)
+        RETURNING id, user_id, comment`,
+        [id, comment],
+    );
+
+module.exports.getAuthorInfo = () =>
+    db.query(
+        `SELECT comment, comments.id AS id, users.id AS profileid, image, first, comments.created_at AS time FROM comments
+        LEFT JOIN users
+        ON user_id = users.id
+        ORDER BY comments.id DESC
+        LIMIT 1`,
+        [],
+    );
