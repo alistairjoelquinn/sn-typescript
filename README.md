@@ -112,9 +112,21 @@ This will open a prompt window where the input field is prepopulated with the JS
 
 Typing events requires you to be specific about the type of event which took place, and also the element on which it happened. This is necessary as different events on different elements will produce an event object containing slightly different values.
 
+There are multiple locations where the application listens for a change event or a click event. Change events generally involve listening for a user input. The event object can be typed here using the `React.ChangeEvent` type. This accepts a generic type representing the element type. For an input field this would be an `HTMLInputElement`, so a typed event object would look like this.
+
+```js
+  handleChange(e: React.ChangeEvent<HTMLInputElement>) { }
+```
+
+A click event is considered to be of the `React.MouseEvent` type. If the element the user clicked on was a button, then a typed event object woudl look like this.
+
+```js
+handleSubmit(event: React.MouseEvent<HTMLButtonElement>) { }
+```
+
 ## Redux
 
-Redux Thunk has been used for the action creators. There are two main considerations in typing this part of the project. The first one is how to type state, the second is how to type the action creators. Let's begin with state.
+Redux Thunk has been used for the action creators. There are two main considerations when typing this part of the project. The first one is how to type state, the second is how to type the action creators. Let's begin with state.
 
 Defining state is important as you will also use this definition wherever `useSelector` is used. What needs to be defined is a structure of what state will look like, which can be referred to as RootState. In this project it will be a single property, whose value is an array of users.
 
