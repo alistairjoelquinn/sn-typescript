@@ -130,7 +130,7 @@ module.exports.removeFriendQuery = (id) =>
 
 module.exports.getRequestsFriends = (id) =>
     db.query(
-        `SELECT first, last, image, accepted, friendships.id as friendship_id, users.id AS user_id
+        `SELECT first, last, image, accepted, friendships.id as friendship_id, users.id AS id
             FROM friendships
             JOIN users
             ON (accepted = false AND recipient_id = $1 AND sender_id = users.id)
@@ -139,16 +139,14 @@ module.exports.getRequestsFriends = (id) =>
         [id],
     );
 
-module.exports.getLastTenChatMessages = () => {
-    console.log('GETTINGS SSS');
-    return db.query(
-        `SELECT comment, comments.id AS commentId, users.id AS userId, image, first, comments.created_at AS time FROM comments
+module.exports.getLastTenChatMessages = () =>
+    db.query(
+        `SELECT comment, comments.id AS comment_id, users.id AS id, image, first, comments.created_at AS time FROM comments
         LEFT JOIN users
         ON user_id = users.id
         ORDER BY comments.id DESC
         LIMIT 10`,
     );
-};
 
 module.exports.newChatMessage = (id, comment) =>
     db.query(
@@ -160,7 +158,7 @@ module.exports.newChatMessage = (id, comment) =>
 
 module.exports.getAuthorInfo = () =>
     db.query(
-        `SELECT comment, comments.id AS commentId, users.id AS userId, image, first, comments.created_at AS time FROM comments
+        `SELECT comment, comments.id AS comment_id, users.id AS id, image, first, comments.created_at AS time FROM comments
         LEFT JOIN users
         ON user_id = users.id
         ORDER BY comments.id DESC

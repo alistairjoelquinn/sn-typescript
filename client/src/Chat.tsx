@@ -5,7 +5,7 @@ import { socket } from './socket.io/socket';
 export interface ChatMessage {
     comment: string;
     commentId: string;
-    userId: string;
+    id: string;
     image: string;
     first: string;
     time: Date;
@@ -22,7 +22,7 @@ const Chat = () => {
         <ChatStyles>
             <h1>Chat Component</h1>
             {chatMessages.map((message) => (
-                <p>{message.comment}</p>
+                <p key={message.id}>{message.comment}</p>
             ))}
         </ChatStyles>
     );

@@ -1,3 +1,6 @@
+const camelCase = require('lodash/camelCase');
+const mapKeys = require('lodash/mapKeys');
+
 const { getLastTenChatMessages, newChatMessage, getAuthorInfo } = require('./database/db');
 
 module.exports = (io) => {
@@ -6,7 +9,12 @@ module.exports = (io) => {
         const { userId } = socket.request.session;
 
         getLastTenChatMessages()
-            .then(({ rows }) => io.sockets.emit('chatMessages', rows))
+            .then(({ rows }) => {
+                io.sockets.emit(
+                    'chatMessages',
+                    rows.map((row) => mapKeys(row, (_, key) => camelCase(key))),
+                );
+            })
             .catch(console.log('struggled getting those messages'));
 
         socket.on('chatMessage', (msg) => {
@@ -15,7 +23,10 @@ module.exports = (io) => {
                     getAuthorInfo()
                         .then(({ rows }) => {
                             console.log('rows new chat message: ', rows);
-                            io.sockets.emit('chatMessage', rows[0]);
+                            io.sockets.emit(
+                                'chatMessage',
+                                rows.map((row) => mapKeys(row, (_, key) => camelCase(key)))[0],
+                            );
                         })
                         .catch(console.log);
                 })
