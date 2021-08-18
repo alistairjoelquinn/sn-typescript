@@ -238,8 +238,6 @@ export const useAppDispatch = (): ReduxDispatch => useDispatch<ReduxDispatch>();
 export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
 ```
 
-![Typed action creator](/md-images/typed-action-creator.png)
-
 ## CSS
 
 The styling done is relatively basic and not that different to what is in the course material. I've used Styled Components because:
