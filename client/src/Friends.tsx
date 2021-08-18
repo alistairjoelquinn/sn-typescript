@@ -1,8 +1,7 @@
 import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
+import { useAppSelector, useAppDispatch } from './redux/hooks';
 import { getFriendsList, acceptPendingRequest, removeFriend } from './redux/actions';
-import { RootState } from './redux/reducer';
 import SingleUser from './SingleUser';
 import ButtonStyles from './styles/ButtonStyles';
 
@@ -72,9 +71,9 @@ const FriendsGridStyles = styled.div`
 `;
 
 const Friends = () => {
-    const dispatch = useDispatch();
-    const friends = useSelector((state: RootState) => state.users?.filter((user) => user.accepted === true));
-    const pending = useSelector((state: RootState) => state.users?.filter((user) => user.accepted === false));
+    const dispatch = useAppDispatch();
+    const friends = useAppSelector((state) => state.users?.filter((user) => user.accepted === true));
+    const pending = useAppSelector((state) => state.users?.filter((user) => user.accepted === false));
 
     useEffect(() => {
         dispatch(getFriendsList());

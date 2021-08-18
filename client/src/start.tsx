@@ -3,14 +3,17 @@ import ReactDOM from 'react-dom';
 import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import ReduxThunk from 'redux-thunk';
-
 import { composeWithDevTools } from 'redux-devtools-extension';
+
 import { reducer } from './redux/reducer';
 import App from './App';
 import Welcome from './Welcome';
 import { init } from './socket.io/socket';
 
 const store = createStore(reducer, composeWithDevTools(applyMiddleware(ReduxThunk)));
+
+export type RootState = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch;
 
 axios.get('/auth/user/id.json').then(({ data }) => {
     if (!data.userId) {
@@ -22,7 +25,6 @@ axios.get('/auth/user/id.json').then(({ data }) => {
                 <App />
             </Provider>
         );
-
         ReactDOM.render(elem, document.querySelector('main'));
     }
 });

@@ -1,5 +1,5 @@
-import { useEffect, useRef, useState } from 'react';
-import { useSelector } from 'react-redux';
+import styled from 'styled-components';
+// import { useAppSelector } from './redux/hooks';
 import { socket } from './socket.io/socket';
 
 export interface ChatMessage {
@@ -11,12 +11,18 @@ export interface ChatMessage {
     time: Date;
 }
 
+const ChatStyles = styled.div`
+    color: antiquewhite;
+`;
+
 const Chat = () => {
-    console.log('Chat');
+    console.log('socket in chat: ', socket);
+    socket.emit('helloServer');
+
     return (
-        <div>
+        <ChatStyles>
             <h1>Chat Component</h1>
-        </div>
+        </ChatStyles>
     );
 };
 

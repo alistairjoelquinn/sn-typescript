@@ -1,3 +1,4 @@
+import { ChatMessage } from '../Chat';
 import { User } from '../FindPeople';
 
 interface Action {
@@ -10,17 +11,17 @@ export interface UserType extends User {
     friendshipId?: string;
 }
 
-export interface RootState {
+export interface IState {
     users: UserType[];
-    comments: any[];
+    comments: ChatMessage[];
 }
 
-const initialState: RootState = {
+const initialState: IState = {
     users: [],
     comments: [],
 };
 
-export function reducer(state = initialState, action: Action) {
+export function reducer(state = initialState, action: Action): IState {
     if (action.type === 'friends/get-friends-list') {
         return {
             ...state,

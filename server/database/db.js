@@ -139,14 +139,16 @@ module.exports.getRequestsFriends = (id) =>
         [id],
     );
 
-module.exports.getLastTenChatMessages = () =>
-    db.query(
+module.exports.getLastTenChatMessages = () => {
+    console.log('GETTINGS SSS');
+    return db.query(
         `SELECT comment, comments.id AS commentId, users.id AS userId, image, first, comments.created_at AS time FROM comments
         LEFT JOIN users
         ON user_id = users.id
         ORDER BY comments.id DESC
         LIMIT 10`,
     );
+};
 
 module.exports.newChatMessage = (id, comment) =>
     db.query(

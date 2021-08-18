@@ -21,6 +21,10 @@ const cookieSessionMiddleware = cookieSession({
 
 app.use(compression());
 app.use(cookieSessionMiddleware);
+io.use((socket, next) => {
+    console.log('socket in middleware: ', socket);
+    cookieSessionMiddleware(socket.request, socket.request.res, next);
+});
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(express.static(path.join(__dirname, '..', 'client', 'public')));
@@ -31,6 +35,6 @@ app.use('/friendship', friendshipRoutes);
 
 app.get('*', (req, res) => res.sendFile(path.join(__dirname, '..', 'client', 'index.html')));
 
-app.listen(process.env.PORT || 3001, () => console.log("I'm listening."));
+server.listen(process.env.PORT || 3001, () => console.log("I'm listening."));
 
 require('./socket')(io);
