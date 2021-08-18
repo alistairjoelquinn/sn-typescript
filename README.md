@@ -10,7 +10,7 @@ Where JSX is returned I have used the .tsx extension. VS Code offers more accura
 
 ## Type definitions
 
-Typescript requires type definitions. When working in our own files we can make them ourselves, but what about the libraries we install? We need to install type definitions for these. Fortunately a lot of very popular libraries we use like `axios` and `redux-thunk` come shipped with them as standard, but a lot of them need to installed manually.
+Typescript requires type definitions. When working in our own files we can make them ourselves, but what about the libraries we install? We need to install type definitions for these. Fortunately a lot of very popular libraries we use like `axios`, `redux` and `socket.io` come with them by default, but a lot of them need to installed manually.
 
 The project directory students start with installs type definitions for `react-router-dom`, though in order to do this project with TypeScript they will also require type definitions for both `react` and `react-dom`. These can be additionally installed with the following.
 
@@ -147,37 +147,31 @@ handleSubmit(event: React.MouseEvent<HTMLButtonElement>) { }
 
 Redux Thunk has been used for the action creators. There are two main considerations when typing this part of the project. The first one is how to type state, the second is how to type the action creators. Let's begin with state.
 
-Defining state is important as you will also use this definition wherever `useSelector` is used. What needs to be defined is a structure of what state will look like, which can be referred to as RootState. In this project it will be a single property, whose value is an array of users.
+Defining state is important as you will use this type definition in multiple places. What needs to be defined is a structure of what state will look like, which can be referred to as IState, or initial state. In this project it will be a single object containing an array of users, and an array of chat comments.
 
-In the FindPeople component, a type definition for a single user has already been created. This has been imported and extended to add the additional properties which will be stored in each one of these objects in state. Now we can specify what the expected stucture of our state will be.
+In the FindPeople and Chat components, we have pre-existing type definitions for a single user and a single chat object. These have been imported so we can specify what the expected stucture of our state will be like this.
 
 ```ts
 import { User } from '../FindPeople';
+import { ChatMessage } from '../Chat';
 
-interface UserType extends User {
+export interface UserType extends User {
     accepted: boolean | null;
     friendshipId?: string;
 }
 
-export interface RootState {
+export interface IState {
     users: UserType[];
+    comments: ChatMessage[];
 }
 
-const initialState: RootState = {
+const initialState: IState = {
     users: [],
+    comments: [],
 };
 ```
 
-Having defined RootState, wherever we pull data in from state using `useSeletctor` it can be imported and typed accordingly.
-
-```ts
-const friends = useSelector((state: RootState) => state.users?.filter((user) => user.accepted === true));
-const pending = useSelector((state: RootState) => state.users?.filter((user) => user.accepted === false));
-```
-
-One of the big benefits of this is that it will give us autocomplete wherever we are using `useSelector`.
-
-Inside the reducer you will need to specify what the structure of an action will look like. I have left it open for the payload to have any value.
+Our reducer action object has been typed to allow anything to be recieved as the payload, though if necessary, a union type could be used to limit the possible values we can accept
 
 ```ts
 interface Action {
@@ -186,13 +180,63 @@ interface Action {
 }
 ```
 
-Our actions creators also need to be typed, though Redux Thunk comes with type definitions by default. The correct type for an action creator is ThunkAction.
+Our action creators have been typed using ThunkAction, imported from Redux Thunk. This accepts 4 generic types. The first and third of these are not needed, though we have passed RootState and AnyAction as the second and fourth. RootState can be exported from start.tsx like this:
 
 ```ts
-ThunkAction<void, RootState, unknown, Action<string>>
+const store = createStore(reducer, composeWithDevTools(applyMiddleware(ReduxThunk)));
+
+export type RootState = ReturnType<typeof store.getState>;
 ```
 
-This also accepts 4 generic types. The first and third of these can be omitted. However we need to pass it the second and fourth, the values of which will be our RootState type, and the redux Action type imported from Redux. Once each of these have been imported and passed, an example of a completed action creator would be this:
+Once imported we can create a custom type for typing each of our action creators like this:
+
+```ts
+import { ThunkAction } from 'redux-thunk';
+import { RootState } from '../start';
+import { AnyAction } from 'redux';
+
+type AppThunk = ThunkAction<Promise<any>, RootState, unknown, AnyAction>;
+```
+
+A completed action creator would look like this:
+
+```ts
+import axios from 'axios';
+import { ThunkAction } from 'redux-thunk';
+import { AnyAction } from 'redux';
+import { RootState } from '../start';
+import { UserType } from './reducer';
+
+export type AppThunk = ThunkAction<Promise<any>, RootState, unknown, AnyAction>;
+
+export const getFriendsList = (): AppThunk => async (dispatch) => {
+    const { data } = (await axios
+        .get('/friendship/friends-list')
+        .catch((err) => console.log('err getting friends list: ', err))) as { data: UserType[] };
+    dispatch({
+        type: 'friends/get-friends-list',
+        payload: {
+            users: data,
+        },
+    });
+};
+```
+
+Our final consideration in typing Redux, is typing useSelector and useDispatch. In order that these don't need to be typed every time they are used we can created custom hooks, and instead import these for using instead. These have been created in a file called hook.ts which lives in the redux directory.
+
+```ts
+import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
+import { Action } from 'redux';
+import { ThunkDispatch } from 'redux-thunk';
+
+import type { RootState } from '../start';
+import { IState } from './reducer';
+
+export type ReduxDispatch = ThunkDispatch<IState, any, Action>;
+
+export const useAppDispatch = (): ReduxDispatch => useDispatch<ReduxDispatch>();
+export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
+```
 
 ![Typed action creator](/md-images/typed-action-creator.png)
 

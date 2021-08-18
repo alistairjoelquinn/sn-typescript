@@ -45,8 +45,8 @@ const FindPeopleStyles = styled.div`
                 border: 1px solid white;
                 display: flex;
                 justify-content: center;
-                width: 20vw;
-                height: 20vw;
+                width: 15vw;
+                height: 15vw;
                 overflow: hidden;
                 border-radius: 50%;
                 &:hover {
@@ -54,8 +54,8 @@ const FindPeopleStyles = styled.div`
                 }
                 img {
                     object-fit: cover;
-                    width: 20vw;
-                    height: 20vw;
+                    width: 15vw;
+                    height: 15vw;
                 }
             }
         }
