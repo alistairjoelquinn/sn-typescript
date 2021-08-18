@@ -22,7 +22,7 @@ const Chat = () => {
         <ChatStyles>
             <h1>Chat Component</h1>
             {chatMessages.map((message) => (
-                <p key={message.id}>{message.comment}</p>
+                <p key={message.commentId}>{message.comment}</p>
             ))}
         </ChatStyles>
     );
