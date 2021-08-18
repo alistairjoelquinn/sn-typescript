@@ -12,7 +12,20 @@ export interface ChatMessage {
 }
 
 const ChatStyles = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 80vh;
+    padding: 2rem 20vw;
+    gap: 2rem;
     color: antiquewhite;
+    .chat-container {
+        flex-grow: 3;
+    }
+    .input-container {
+        flex-grow: 1;
+        width: 100%;
+    }
 `;
 
 const Chat = () => {
@@ -20,10 +33,12 @@ const Chat = () => {
 
     return (
         <ChatStyles>
-            <h1>Chat Component</h1>
-            {chatMessages.map((message) => (
-                <p key={message.commentId}>{message.comment}</p>
-            ))}
+            <div className="chat-container">
+                {chatMessages.map((message) => (
+                    <p key={message.commentId}>{message.comment}</p>
+                ))}
+            </div>
+            <textarea className="input-container" placeholder="Enter your message here" />
         </ChatStyles>
     );
 };
