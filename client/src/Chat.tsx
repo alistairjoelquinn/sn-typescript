@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { formatRelative } from 'date-fns';
+import { Link } from 'react-router-dom';
 
 import { useAppSelector } from './redux/hooks';
 import { socket } from './socket.io/socket';
@@ -53,6 +54,10 @@ const ChatStyles = styled.div`
     }
 `;
 
+const imageDefault = (e: React.SyntheticEvent<HTMLImageElement>) => {
+    e.currentTarget.setAttribute('src', 'animal.jpeg');
+};
+
 const Chat = () => {
     const chatMessages = useAppSelector((state) => state.comments);
 
@@ -61,7 +66,9 @@ const Chat = () => {
             <div className="chat-container">
                 {chatMessages.map((message) => (
                     <div className="single-message" key={message.commentId}>
-                        <img src={message.image} alt={message.first} />
+                        <Link to={`/user/${message.id}`}>
+                            <img src={message.image} alt={message.first} onError={imageDefault} />
+                        </Link>
                         <div>
                             <p>{message.comment}</p>
                             <p>{formatRelative(new Date(message.time), Date.now())}</p>
