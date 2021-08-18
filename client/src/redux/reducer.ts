@@ -63,7 +63,6 @@ export function reducer(state = initialState, action: Action): IState {
         };
     }
     if (action.type === 'chat/chat_message') {
-        console.log('action', action);
         return {
             ...state,
             comments: [action.payload, ...state.comments],

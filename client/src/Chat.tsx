@@ -30,21 +30,6 @@ const ChatStyles = styled.div`
         overflow-y: scroll;
         display: flex;
         flex-direction: column-reverse;
-        .single-message {
-            display: flex;
-            align-items: center;
-            img {
-                height: clamp(30px, 5vw, 80px);
-                width: clamp(30px, 5vw, 80px);
-                object-fit: cover;
-                padding: 1rem;
-                border-radius: 50%;
-            }
-            p:nth-child(2) {
-                color: #9e9797;
-                font-size: 1rem;
-            }
-        }
     }
     .input-container {
         flex-grow: 1;
@@ -54,11 +39,35 @@ const ChatStyles = styled.div`
     }
 `;
 
+const SingleMessageStyles = styled.div`
+    display: flex;
+    align-items: center;
+    flex-direction: ${(p: { otherUserId: string; currentUser: string }) =>
+        p.otherUserId === p.currentUser ? 'row-reverse' : 'row'};
+    .text-container {
+        display: flex;
+        flex-direction: column;
+        align-items: ${(p: { otherUserId: string; currentUser: string }) =>
+            p.otherUserId === p.currentUser ? 'flex-end' : 'flex-start'};
+    }
+    img {
+        height: clamp(30px, 5vw, 80px);
+        width: clamp(30px, 5vw, 80px);
+        object-fit: cover;
+        padding: 1rem;
+        border-radius: 50%;
+    }
+    p:nth-child(2) {
+        color: #9e9797;
+        font-size: 1rem;
+    }
+`;
+
 const imageDefault = (e: React.SyntheticEvent<HTMLImageElement>) => {
     e.currentTarget.setAttribute('src', 'animal.jpeg');
 };
 
-const Chat = () => {
+const Chat = ({ currentUser }: { currentUser: string }) => {
     const chatMessages = useAppSelector((state) => state.comments);
 
     const keyCheck = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
@@ -73,15 +82,15 @@ const Chat = () => {
         <ChatStyles>
             <div className="chat-container">
                 {chatMessages.map((message) => (
-                    <div className="single-message" key={message.commentId}>
+                    <SingleMessageStyles otherUserId={message.id} currentUser={currentUser} key={message.commentId}>
                         <Link to={`/user/${message.id}`}>
                             <img src={message.image} alt={message.first} onError={imageDefault} />
                         </Link>
-                        <div>
+                        <div className="text-container">
                             <p>{message.comment}</p>
                             <p>{formatRelative(new Date(message.time), Date.now())}</p>
                         </div>
-                    </div>
+                    </SingleMessageStyles>
                 ))}
             </div>
             <textarea className="input-container" placeholder="Enter your message here" onKeyDown={keyCheck} />

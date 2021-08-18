@@ -23,7 +23,6 @@ module.exports = (io) => {
                     getAuthorInfo()
                         .then(({ rows }) => {
                             const returnValue = rows.map((row) => mapKeys(row, (_, key) => camelCase(key)))[0];
-                            console.log('returnValue: ', returnValue);
                             io.sockets.emit('chatMessage', returnValue);
                         })
                         .catch(console.log);
