@@ -36,6 +36,7 @@
         "crypto-random-string": "^3.0.1",
         "css-loader": "^5.0.1",
         "csurf": "^1.9.0",
+        "date-fns": "^2.23.0",
         "eslint": "^7.16.0",
         "eslint-config-airbnb": "^18.2.1",
         "eslint-config-prettier": "^8.3.0",

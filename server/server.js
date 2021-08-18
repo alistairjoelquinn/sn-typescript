@@ -22,7 +22,6 @@ const cookieSessionMiddleware = cookieSession({
 app.use(compression());
 app.use(cookieSessionMiddleware);
 io.use((socket, next) => {
-    console.log('socket in middleware: ', socket);
     cookieSessionMiddleware(socket.request, socket.request.res, next);
 });
 app.use(express.urlencoded({ extended: false }));

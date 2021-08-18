@@ -88,7 +88,7 @@ const FindPeople = () => {
             {searchTerm && !users.length && <p>No results...</p>}
             <div className="find-people-grid">
                 {users.map((user) => (
-                    <SingleUser user={user} />
+                    <SingleUser user={user} key={user.id} />
                 ))}
             </div>
         </FindPeopleStyles>
