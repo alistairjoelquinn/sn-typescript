@@ -1,6 +1,7 @@
 DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS password_reset_codes;
 DROP TABLE IF EXISTS friendships;
+DROP TABLE IF EXISTS comments;
 
 CREATE TABLE users (
     id SERIAL PRIMARY KEY,
@@ -25,4 +26,11 @@ CREATE TABLE friendships (
    sender_id INT REFERENCES users(id) NOT NULL,
    recipient_id INT REFERENCES users(id) NOT NULL,
    accepted BOOLEAN DEFAULT false
+);
+
+CREATE TABLE comments (
+    id SERIAL PRIMARY KEY,
+    user_id INT REFERENCES users(id) NOT NULL,
+    comment TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );

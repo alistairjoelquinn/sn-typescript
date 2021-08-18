@@ -1,11 +1,13 @@
 import axios from 'axios';
-import { Action } from 'redux';
+import { AnyAction } from 'redux';
 import { ThunkAction } from 'redux-thunk';
-import { RootState, UserType } from './reducer';
+import { ChatMessage } from '../Chat';
+import { RootState } from '../start';
+import { UserType } from './reducer';
 
-type ActionCreator = ThunkAction<void, RootState, unknown, Action<string>>;
+export type AppThunk = ThunkAction<Promise<any>, RootState, unknown, AnyAction>;
 
-export const getFriendsList = (): ActionCreator => async (dispatch) => {
+export const getFriendsList = (): AppThunk => async (dispatch) => {
     const { data } = (await axios
         .get('/friendship/friends-list')
         .catch((err) => console.log('err getting friends list: ', err))) as { data: UserType[] };
@@ -18,7 +20,7 @@ export const getFriendsList = (): ActionCreator => async (dispatch) => {
 };
 
 export const acceptPendingRequest =
-    (id: string): ActionCreator =>
+    (id: string): AppThunk =>
     async (dispatch) => {
         await axios.post(`/friendship/accept-friend/${id}`).catch((err) => console.log('err accepting request: ', err));
         dispatch({
@@ -30,7 +32,7 @@ export const acceptPendingRequest =
     };
 
 export const removeFriend =
-    (id: string): ActionCreator =>
+    (id: string): AppThunk =>
     async (dispatch) => {
         await axios
             .post(`/friendship/end-friendship/${id}`)
@@ -42,3 +44,19 @@ export const removeFriend =
             },
         });
     };
+
+export const getMessages =
+    (mgs: ChatMessage[]): AppThunk =>
+    async (dispatch) =>
+        dispatch({
+            type: 'chat/get_messages',
+            payload: mgs,
+        });
+
+export const chatMessage =
+    (msg: ChatMessage): AppThunk =>
+    async (dispatch) =>
+        dispatch({
+            type: 'chat/chat_message',
+            payload: msg,
+        });

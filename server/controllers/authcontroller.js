@@ -55,6 +55,11 @@ module.exports.logUserIn = (req, res) => {
         .catch(() => res.redirect(500, '/login'));
 };
 
+module.exports.logUserOut = (req, res) => {
+    req.session = null;
+    res.redirect('/');
+};
+
 module.exports.checkEmailForReset = (req, res) => {
     const { email } = req.body;
     verifyUserByEmail(email)

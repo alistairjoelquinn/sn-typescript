@@ -54,7 +54,7 @@ It is interesting to note that should you choose to use the React.FC custom type
 
 ### Prop Types
 
-If we had been using the React.FC custom component type, a generic type can be accepted for typing any component props received.
+Had we been using the React.FC custom component type, a generic type can be accepted for typing any component props received.
 
 ![Prop types with React.FC](/md-images/react-fc-prop-types.png)
 
@@ -97,7 +97,7 @@ Where an item in state is initialised as null, a union type can be used to accom
 
 ## Class Components
 
-In typed React, class components accept 2 generic types. One for typing the component props, and another for typing state. These values can be passed like this.
+Class components accept 2 generic types. One for typing the component props, and another for typing state. These values can be passed like this.
 
 ![Typing a class component](/md-images/class-component-types.png)
 
@@ -134,10 +134,10 @@ Typing events requires you to be specific about the type of event which took pla
 There are multiple locations where the application listens for a change event or a click event. Change events generally involve listening for a user input. The event object can be typed here using the `React.ChangeEvent` type. This accepts a generic type representing the element type. For an input field this would be an `HTMLInputElement`, so a typed event object would look like this.
 
 ```ts
-handleChange(e: React.ChangeEvent<HTMLInputElement>) { }
+handleChange(event: React.ChangeEvent<HTMLInputElement>) { }
 ```
 
-A click event is considered to be of the `React.MouseEvent` type. If the element the user clicked on was a button, then a typed event object woudl look like this.
+A click event is considered to be of the `React.MouseEvent` type. If the element the user clicked on was a button, then a typed event object would look like this.
 
 ```ts
 handleSubmit(event: React.MouseEvent<HTMLButtonElement>) { }

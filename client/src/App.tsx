@@ -11,6 +11,7 @@ import Profile from './Profile';
 import FindPeople from './FindPeople';
 import OtherProfile from './OtherProfile';
 import Friends from './Friends';
+import Chat from './Chat';
 
 const AppStyles = styled.div`
     height: 100vh;
@@ -113,6 +114,8 @@ export default class App extends Component<Props, State> {
                             <Link to="/">Home</Link>
                             <Link to="/find-people">Find People</Link>
                             <Link to="/friends">Friends</Link>
+                            <Link to="/chat">Chat</Link>
+                            <a href="/auth/logout">Log out</a>
                             <ProfilePic first={first} last={last} image={image} toggleModal={this.toggleModal} />
                         </header>
                         <Route exact path="/">
@@ -133,6 +136,9 @@ export default class App extends Component<Props, State> {
                         </Route>
                         <Route path="/user/:id">
                             <OtherProfile />
+                        </Route>
+                        <Route path="/chat">
+                            <Chat />
                         </Route>
                         {uploaderIsVisible && (
                             <>
