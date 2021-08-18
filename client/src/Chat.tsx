@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-// import { useAppSelector } from './redux/hooks';
+import { useAppSelector } from './redux/hooks';
 import { socket } from './socket.io/socket';
 
 export interface ChatMessage {
@@ -16,12 +16,14 @@ const ChatStyles = styled.div`
 `;
 
 const Chat = () => {
-    console.log('socket in chat: ', socket);
-    socket.emit('helloServer');
+    const chatMessages = useAppSelector((state) => state.comments);
 
     return (
         <ChatStyles>
             <h1>Chat Component</h1>
+            {chatMessages.map((message) => (
+                <p>{message.comment}</p>
+            ))}
         </ChatStyles>
     );
 };

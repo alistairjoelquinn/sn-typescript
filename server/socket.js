@@ -10,12 +10,16 @@ module.exports = (io) => {
             .catch(console.log('struggled getting those messages'));
 
         socket.on('chatMessage', (msg) => {
-            newChatMessage(userId, msg).then(() => {
-                getAuthorInfo().then(({ rows }) => {
-                    console.log('rows new chat message: ', rows);
-                    io.sockets.emit('chatMessage', rows[0]);
-                });
-            });
+            newChatMessage(userId, msg)
+                .then(() => {
+                    getAuthorInfo()
+                        .then(({ rows }) => {
+                            console.log('rows new chat message: ', rows);
+                            io.sockets.emit('chatMessage', rows[0]);
+                        })
+                        .catch(console.log);
+                })
+                .catch(console.log);
         });
     });
 };
