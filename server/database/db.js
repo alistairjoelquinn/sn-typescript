@@ -141,7 +141,7 @@ module.exports.getRequestsFriends = (id) =>
 
 module.exports.getLastTenChatMessages = () =>
     db.query(
-        `SELECT comment, comments.id AS id, users.id AS profileid, url, firstname, comments.created_at AS time FROM comments
+        `SELECT comment, comments.id AS commentId, users.id AS userId, image, first, comments.created_at AS time FROM comments
         LEFT JOIN users
         ON user_id = users.id
         ORDER BY comments.id DESC
@@ -158,7 +158,7 @@ module.exports.newChatMessage = (id, comment) =>
 
 module.exports.getAuthorInfo = () =>
     db.query(
-        `SELECT comment, comments.id AS id, users.id AS profileid, image, first, comments.created_at AS time FROM comments
+        `SELECT comment, comments.id AS commentId, users.id AS userId, image, first, comments.created_at AS time FROM comments
         LEFT JOIN users
         ON user_id = users.id
         ORDER BY comments.id DESC

@@ -12,10 +12,12 @@ export interface UserType extends User {
 
 export interface RootState {
     users: UserType[];
+    comments: any[];
 }
 
 const initialState: RootState = {
     users: [],
+    comments: [],
 };
 
 export function reducer(state = initialState, action: Action) {
@@ -51,6 +53,12 @@ export function reducer(state = initialState, action: Action) {
                 }
                 return user;
             }),
+        };
+    }
+    if (action.type === 'chat/get_messages') {
+        return {
+            ...state,
+            comments: action.payload,
         };
     }
     return state;

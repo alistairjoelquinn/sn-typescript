@@ -13,7 +13,8 @@ module.exports = (io) => {
         socket.on('chatMessage', (msg) => {
             newChatMessage(userId, msg).then(() => {
                 getAuthorInfo().then(({ rows }) => {
-                    io.sockets.emit('chatMessage', [rows, userId]);
+                    console.log('rows new chat message: ', rows);
+                    io.sockets.emit('chatMessage', rows[0]);
                 });
             });
         });
