@@ -138,7 +138,7 @@ export default class App extends Component<Props, State> {
                             <OtherProfile />
                         </Route>
                         <Route path="/chat">
-                            <Chat />
+                            <Chat currentUser={this.state.userId} />
                         </Route>
                         {uploaderIsVisible && (
                             <>

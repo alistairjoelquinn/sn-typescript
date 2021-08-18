@@ -22,11 +22,8 @@ module.exports = (io) => {
                 .then(() => {
                     getAuthorInfo()
                         .then(({ rows }) => {
-                            console.log('rows new chat message: ', rows);
-                            io.sockets.emit(
-                                'chatMessage',
-                                rows.map((row) => mapKeys(row, (_, key) => camelCase(key)))[0],
-                            );
+                            const returnValue = rows.map((row) => mapKeys(row, (_, key) => camelCase(key)))[0];
+                            io.sockets.emit('chatMessage', returnValue);
                         })
                         .catch(console.log);
                 })
