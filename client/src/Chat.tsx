@@ -61,6 +61,14 @@ const imageDefault = (e: React.SyntheticEvent<HTMLImageElement>) => {
 const Chat = () => {
     const chatMessages = useAppSelector((state) => state.comments);
 
+    const keyCheck = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            socket.emit('chatMessage', e.currentTarget.value);
+            e.currentTarget.value = '';
+        }
+    };
+
     return (
         <ChatStyles>
             <div className="chat-container">
@@ -76,7 +84,7 @@ const Chat = () => {
                     </div>
                 ))}
             </div>
-            <textarea className="input-container" placeholder="Enter your message here" />
+            <textarea className="input-container" placeholder="Enter your message here" onKeyDown={keyCheck} />
         </ChatStyles>
     );
 };
