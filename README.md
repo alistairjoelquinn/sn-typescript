@@ -40,7 +40,7 @@ const Profile: React.FC = () => {
 export default Profile;
 ```
 
-The criticism of React.FC is that is assumes that all compoments receive a children prop, but that is not always the case. Instead the recommendation is that the component type be a function which returns a JSX element.
+The criticism of React.FC is that is assumes that all components receive a children prop, but that is not always the case. Instead the recommendation is that the component type be a function which returns a JSX element.
 
 ```ts
 type FunctionComponent = () => JSX.Element;
@@ -225,7 +225,7 @@ import { AnyAction } from 'redux';
 type AppThunk = ThunkAction<Promise<any>, RootState, unknown, AnyAction>;
 ```
 
-Type assertion has been used to specify that the return type is an object containing a data property. A complete action creator would look like this.
+In the following example type assertion has been used to specify the return type on the http request. Here it will be an object containing a data property.
 
 ```ts
 import axios from 'axios';
