@@ -15,7 +15,7 @@ module.exports = (io) => {
                     rows.map((row) => mapKeys(row, (_, key) => camelCase(key))),
                 );
             })
-            .catch(console.log('struggled getting those messages'));
+            .catch(console.log);
 
         socket.on('chatMessage', (msg) => {
             newChatMessage(userId, msg)
