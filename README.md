@@ -171,7 +171,7 @@ const initialState: IState = {
 };
 ```
 
-Our reducer action object has been typed to allow anything to be recieved as the payload. If necessary, a union type could also be used to limit the possible values which are accepted.
+Our reducer action object has been typed to allow anything to be recieved as the payload. If necessary a union type, or a custom Payload type, could be used to limit the possible values which are accepted.
 
 ```ts
 interface Action {
@@ -186,7 +186,7 @@ Our action creators have been typed using `ThunkAction`, imported from Redux Thu
 ThunkAction<Promise<any>, RootState, unknown, AnyAction>;
 ```
 
-This accepts 4 generic types. The first is the action creator return type, which is a promise. The second is the return type of the getState method. This method allows you to reach in to state from within the action creator and always returns state, so it's return value will always be state, or RootState as we will refer to it.
+This accepts 4 generic types. The first is the thunk action return type, which is a promise. The second is the return type of the getState method. This method allows you to reach in to state from within the action creator. It always returns `state` so it's return type is `state`, or `RootState` as we will refer to it.
 
 ```ts
 const store = createStore(reducer, composeWithDevTools(applyMiddleware(ReduxThunk)));
@@ -211,7 +211,7 @@ export const fetchProducts = () => {
 };
 ```
 
-Our third generic type passed represents the type of any extra arguments passed to the thunk action, which at this point is unknown. Then finally we have to define the action type which needs to extend from Action, as defined by Redux, so this has been set to AnyAction.
+Our third generic type passed represents the type of any extra arguments passed to the thunk action, which at this point are unknown. Then finally we have to define the `action` type which needs to extend from `Action`, as defined by Redux, so this has been set to `AnyAction`.
 
 Once imported we can create a custom type for typing each of our action creators like this:
 
