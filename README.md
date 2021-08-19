@@ -64,7 +64,7 @@ However, since this custom type has not been used anywhere, props have been type
 
 ### State Types
 
-TypeScript is very good at infering basic types where useState has been used. When hovering the mouse over the name variable here, VS Code shows is this value is a string.
+TypeScript is very good at infering basic types where useState has been used. When hovering the mouse over the name variable here, VS Code shows us this value is a string.
 
 ![TS infering FC state type](/md-images/useState-string.png)
 
@@ -87,7 +87,7 @@ You can then inform TypeScript that the value of this item in state is an array 
 
 ![Array of users](/md-images/typing-users-array.png)
 
-Rather than differentiate between state types which can be inferred and those which can, every useState has been explicitly typed.
+Rather than differentiate between state types which can be inferred and those which cannot, every useState has been explicitly typed.
 
 ![Every useState is explicitly typed](/md-images/typing-useState.png)
 
@@ -125,7 +125,7 @@ axios
     .catch(console.log);
 ```
 
-This will open a prompt window where the input field is prepopulated with the JSON object and already highlighted. You can just `cmd + c` and past it into jsonformatter to get you TS interface. I know there are more recent ways of copying to the clipboard in JS but this one gave me the least problems and works in every browser.
+This will open a prompt window where the input field is prepopulated with the JSON object and already highlighted. You can just `cmd + c` and paste it into jsonformatter to get your TS interface. I know there are more recent ways of copying to the clipboard in JS but this one gave me the least problems and works in every browser.
 
 ## Events
 
@@ -147,7 +147,7 @@ handleSubmit(event: React.MouseEvent<HTMLButtonElement>) { }
 
 Redux Thunk has been used for the action creators. There are three considerations when typing this part of the project. How to type state, how to type the action creators and how to type our hooks. Let's begin with state.
 
-Defining state is important as you will use this type definition in multiple places. What needs to be defined is a structure of what state will look like which can be referred to as IState, or initial state. In this project it will be a single object containing an array of users, and an array of chat comments.
+Defining state is important as you will use this type definition in multiple places. What needs to be defined is a structure of what state will look like which can be referred to as IState, or initial state. In this project it will be a single object containing an array of users and an array of chat comments.
 
 In the FindPeople and Chat components, we have pre-existing type definitions for a single user and a single chat object. These have been imported so we can specify what the expected stucture of our state will look like.
 
@@ -189,6 +189,8 @@ ThunkAction<Promise<any>, RootState, unknown, AnyAction>;
 This accepts 4 generic types. The first is the thunk action return type, which is a promise. The second is the return type of the `getState` method. This method allows you to reach in to state from within the action creator. It always returns `state` so it's return type is `state`, or `RootState` as we will refer to it.
 
 ```ts
+// start.tsx
+
 const store = createStore(reducer, composeWithDevTools(applyMiddleware(ReduxThunk)));
 
 export type RootState = ReturnType<typeof store.getState>;
@@ -223,7 +225,7 @@ import { AnyAction } from 'redux';
 type AppThunk = ThunkAction<Promise<any>, RootState, unknown, AnyAction>;
 ```
 
-A complete action creator would look like this. Type assertion has been used to specify that the return type is an object containing a data property.
+Type assertion has been used to specify that the return type is an object containing a data property. A complete action creator would look like this.
 
 ```ts
 import axios from 'axios';
