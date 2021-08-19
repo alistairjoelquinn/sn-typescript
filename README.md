@@ -171,7 +171,7 @@ const initialState: IState = {
 };
 ```
 
-Our reducer action object has been typed to allow anything to be recieved as the payload. If necessary a union type, or a custom Payload type, could be used to limit the possible values which are accepted.
+Our reducer action object has been typed to allow anything to be received as the payload. If necessary a union type, or a custom Payload type, could be used to limit the possible values which are accepted.
 
 ```ts
 interface Action {
@@ -186,7 +186,7 @@ Our action creators have been typed using `ThunkAction`, imported from Redux Thu
 ThunkAction<Promise<any>, RootState, unknown, AnyAction>;
 ```
 
-This accepts 4 generic types. The first is the thunk action return type, which is a promise. The second is the return type of the getState method. This method allows you to reach in to state from within the action creator. It always returns `state` so it's return type is `state`, or `RootState` as we will refer to it.
+This accepts 4 generic types. The first is the thunk action return type, which is a promise. The second is the return type of the `getState` method. This method allows you to reach in to state from within the action creator. It always returns `state` so it's return type is `state`, or `RootState` as we will refer to it.
 
 ```ts
 const store = createStore(reducer, composeWithDevTools(applyMiddleware(ReduxThunk)));
@@ -211,7 +211,7 @@ export const fetchProducts = () => {
 };
 ```
 
-Our third generic type passed represents the type of any extra arguments passed to the thunk action, which at this point are unknown. Then finally we have to define the `action` type which needs to extend from `Action`, as defined by Redux, so this has been set to `AnyAction`.
+Our third generic type passed represents the type of any extra arguments passed to the thunk action, which at this point are unknown. Then finally we have to define the `action` type which needs to extend `Action`, as defined by Redux, so this has been set to `AnyAction`.
 
 Once imported we can create a custom type for typing each of our action creators like this:
 
@@ -223,7 +223,7 @@ import { AnyAction } from 'redux';
 type AppThunk = ThunkAction<Promise<any>, RootState, unknown, AnyAction>;
 ```
 
-A completed action creator would look like this. Type assertion has been used to specify that the return type is an object containing a data property.
+A complete action creator would look like this. Type assertion has been used to specify that the return type is an object containing a data property.
 
 ```ts
 import axios from 'axios';
@@ -287,7 +287,7 @@ export const init = ({ dispatch }: { dispatch: ReduxDispatch }) => {
 
 We are typing 4 items here. The socket itself, the dispatch method, and the two values received from the server which are passed to our callback functions.
 
-The socket can simply be typing using the `Socket` type imported from `socket.io`. THe dispatch method has been destructured from the store value passed to our `init` function, in order that we can type it using the custom `RedixDispatch` type we've exported from the hooks.ts file. Finally the ChatMessage interface, which we've used to type both incoming values, has been imported from the `Chat.tsx` file where it was created.
+The socket can be typed using the `Socket` type imported from `socket.io`. THe dispatch method has been destructured from the store value passed to our `init` function, in order that we can type it using the custom `RedixDispatch` type we've exported from the hooks.ts file. Finally the ChatMessage interface, which we've used to type both incoming values, has been imported from the `Chat.tsx` file where it was created.
 
 ## CSS
 

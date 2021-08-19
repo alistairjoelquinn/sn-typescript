@@ -13,7 +13,6 @@ import { init } from './socket.io/socket';
 const store = createStore(reducer, composeWithDevTools(applyMiddleware(ReduxThunk)));
 
 export type RootState = ReturnType<typeof store.getState>;
-export type AppDispatch = typeof store.dispatch;
 
 axios.get('/auth/user/id.json').then(({ data }) => {
     if (!data.userId) {
