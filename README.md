@@ -145,11 +145,11 @@ handleSubmit(event: React.MouseEvent<HTMLButtonElement>) { }
 
 ## Redux
 
-Redux Thunk has been used for the action creators. There are two main considerations when typing this part of the project. The first one is how to type state, the second is how to type the action creators. Let's begin with state.
+Redux Thunk has been used for the action creators. There are three considerations when typing this part of the project. How to type state, how to type the action creators and how to type our hooks. Let's begin with state.
 
-Defining state is important as you will use this type definition in multiple places. What needs to be defined is a structure of what state will look like, which can be referred to as IState, or initial state. In this project it will be a single object containing an array of users, and an array of chat comments.
+Defining state is important as you will use this type definition in multiple places. What needs to be defined is a structure of what state will look like which can be referred to as IState, or initial state. In this project it will be a single object containing an array of users, and an array of chat comments.
 
-In the FindPeople and Chat components, we have pre-existing type definitions for a single user and a single chat object. These have been imported so we can specify what the expected stucture of our state will be like this.
+In the FindPeople and Chat components, we have pre-existing type definitions for a single user and a single chat object. These have been imported so we can specify what the expected stucture of our state will look like.
 
 ```ts
 import { User } from '../FindPeople';
@@ -171,7 +171,7 @@ const initialState: IState = {
 };
 ```
 
-Our reducer action object has been typed to allow anything to be recieved as the payload, though if necessary, a union type could be used to limit the possible values we can accept
+Our reducer action object has been typed to allow anything to be recieved as the payload. If necessary, a union type could also be used to limit the possible values which are accepted.
 
 ```ts
 interface Action {
@@ -180,13 +180,38 @@ interface Action {
 }
 ```
 
-Our action creators have been typed using ThunkAction, imported from Redux Thunk. This accepts 4 generic types. The first and third of these are not needed, though we have passed RootState and AnyAction as the second and fourth. RootState can be exported from start.tsx like this:
+Our action creators have been typed using `ThunkAction`, imported from Redux Thunk.
+
+```ts
+ThunkAction<Promise<any>, RootState, unknown, AnyAction>;
+```
+
+This accepts 4 generic types. The first is the action creator return type, which is a promise. The second is the return type of the getState method. This method allows you to reach in to state from within the action creator and always returns state, so it's return value will always be state, or RootState as we will refer to it.
 
 ```ts
 const store = createStore(reducer, composeWithDevTools(applyMiddleware(ReduxThunk)));
 
 export type RootState = ReturnType<typeof store.getState>;
 ```
+
+It is interesting to note that this function is passed as a second argument to the async function returned by our action creator, allowing us to write code using values from within state like this:
+
+```js
+export const fetchProducts = () => {
+    return async (dispatch, getState) => {
+        const token = getState().auth.token;
+        const response = await fetch(`https://some-url.with.data?auth=${token}`);
+        const data = await response.json();
+
+        dispatch({
+            type: 'SET_PRODUCTS',
+            products: data,
+        });
+    };
+};
+```
+
+Our third generic type passed represents the type of any extra arguments passed to the thunk action, which at this point is unknown. Then finally we have to define the action type which needs to extend from Action, as defined by Redux, so this has been set to AnyAction.
 
 Once imported we can create a custom type for typing each of our action creators like this:
 
@@ -198,7 +223,7 @@ import { AnyAction } from 'redux';
 type AppThunk = ThunkAction<Promise<any>, RootState, unknown, AnyAction>;
 ```
 
-A completed action creator would look like this:
+A completed action creator would look like this. Type assertion has been used to specify that the return type is an object containing a data property.
 
 ```ts
 import axios from 'axios';
@@ -222,7 +247,7 @@ export const getFriendsList = (): AppThunk => async (dispatch) => {
 };
 ```
 
-Our final consideration in typing Redux, is typing useSelector and useDispatch. In order that these don't need to be typed every time they are used we can created custom hooks, and instead import these. They are located in a file called hooks.ts which lives in the redux directory.
+Our final consideration in typing Redux, is typing the hooks `useSelector` and `useDispatch` so that they don't need to be typed every time they are used. Custom copies of these hooks are located in `hooks.ts`, inside the `redux` directory, which return a typed hook according to our configuration. Wherever `useSelector` or `useDispatch` are used, these hooks can be imported and used instead.
 
 ```ts
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
