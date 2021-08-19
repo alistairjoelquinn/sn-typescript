@@ -249,7 +249,7 @@ export const getFriendsList = (): AppThunk => async (dispatch) => {
 };
 ```
 
-Our final consideration in typing Redux, is typing the hooks `useSelector` and `useDispatch` so that they don't need to be typed every time they are used. Custom copies of these hooks are located in `hooks.ts`, inside the `redux` directory, which return a typed hook according to our configuration. Wherever `useSelector` or `useDispatch` are used, these hooks can be imported and used instead.
+Our final consideration in typing Redux, is typing the hooks `useSelector` and `useDispatch` so that they don't need to be typed every time they are used. Custom copies of these hooks are located in `hooks.ts`, inside the `redux` directory. These return a typed hook according to our configuration. Wherever `useSelector` or `useDispatch` are used, these hooks can be imported and used instead.
 
 ```ts
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
@@ -289,7 +289,7 @@ export const init = ({ dispatch }: { dispatch: ReduxDispatch }) => {
 
 We are typing 4 items here. The socket itself, the dispatch method, and the two values received from the server which are passed to our callback functions.
 
-The socket can be typed using the `Socket` type imported from `socket.io`. THe dispatch method has been destructured from the store value passed to our `init` function, in order that we can type it using the custom `RedixDispatch` type we've exported from the hooks.ts file. Finally the ChatMessage interface, which we've used to type both incoming values, has been imported from the `Chat.tsx` file where it was created.
+The socket can be typed using the `Socket` type imported from `socket.io`. The dispatch method has been destructured from the store value passed to our `init` function, in order that we can type it using the custom `RedixDispatch` type we've exported from the hooks.ts file. Finally the ChatMessage interface, which we've used to type both incoming values, has been imported from the `Chat.tsx` file where it was created.
 
 ## CSS
 
