@@ -37,6 +37,9 @@ const ChatStyles = styled.div`
         min-height: 12vh;
         border-radius: 1rem;
     }
+    @media (max-width: 900px) {
+        margin: 2rem 15vw;
+    }
 `;
 
 const SingleMessageStyles = styled.div`
@@ -84,7 +87,7 @@ const Chat = ({ currentUser }: { currentUser: string }) => {
                 {chatMessages.map((message) => (
                     <SingleMessageStyles otherUserId={message.id} currentUser={currentUser} key={message.commentId}>
                         <Link to={`/user/${message.id}`}>
-                            <img src={message.image} alt={message.first} onError={imageDefault} />
+                            <img src={message.image} alt={message.first} title={message.first} onError={imageDefault} />
                         </Link>
                         <div className="text-container">
                             <p>{message.comment}</p>

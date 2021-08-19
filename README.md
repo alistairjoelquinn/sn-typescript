@@ -222,7 +222,7 @@ export const getFriendsList = (): AppThunk => async (dispatch) => {
 };
 ```
 
-Our final consideration in typing Redux, is typing useSelector and useDispatch. In order that these don't need to be typed every time they are used we can created custom hooks, and instead import these for using instead. These have been created in a file called hook.ts which lives in the redux directory.
+Our final consideration in typing Redux, is typing useSelector and useDispatch. In order that these don't need to be typed every time they are used we can created custom hooks, and instead import these. They are located in a file called hooks.ts which lives in the redux directory.
 
 ```ts
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
@@ -237,6 +237,32 @@ export type ReduxDispatch = ThunkDispatch<IState, any, Action>;
 export const useAppDispatch = (): ReduxDispatch => useDispatch<ReduxDispatch>();
 export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
 ```
+
+## Socket.io
+
+Having already typed Redux, half of the work in typing `socket.io` is already done. The remainder is to update the socket.ts file as follows.
+
+```ts
+import { io, Socket } from 'socket.io-client';
+
+import { ChatMessage } from '../Chat';
+import { getMessages, chatMessage } from '../redux/actions';
+import { ReduxDispatch } from '../redux/hooks';
+
+export let socket: Socket;
+
+export const init = ({ dispatch }: { dispatch: ReduxDispatch }) => {
+    if (!socket) {
+        socket = io();
+        socket.on('chatMessages', (msgs: ChatMessage[]) => dispatch(getMessages(msgs)));
+        socket.on('chatMessage', (msg: ChatMessage) => dispatch(chatMessage(msg)));
+    }
+};
+```
+
+We are typing 4 items here. The socket itself, the dispatch method, and the two values received from the server which are passed to our callback functions.
+
+The socket can simply be typing using the `Socket` type imported from `socket.io`. THe dispatch method has been destructured from the store value passed to our `init` function, in order that we can type it using the custom `RedixDispatch` type we've exported from the hooks.ts file. Finally the ChatMessage interface, which we've used to type both incoming values, has been imported from the `Chat.tsx` file where it was created.
 
 ## CSS
 
