@@ -1,8 +1,7 @@
 import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
-import { getFriendsList, acceptPendingRequest, removeFriend } from './redux/actions';
-import { RootState } from './redux/reducer';
+import { useFriendsDispatch, useFriendsState } from './context/friends/context';
+import { getFriendsList, acceptPendingRequest, removeFriend } from './context/friends/actions';
 import SingleUser from './SingleUser';
 import ButtonStyles from './styles/ButtonStyles';
 
@@ -72,12 +71,12 @@ const FriendsGridStyles = styled.div`
 `;
 
 const Friends = () => {
-    const dispatch = useDispatch();
-    const friends = useSelector((state: RootState) => state.users?.filter((user) => user.accepted === true));
-    const pending = useSelector((state: RootState) => state.users?.filter((user) => user.accepted === false));
+    const dispatch = useFriendsDispatch();
+    const friends = useFriendsState().users?.filter(user => user.accepted === true);
+    const pending = useFriendsState().users?.filter((user) => user.accepted === false);
 
     useEffect(() => {
-        dispatch(getFriendsList());
+        getFriendsList(dispatch);
     }, []);
 
     if (!friends) {
@@ -91,7 +90,7 @@ const Friends = () => {
                 {pending.map((user) => (
                     <div key={user.id}>
                         <SingleUser user={user} />
-                        <ButtonStyles type="button" onClick={() => dispatch(acceptPendingRequest(user.friendshipId))}>
+                        <ButtonStyles type="button" onClick={() => acceptPendingRequest(dispatch, user.friendshipId)}>
                             Accept Request
                         </ButtonStyles>
                     </div>
@@ -102,7 +101,7 @@ const Friends = () => {
                 {friends.map((user) => (
                     <div key={user.id}>
                         <SingleUser user={user} />
-                        <ButtonStyles type="button" onClick={() => dispatch(removeFriend(user.friendshipId))}>
+                        <ButtonStyles type="button" onClick={() => removeFriend(dispatch, user.friendshipId)}>
                             Remove Friend
                         </ButtonStyles>
                     </div>
