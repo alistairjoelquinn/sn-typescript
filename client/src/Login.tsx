@@ -25,7 +25,7 @@ export default class Login extends Component<Props, State> {
 
     handleChange(e: React.ChangeEvent<HTMLInputElement>) {
         if (e.target.name === 'email' || e.target.name === 'password') {
-            this.setState({ [e.target.name]: e.target.value }, () => console.log(this.state));
+            this.setState({ [e.target.name]: e.target.value });
         }
     }
 

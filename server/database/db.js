@@ -130,7 +130,7 @@ module.exports.removeFriendQuery = (id) =>
 
 module.exports.getRequestsFriends = (id) =>
     db.query(
-        `SELECT first, last, image, accepted, friendships.id as friendship_id, users.id AS user_id
+        `SELECT first, last, image, accepted, friendships.id as friendship_id, users.id AS id
             FROM friendships
             JOIN users
             ON (accepted = false AND recipient_id = $1 AND sender_id = users.id)
