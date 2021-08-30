@@ -11,6 +11,7 @@ import Profile from './Profile';
 import FindPeople from './FindPeople';
 import OtherProfile from './OtherProfile';
 import Friends from './Friends';
+import { FriendsStateProvider } from './context/friends/context';
 
 const AppStyles = styled.div`
     height: 100vh;
@@ -107,40 +108,42 @@ export default class App extends Component<Props, State> {
                 <GlobalStyles />
                 <Typography />
                 <BrowserRouter>
-                    <AppStyles>
-                        <header>
-                            <img src="/animal.jpeg" alt="logo" />
-                            <Link to="/">Home</Link>
-                            <Link to="/find-people">Find People</Link>
-                            <Link to="/friends">Friends</Link>
-                            <ProfilePic first={first} last={last} image={image} toggleModal={this.toggleModal} />
-                        </header>
-                        <Route exact path="/">
-                            <Profile
-                                first={first}
-                                last={last}
-                                image={image}
-                                bio={bio}
-                                toggleModal={this.toggleModal}
-                                updateBioFromApp={this.updateBioFromApp}
-                            />
-                        </Route>
-                        <Route path="/find-people">
-                            <FindPeople />
-                        </Route>
-                        <Route path="/friends">
-                            <Friends />
-                        </Route>
-                        <Route path="/user/:id">
-                            <OtherProfile />
-                        </Route>
-                        {uploaderIsVisible && (
-                            <>
-                                <Uploader updateImageUrl={this.updateImageUrl} toggleModal={this.toggleModal} />
-                                <div className="white-out" />
-                            </>
-                        )}
-                    </AppStyles>
+                    <FriendsStateProvider>
+                        <AppStyles>
+                            <header>
+                                <img src="/animal.jpeg" alt="logo" />
+                                <Link to="/">Home</Link>
+                                <Link to="/find-people">Find People</Link>
+                                <Link to="/friends">Friends</Link>
+                                <ProfilePic first={first} last={last} image={image} toggleModal={this.toggleModal} />
+                            </header>
+                            <Route exact path="/">
+                                <Profile
+                                    first={first}
+                                    last={last}
+                                    image={image}
+                                    bio={bio}
+                                    toggleModal={this.toggleModal}
+                                    updateBioFromApp={this.updateBioFromApp}
+                                />
+                            </Route>
+                            <Route path="/find-people">
+                                <FindPeople />
+                            </Route>
+                            <Route path="/friends">
+                                <Friends />
+                            </Route>
+                            <Route path="/user/:id">
+                                <OtherProfile />
+                            </Route>
+                            {uploaderIsVisible && (
+                                <>
+                                    <Uploader updateImageUrl={this.updateImageUrl} toggleModal={this.toggleModal} />
+                                    <div className="white-out" />
+                                </>
+                            )}
+                        </AppStyles>
+                    </FriendsStateProvider>
                 </BrowserRouter>
             </>
         );

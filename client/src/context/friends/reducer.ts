@@ -1,31 +1,23 @@
-import { User } from '../FindPeople';
+import { initialState, UserType } from './context';
 
-interface Action {
+interface Payload {
+    id?: string;
+    users?: UserType[];
+}
+
+export interface Action {
     type: string;
-    payload: any;
+    payload: Payload;
 }
 
-export interface UserType extends User {
-    accepted: boolean | null;
-    friendshipId?: string;
-}
-
-export interface RootState {
-    users: UserType[];
-}
-
-const initialState: RootState = {
-    users: [],
-};
-
-export function reducer(state = initialState, action: Action) {
-    if (action.type === 'friends/get-friends-list') {
+export const friendsReducer = (state = initialState, action: Action) => {
+    if (action.type === 'GET_FRIENDS_LIST') {
         return {
             ...state,
             users: action.payload.users,
         };
     }
-    if (action.type === 'friends/accept-friend') {
+    if (action.type === 'ACCEPT_FRIEND') {
         return {
             ...state,
             users: state.users.map((user) => {
@@ -39,7 +31,7 @@ export function reducer(state = initialState, action: Action) {
             }),
         };
     }
-    if (action.type === 'friends/remove-friend') {
+    if (action.type === 'REMOVE_FRIEND') {
         return {
             ...state,
             users: state.users.map((user) => {
@@ -54,4 +46,4 @@ export function reducer(state = initialState, action: Action) {
         };
     }
     return state;
-}
+};
